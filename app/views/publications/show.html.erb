@@ -1,0 +1,18 @@
+<p>
+	<strong>Descripci&oacute;n:</strong>
+	<%= @publication.description %>
+</p>
+
+<h1>
+    <%= @publication.latitude %>
+</h1>
+
+<h1>
+    <%= @publication.longitude %>
+</h1>
+
+<%= link_to 'Editar', edit_publication_path(@publication) %><br>
+
+<%= link_to 'Borrar', publication_path(@publication), method: :delete %> <br>
+
+<%= link_to 'Volver al índice', publications_path %>

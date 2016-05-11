@@ -1,8 +1,11 @@
-<h1>Publicacion</h1>
+<h1>Publicaciones</h1>
 
 <% @publication.each do |publication| %>
 	<h3>
-		<%= publication.description %>
+		<%= link_to publication.description, publication_path(publication) %>
+        
 		</a>
 	</h3>
 <% end %>
+
+<%= link_to 'Nueva Publicación', new_publication_path%>
