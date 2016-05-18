@@ -1,7 +1,14 @@
 class PublicationsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
+  
   def index
-    @publication = Publication.all
+    @publications = Publication.all
+    
+    @hash = Gmaps4rails.build_markers(@publications) do |publication, marker|
+		marker.lat publication.latitude
+		marker.lng publication.longitude
+		marker.infowindow publication.title
+	end
   end
 
     def show

@@ -1,29 +1,48 @@
+
 <%= form_for @publication do |form| %>
 
 	<p>
-				<%= form.label :title %><br>
-				<%= form.text_field :title %>
+		<%= form.label :title %><br>
+		<%= form.text_field :title %>
 	</p>
 
 	<p>
-        <%= form.label :decription %><br>
-        <%= form.text_area :description %>
+        	<%= form.label :decription %><br>
+        	<%= form.text_area :description %>
 	</p>
 
 	<p>
-        <%= form.label :latitude %><br>
-        <%= form.text_field :latitude %>
+        	<%= form.label :latitude %><br>
+        	<%= form.text_field :latitude, :id=>"latitud" %>
 	</p>
-
-    <p>
-        <%= form.label :longitude %><br>
-        <%= form.text_field :longitude %>
+	
+	<p>
+	        <%= form.label :longitude %><br>
+        	<%= form.text_field :longitude, :id=>"longitud" %>
 	</p>
-
-
 
 	<p>
 		<%= form.submit %>
 	</p>
 
 <% end %>
+
+<script>
+	function getLocation() {
+	    if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(showPosition);
+	    } else {
+			x.innerHTML = "Geolocation is not supported by this browser.";
+	    }
+	}
+	
+	function showPosition(position) {
+		document.getElementById("latitud").value = position.coords.latitude;
+		document.getElementById("longitud").value = position.coords.longitude;
+	}
+
+	$(document).ready(function(){
+		position = getLocation();
+   	});
+	
+</script>
