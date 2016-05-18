@@ -1,8 +1,13 @@
 <%= form_for @publication do |form| %>
-	
+
+	<p>
+				<%= form.label :title %><br>
+				<%= form.text_field :title %>
+	</p>
+
 	<p>
         <%= form.label :decription %><br>
-        <%= form.text_field :description %>
+        <%= form.text_area :description %>
 	</p>
 
 	<p>
@@ -14,7 +19,9 @@
         <%= form.label :longitude %><br>
         <%= form.text_field :longitude %>
 	</p>
-	
+
+
+
 	<p>
 		<%= form.submit %>
 	</p>

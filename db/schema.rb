@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160511190623) do
+ActiveRecord::Schema.define(version: 20160518030539) do
 
   create_table "photos", force: true do |t|
     t.string   "file"
@@ -26,7 +26,11 @@ ActiveRecord::Schema.define(version: 20160511190623) do
     t.decimal  "longitude"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "title"
+    t.integer  "author_id"
   end
+
+  add_index "publications", ["author_id"], name: "index_publications_on_author_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
