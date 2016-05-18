@@ -64,3 +64,4 @@ gem 'spring',        group: :development
 
 gem 'devise','~> 3.5.6'
 gem 'rails_admin','~> 0.8.1'
+gem 'rolify','~> 5.1'

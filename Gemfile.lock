@@ -118,6 +118,7 @@ GEM
     remotipart (1.2.1)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
+    rolify (5.1.0)
     safe_yaml (1.0.4)
     sass (3.2.19)
     sass-rails (4.0.3)
@@ -168,6 +169,7 @@ DEPENDENCIES
   rails (= 4.1.4)
   rails_admin (~> 0.8.1)
   rake (~> 0.9.6)
+  rolify (~> 5.1)
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   spring

@@ -4,7 +4,7 @@ rodriUser = User.new(
   :password_confirmation => "12345678"
 )
 rodriUser.save!
-
+rodriUser.add_role :admin
 estebanUser = User.new(
   :email                 => "esteban@example.com",
   :password              => "12345678",
