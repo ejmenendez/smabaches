@@ -12,6 +12,6 @@ estebanUser = User.new(
 )
 estebanUser.save!
 
-Publication.create!(title: 'Primer Publicacion',description: 'Bache molesto', author: rodriUser);
-Publication.create!(title: 'Segunda Publiacion',description: 'Bache molesto', author: estebanUser);
-Publication.create!(title: 'Tercera Publicacion',description: 'Bache molesto',author: estebanUser);
+Publication.create!(title: 'Primera Publicacion',description: 'Bache molesto', author: rodriUser, latitude: -40.1362682 , longitude: -71.29446349999999);
+Publication.create!(title: 'Segunda Publiacion',description: 'Bache molesto', author: estebanUser, latitude: -40.14 , longitude: -71.295);
+Publication.create!(title: 'Tercera Publicacion',description: 'Bache molesto',author: estebanUser, latitude: -40.15 , longitude: -71.296);
