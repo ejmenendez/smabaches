@@ -1,3 +1,15 @@
+<script>
+	$(document).ready(function()
+	{
+		getLocation();
+	});
+	
+	// usePosition es llamada desde getLocation.js
+	function usePosition(position) {
+		document.getElementById("latitud").value = position.coords.latitude;
+		document.getElementById("longitud").value = position.coords.longitude;
+	}
+</script>
 
 <%= form_for @publication do |form| %>
 
@@ -11,38 +23,18 @@
         	<%= form.text_area :description %>
 	</p>
 
+	<!-- Latitud y longitud las saco del browser y van en campos ocultos. -->
 	<p>
-        	<%= form.label :latitude %><br>
-        	<%= form.text_field :latitude, :id=>"latitud" %>
+        	<%= form.hidden_field :latitude, :id=>"latitud", :class => 'text_field', :step => 'any' %>
 	</p>
 	
 	<p>
-	        <%= form.label :longitude %><br>
-        	<%= form.text_field :longitude, :id=>"longitud" %>
+        	<%= form.hidden_field :longitude, :id=>"longitud", :class => 'text_field', :step => 'any' %>
 	</p>
+	
 
 	<p>
 		<%= form.submit %>
 	</p>
 
 <% end %>
-
-<script>
-	function getLocation() {
-	    if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(showPosition);
-	    } else {
-			x.innerHTML = "Geolocation is not supported by this browser.";
-	    }
-	}
-	
-	function showPosition(position) {
-		document.getElementById("latitud").value = position.coords.latitude;
-		document.getElementById("longitud").value = position.coords.longitude;
-	}
-
-	$(document).ready(function(){
-		position = getLocation();
-   	});
-	
-</script>
