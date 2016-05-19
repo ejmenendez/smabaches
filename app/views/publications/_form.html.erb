@@ -6,8 +6,8 @@
 	
 	// usePosition es llamada desde getLocation.js
 	function usePosition(position) {
-		document.getElementById("latitud").value = position.coords.latitude;
-		document.getElementById("longitud").value = position.coords.longitude;
+		document.getElementById("latitud").value = position.coords.latitude.toString();
+		document.getElementById("longitud").value = position.coords.longitude.toString();
 	}
 </script>
 

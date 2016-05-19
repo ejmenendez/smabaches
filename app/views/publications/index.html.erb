@@ -6,7 +6,7 @@
 
 <% @publications.each do |publication| %>
 	<h3>
-		<%= link_to publication.title, publication_path(publication) %>
+		<%= link_to publication.title, publication_path(publication), :protocol => 'https://' %>
 		</a>
 	</h3>
 <% end %>
@@ -23,6 +23,6 @@
 	  handler.fitMapToBounds();
 	});
 </script>
-<%= link_to 'Nueva Publicación', new_publication_path%>
+<%= link_to 'Nueva Publicación', new_publication_path, :protocol => 'https://' %>
 
 
