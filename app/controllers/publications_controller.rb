@@ -2,17 +2,13 @@ class PublicationsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
   
   def index
-    @publications = Publication.all
-    
-    @hash = Gmaps4rails.build_markers(@publications) do |publication, marker|
-		marker.lat publication.latitude
-		marker.lng publication.longitude
-		marker.infowindow publication.title
-	end
+    @publications = Publication.all  
+    @hash = create_markers(@publications)
   end
 
     def show
         @publication = Publication.find(params[:id])
+        @hash = create_markers(@publication)
     end
 
     def new
@@ -39,11 +35,12 @@ class PublicationsController < ApplicationController
 
     def edit
         @publication = Publication.find(params[:id])
+        @hash = create_markers(@publication)
     end
 
     def update
         @publication = Publication.find(params[:id])
-
+		@hash = create_markers(@publication)
       begin
           @publication.update!(publication_params)
           redirect_to @publication
@@ -55,7 +52,15 @@ class PublicationsController < ApplicationController
     private
 
     def publication_params
-        params.require(:publication).permit(:description, :latitude, :longitude,:title)
+        params.require(:publication).permit(:description, :latitude, :longitude, :title, :published)
     end
-
+    
+    def create_markers(publications)
+		 Gmaps4rails.build_markers(publications) do |publication, marker|
+			marker.lat publication.latitude
+			marker.lng publication.longitude
+			marker.infowindow publication.title
+		end
+	end
+	
 end
