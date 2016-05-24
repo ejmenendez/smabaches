@@ -11,6 +11,15 @@
 	}
 </script>
 
+<script> 
+	handler = Gmaps.build('Google');
+	handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+	  markers = handler.addMarkers((<%=raw @hash.to_json %>));
+	  handler.bounds.extendWith(markers);
+	  handler.fitMapToBounds();
+	});
+</script>
+
 <%= form_for @publication do |form| %>
 
 	<p>
@@ -32,6 +41,13 @@
         	<%= form.hidden_field :longitude, :id=>"longitud", :class => 'text_field', :step => 'any' %>
 	</p>
 	
+	<p>
+        	<%= form.hidden_field :published, :id=>"publicado", :class => 'checkbox', :value => 'false' %>
+	</p>
+	
+	<div style='width: 500px;'>
+		<div id="map" style='width: 500px; height: 250px;'></div>
+	</div>
 
 	<p>
 		<%= form.submit %>
