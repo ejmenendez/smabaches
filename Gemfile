@@ -73,3 +73,5 @@ end
 #google maps
 gem 'gmaps4rails'
 
+#manejo de permisos
+gem 'pundit', '~>1.1.0'
