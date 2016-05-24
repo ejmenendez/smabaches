@@ -3,8 +3,8 @@ class CreatePublications < ActiveRecord::Migration
     create_table :publications do |t|
       t.string :description
       t.boolean :published
-      t.decimal :latitude
-      t.decimal :longitude
+      t.decimal :latitude, :precision => 20, :scale => 16
+      t.decimal :longitude, :precision => 20, :scale => 16
 
       t.timestamps
     end
