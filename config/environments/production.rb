@@ -93,15 +93,5 @@ Rails.application.configure do
   :authentication => :plain
   
   }
-
-  /*
-  config.action_mailer.smtp_settings = {
-  :address => "smtp.mailgun.org",
-  :port    => 25,
-  :domain  => 'rhcloud.com'
-  }
-  config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default :charset => "utf-8"
-  */
+  
 end
