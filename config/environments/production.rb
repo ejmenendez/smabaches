@@ -84,14 +84,15 @@ Rails.application.configure do
   # emails
   config.action_mailer.default_url_options = {:host => 'https://smabaches-menendez.rhcloud.com' }
   config.action_mailer.delivery_method = :smtp
-  ActionMailer::Base.smtp_settings = {
-  :port           => 587,
-  :address        => "smtp.mailgun.org",
-  :domain         => 'smabaches.com', #ENV['domain'],
-  :user_name      => 'postmaster@smabaches.com', #ENV['username'],
-  :password       => '95368222c4f3ff7ce2abbe2482747ea1', # ENV['password'],
-  :authentication => :plain
   
+  ActionMailer::Base.smtp_settings = 
+  {
+	  :port           => 587,
+	  :address        =>  ENV['EMAIL_SERVER'],
+	  :domain         =>  ENV['EMAIL_DOMAIN'],
+	  :user_name      =>  ENV['EMAIL_USER'],
+	  :password       =>  ENV['EMAIL_PASSWORD'],
+	  :authentication => :plain
   }
   
 end
