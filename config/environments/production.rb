@@ -82,11 +82,17 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
   
   # emails
-  config.action_mailer.default_url_options = {:host => 'rhcloud.com'}
+  config.action_mailer.default_url_options = {:host => 'https://smabaches-menendez.rhcloud.com' }
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-  :address => "127.0.0.1",
-  :port    => 25,
-  :domain  => 'rhcloud.com'
-}
+  
+  ActionMailer::Base.smtp_settings = 
+  {
+	  :port           => 587,
+	  :address        =>  ENV['EMAIL_SERVER'],
+	  :domain         =>  ENV['EMAIL_DOMAIN'],
+	  :user_name      =>  ENV['EMAIL_USER'],
+	  :password       =>  ENV['EMAIL_PASSWORD'],
+	  :authentication => :plain
+  }
+  
 end
