@@ -85,9 +85,12 @@ Rails.application.configure do
   config.action_mailer.default_url_options = {:host => 'mailgun-menendez.rhcloud.com'}
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-  :address => "mailgun-menendez.rhcloud.com",
+  #:address => "mailgun-menendez.rhcloud.com",
   :port    => 25,
   :domain  => 'rhcloud.com'
   }
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default :charset => "utf-8"
   
 end
