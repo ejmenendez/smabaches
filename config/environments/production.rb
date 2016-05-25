@@ -82,14 +82,14 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
   
   # emails
-  #config.action_mailer.default_url_options = {:host => 'smtp.mailgun.org' }
+  config.action_mailer.default_url_options = {:host => 'smtp.mailgun.org' }
   config.action_mailer.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {
   :port           => 587,
   :address        => "smtp.mailgun.org",
-  :domain         => smabaches.com, #ENV['domain'],
-  :user_name      => postmaster@smabaches.com, #ENV['username'],
-  :password       => 95368222c4f3ff7ce2abbe2482747ea1, # ENV['password'],
+  :domain         => 'smabaches.com', #ENV['domain'],
+  :user_name      => 'postmaster@smabaches.com', #ENV['username'],
+  :password       => '95368222c4f3ff7ce2abbe2482747ea1', # ENV['password'],
   :authentication => :plain
   
   }
