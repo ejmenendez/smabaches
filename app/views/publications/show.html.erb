@@ -23,8 +23,14 @@
     <%= @publication.longitude %>
 </p>
 
-<%= link_to 'Editar', edit_publication_path(@publication) %><br>
+<div class="btn-group">
+	<% if policy(@publication).edit? %>
+		<%= link_to 'Editar', edit_publication_path(@publication), :class => "btn btn-default" %>
+	<% end %>
 
-<%= link_to 'Borrar', publication_path(@publication), method: :delete %> <br>
+	<% if policy(@publication).destroy? %>
+		<%= link_to 'Borrar', publication_path(@publication), method: :delete, :class => "btn btn-default"  %>
+	<% end %>
 
-<%= link_to 'Volver al índice', publications_path %>
+	<%= link_to 'Volver al índice', publications_path, :class => "btn btn-default"  %>
+</div>
