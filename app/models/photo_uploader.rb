@@ -6,7 +6,7 @@ class PhotoUploader < CarrierWave::Uploader::Base
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
   #include Sprockets::Rails::Helper
-  
+
   # Choose what kind of storage to use for this uploader:
   storage :file
   #storage :fog
@@ -33,9 +33,9 @@ class PhotoUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  version :thumb do
-    process :resize_to_fit => [50, 50]
-  end
+  #version :thumb do
+  #  process :resize_to_fit => [50, 50]
+  #end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
@@ -48,14 +48,14 @@ class PhotoUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
-  
+
   def store_dir
 		'public/smabaches/uploads'
   end
-  
+
   def cache_dir
-		'/tmp/smabaches-cache'
+		'tmp/smabaches-cache'
   end
-  
+
 
 end
