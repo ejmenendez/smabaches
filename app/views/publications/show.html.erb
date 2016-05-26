@@ -23,6 +23,11 @@
     <%= @publication.longitude %>
 </p>
 
+<p>
+  <strong>Image:</strong>
+  <%= image_tag @publication.photo.thumb.url %>
+</p>
+
 <div class="btn-group">
 	<% if policy(@publication).edit? %>
 		<%= link_to 'Editar', edit_publication_path(@publication), :class => "btn btn-default" %>

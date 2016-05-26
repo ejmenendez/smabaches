@@ -65,7 +65,7 @@ class PublicationsController < ApplicationController
 	private
 
 	def publication_params
-		params.require(:publication).permit(:description, :latitude, :longitude, :title, :published)
+		params.require(:publication).permit(:description, :latitude, :longitude, :title, :published, :photo)
 	end
 
 	def create_markers(publications)
