@@ -35,6 +35,11 @@ GEM
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.2.19)
     builder (3.2.2)
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -74,6 +79,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.25.1)
+    mini_magick (4.5.1)
     mini_portile2 (2.0.0)
     minitest (5.4.0)
     multi_json (1.10.1)
@@ -169,11 +175,13 @@ PLATFORMS
 
 DEPENDENCIES
   bootstrap-sass
+  carrierwave (~> 0.10.0)
   coffee-rails (~> 4.0.0)
   devise (~> 3.5.6)
   gmaps4rails
   jbuilder (~> 2.0)
   jquery-rails
+  mini_magick (~> 4.3)
   minitest
   mysql2
   pundit (~> 1.1.0)

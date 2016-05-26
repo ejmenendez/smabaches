@@ -75,3 +75,7 @@ gem 'gmaps4rails'
 
 #manejo de permisos
 gem 'pundit', '~>1.1.0'
+
+#subida de imágenes
+gem 'carrierwave', '~> 0.10.0'
+gem 'mini_magick', '~> 4.3'

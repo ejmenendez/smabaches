@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160525210631) do
+ActiveRecord::Schema.define(version: 20160525235649) do
 
   create_table "photos", force: true do |t|
     t.string   "file"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20160525210631) do
     t.datetime "updated_at"
     t.string   "title"
     t.integer  "author_id"
+    t.string   "photo"
   end
 
   add_index "publications", ["author_id"], name: "index_publications_on_author_id", using: :btree
