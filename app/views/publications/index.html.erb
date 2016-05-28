@@ -7,13 +7,72 @@
 <%= link_to 'Nueva Publicación', new_publication_path, :protocol => 'https://', :class => "btn btn-primary" %>
 
 
-<% @publications.each do |publication| %>
-	<h3>
-		<%= link_to publication.title, publication_path(publication), :protocol => 'https://' %>
-		</a>
-	</h3>
-<% end %>
+<!-- Page Content -->
+<div class="container">
 
+		<div class="row">
+
+			<div class="col-md-9">
+
+						<div class="row carousel-holder">
+								<div class="col-md-12">
+										<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+												<ol class="carousel-indicators">
+														<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+														<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+														<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+												</ol>
+												<div class="carousel-inner">
+														<div class="item active">
+																<img class="slide-image" src="http://www.notimexpr.com/wp-content/uploads/2015/08/colina-9.jpg" alt="">
+																<div class="carousel-caption">
+        										<h3>Flowers</h3>
+        <p>Beatiful flowers in Kolymbari, Crete.</p>
+      </div>
+														</div>
+														<div class="item">
+																<img class="slide-image" src="http://www.notimexpr.com/wp-content/uploads/2015/08/colina-9.jpg" alt="">
+														</div>
+														<div class="item">
+																<img class="slide-image" src="http://www.notimexpr.com/wp-content/uploads/2015/08/colina-9.jpg" alt="">
+														</div>
+												</div>
+
+										</div>
+								</div>
+						</div>
+					<% @publications.each do |publication| %>
+						<div class="row" style="height: 0px">
+								<div class="col-sm-4 col-lg-4 col-md-4">
+										<div class="thumbnail">
+												<img src="http://www.notimexpr.com/wp-content/uploads/2015/08/colina-9.jpg" alt="">
+												<div class="caption">
+													<h4><%= link_to publication.title, publication_path(publication), :protocol => 'https://' %></h4>
+														<p><%= publication.description%></a>.</p>
+												</div>
+										</div>
+								</div>
+						</div>
+					<% end %>
+
+				</div>
+
+		</div>
+
+</div>
+<!-- /.container -->
+
+<div class="container">
+		<hr>
+		<!-- Footer -->
+		<footer>
+				<div class="row">
+						<div class="col-lg-12">
+								<p>Copyright &copy; Your Website 2014</p>
+						</div>
+				</div>
+		</footer>
+</div>
 <div style='width: 500px;'>
   <div id="map" style='width: 500px; height: 250px;'></div>
 </div>
