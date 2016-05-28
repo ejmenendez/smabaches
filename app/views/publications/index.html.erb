@@ -45,7 +45,8 @@
 						<div class="row" style="height: 0px">
 								<div class="col-sm-4 col-lg-4 col-md-4">
 										<div class="thumbnail">
-												<img src="http://www.notimexpr.com/wp-content/uploads/2015/08/colina-9.jpg" alt="">
+												<%= image_tag publication.photo.url :class => "slide-image"%>
+
 												<div class="caption">
 													<h4><%= link_to publication.title, publication_path(publication), :protocol => 'https://' %></h4>
 														<p><%= publication.description%></a>.</p>

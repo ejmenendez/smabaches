@@ -14,20 +14,31 @@
 </p>
 
 <p>
-		<strong>Latitud:</strong>
-    <%= @publication.latitude %>
+<strong>Image:</strong>
+<div class="col-md-4">
+		<%= image_tag @publication.photo.url :class => "slide-image"%>
+</div>
 </p>
+<div class="clearfix">
 
-<p>
-		<strong>Longitud:</strong>
-    <%= @publication.longitude %>
-</p>
+</div>
+<div claas="col-md-6">
+  <div id="map" claas="col-md-6"></div>
+</div>
 
-<p>
-  <strong>Image:</strong>
-  <%= image_tag @publication.photo.url(:thumb) %>
-</p>
+<script>
+	handler = Gmaps.build('Google');
+	handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+	  markers = handler.addMarkers((<%=raw @hash.to_json %>));
+	  handler.bounds.extendWith(markers);
+		handler.map.centerOn([-40.1552557,-71.3472031])
+		handler.getMap().setZoom(12);
+	});
+</script>
 
+<div class="clearfix">
+
+</div>
 <div class="btn-group">
 	<% if policy(@publication).edit? %>
 		<%= link_to 'Editar', edit_publication_path(@publication), :class => "btn btn-default" %>
