@@ -2,20 +2,6 @@
 <script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>
 <script src='//cdn.rawgit.com/printercu/google-maps-utility-library-v3-read-only/master/infobox/src/infobox_packed.js' type='text/javascript'></script>
 
-<script>
-	$(document).ready(function()
-	{
-		getLocation();
-	});
-
-	// usePosition es llamada desde getLocation.js
-	function usePosition(position) {
-		document.getElementById("latitud").value = position.coords.latitude.toString();
-		document.getElementById("longitud").value = position.coords.longitude.toString();
-	}
-</script>
-
-
 <%= form_for @publication do |form| %>
 
 	<p>
@@ -44,12 +30,27 @@
 	<p>
         	<%= form.hidden_field :published, :id=>"publicado", :class => 'checkbox', :value => 'false' %>
 	</p>
+	
 	<div style='width: 500px;'>
 	  <div id="map" style='width: 500px; height: 250px;'></div>
 	</div>
 
 	<script>
-		handler = Gmaps.build('Google');
+		var marker;
+		var handler = Gmaps.build('Google');
+		
+		$(document).ready(function()
+		{
+			getLocation();
+		});
+		
+		// usePosition es llamada desde getLocation.js
+		function usePosition(position) {
+			$("#latitud").val(position.coords.latitude);
+			$("#longitud").val(position.coords.longitude);
+			handler.map.centerOn([position.coords.latitude, position.coords.longitude])
+		}
+		
 		handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
 			handler.fitMapToBounds();
 			handler.map.centerOn([-40.1552557,-71.3472031])
@@ -63,13 +64,17 @@
 		});
 
 		function addMarker(location){
-			var marker = new google.maps.Marker({
-				position: location,
-				map: handler.getMap()
-			});
-			markers.push(marker);
+			if ( marker ) 
+			{
+				marker.setPosition(location);
+			} else {
+				marker = new google.maps.Marker({
+					position: location,
+					map: handler.getMap()
+				});
+			}
+			// markers.push(marker);
 		}
-
 
 	</script>
 
