@@ -23,7 +23,7 @@
 
 </div>
 <div claas="col-md-6">
-  <div id="map" claas="col-md-6"></div>
+  <div id="map" style="width: 400px;height:250px"></div>
 </div>
 
 <script>
@@ -32,7 +32,7 @@
 	  markers = handler.addMarkers((<%=raw @hash.to_json %>));
 	  handler.bounds.extendWith(markers);
 		handler.map.centerOn([-40.1552557,-71.3472031])
-		handler.getMap().setZoom(12);
+		handler.getMap().setZoom(14);
 	});
 </script>
 
