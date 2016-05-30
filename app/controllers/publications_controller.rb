@@ -27,7 +27,7 @@ class PublicationsController < ApplicationController
 	  
 	  begin
 		  @publication.save!
-		  redirect_to @publication
+		  redirect_to @publication, 'data-no-turbolink' => true
 	  rescue ActiveRecord::RecordInvalid
 		  render 'new'
 	  end
@@ -38,7 +38,7 @@ class PublicationsController < ApplicationController
 		authorize @publication
 		
 		@publication.destroy
-		redirect_to publications_path
+		redirect_to publications_path, 'data-no-turbolink' => true
 	end
 
 	def edit
@@ -56,7 +56,7 @@ class PublicationsController < ApplicationController
 		@hash = create_markers(@publication)
 	  begin
 		  @publication.update!(publication_params)
-		  redirect_to @publication
+		  redirect_to @publication, 'data-no-turbolink' => true
 	  rescue ActiveRecord::RecordInvalid
 		  render 'edit'
 	  end

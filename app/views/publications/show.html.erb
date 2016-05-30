@@ -1,3 +1,26 @@
+<!-- El código javascript se encuentra en la página ya que no pudimos hacerlo funcionar mediante assets (todos los javascript se cargan en todas las páginas ), y los métodos que encontramos por la web en cuanto a organización y carga condicional de los scripts no funcionaron.  -->
+
+<script>
+    var marker;
+    var handler;
+    
+    // crear el mapa
+    handler = Gmaps.build('Google');
+    handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+        marker = handler.addMarkers((<%=raw @hash.to_json %>));
+        handler.bounds.extendWith(marker);
+        handler.getMap().setZoom(14);
+    });
+    
+    // si hay marcador, centrar el mapa en la posición del marcador
+    if(marker != null)
+    {
+        handler.map.setCenter(marker.getPosition());
+    } else {
+        handler.map.centerOn([-40.1552557,-71.3472031]);
+    }
+    
+</script>
 
 <h1>
 	<strong>T&iacute;tulo:</strong>
@@ -19,34 +42,23 @@
 		<%= image_tag @publication.photo.url :class => "slide-image"%>
 </div>
 </p>
-<div class="clearfix">
 
-</div>
+<div class="clearfix"></div>
+
 <div claas="col-md-6">
-  <div id="map" style="width: 400px;height:250px"></div>
+  <div id="map" style="width: 400px; height:250px"></div>
 </div>
 
-<script>
-	handler = Gmaps.build('Google');
-	handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-	  markers = handler.addMarkers((<%=raw @hash.to_json %>));
-	  handler.bounds.extendWith(markers);
-		handler.map.centerOn([-40.1552557,-71.3472031])
-		handler.getMap().setZoom(14);
-	});
-</script>
+<div class="clearfix" ></div>
 
-<div class="clearfix">
-
-</div>
 <div class="btn-group">
 	<% if policy(@publication).edit? %>
-		<%= link_to 'Editar', edit_publication_path(@publication), :class => "btn btn-default" %>
+		<%= link_to 'Editar', edit_publication_path(@publication), :class => "btn btn-default", 'data-no-turbolink' => true %>
 	<% end %>
 
 	<% if policy(@publication).destroy? %>
 		<%= link_to 'Borrar', publication_path(@publication), method: :delete, :class => "btn btn-default"  %>
 	<% end %>
 
-	<%= link_to 'Volver al índice', publications_path, :class => "btn btn-default"  %>
+	<%= link_to 'Volver al índice', publications_path, :class => "btn btn-default", 'data-no-turbolink' => true  %>
 </div>
