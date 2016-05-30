@@ -15,7 +15,7 @@ estebanUser.save!
 estebanUser.add_role :admin
 
 user = User.new(
-  :email                 => "esteban@example.com",
+  :email                 => "usuario@example.com",
   :password              => "12345678",
   :password_confirmation => "12345678"
 )
