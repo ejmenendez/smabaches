@@ -1,14 +1,3 @@
-<script>
-	handler = Gmaps.build('Google');
-	handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-	  markers = handler.addMarkers((<%=raw @hash.to_json %>));
-	  handler.bounds.extendWith(markers);
-		handler.map.centerOn([-40.1552557,-71.3472031])
-		handler.getMap().setZoom(12);
-	});
-</script>
-
-
 <h1>Publicaciones</h1>
 
 <%= link_to 'Nueva Publicación', new_publication_path, :protocol => 'https://', :class => "btn btn-primary"%>
@@ -122,6 +111,16 @@
 				</div>
       </div>
   </div>
+
+<script>
+	handler = Gmaps.build('Google');
+	handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+	  markers = handler.addMarkers((<%=raw @hash.to_json %>));
+	  handler.bounds.extendWith(markers);
+		handler.map.centerOn([-40.1552557,-71.3472031])
+		handler.getMap().setZoom(12);
+	});
+</script>
 
 <!-- /.container -->
 <div class="container">
