@@ -30,27 +30,30 @@
 	<p>
         	<%= form.hidden_field :published, :id=>"publicado", :class => 'checkbox', :value => 'false' %>
 	</p>
-	
+
 	<div style='width: 500px;'>
 	  <div id="map" style='width: 500px; height: 250px;'></div>
 	</div>
 
-	<script>
+<script>
+
 		var marker;
 		var handler = Gmaps.build('Google');
-		
+
+
 		$(document).ready(function()
 		{
+
 			getLocation();
 		});
-		
+
 		// usePosition es llamada desde getLocation.js
 		function usePosition(position) {
 			$("#latitud").val(position.coords.latitude);
 			$("#longitud").val(position.coords.longitude);
 			handler.map.centerOn([position.coords.latitude, position.coords.longitude])
 		}
-		
+
 		handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
 			handler.fitMapToBounds();
 			handler.map.centerOn([-40.1552557,-71.3472031])
@@ -64,7 +67,7 @@
 		});
 
 		function addMarker(location){
-			if ( marker ) 
+			if ( marker )
 			{
 				marker.setPosition(location);
 			} else {
