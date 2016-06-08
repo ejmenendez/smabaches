@@ -29,13 +29,12 @@
 							<li data-target="#carousel-example-generic" data-slide-to="2"></li>
 						</ol>
 
+					<div class="carousel-inner">
 						<% publication = @publications.first %>
-
-						<div class="carousel-inner">
 								<% if publication.present?%>
 
 									<div class="item active">
-										<%= image_tag publication.photo.url :class => "slide-image"%>
+										<%= image_tag publication.photo.url(:medium), :class => "slide-image"%>
 										<div class="carousel-caption">
 											<h3><%= publication.title %></h3>
 			        				<p><%= publication.description %></p>
@@ -49,7 +48,7 @@
 									<% if publication != @publications.first%>
 
 									<div class="item">
-										<%= image_tag publication.photo.url :class => "slide-image"%>
+										<%= image_tag publication.photo.url(:medium)%>
 										<div class="carousel-caption">
 											<h3><%= publication.title %></h3>
 			        				<p><%= publication.description %></p>
@@ -58,13 +57,13 @@
 
 									<% end %>
 
-								<% end %>
-
-						</div>
+						<% end %>
 
 					</div>
 
 				</div>
+
+			</div>
 
 			</div>
 
@@ -74,11 +73,11 @@
 
 				<% @publications.each do |publication| %>
 
-					<div class="col-sm-3 col-lg-3 col-md-3">
+					<div class="col-sm-3 col-md-3">
 
 						<div class="thumbnail">
 							<%= link_to publication_path(publication) do %>
-  							<%= image_tag (publication.photo.url) %>
+  							<%= image_tag (publication.photo.url(:thumb)) %>
 							<% end %>
 
 								<div class="caption">

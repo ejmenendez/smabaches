@@ -1,68 +1,78 @@
 <!-- El código javascript se encuentra en la página ya que no pudimos hacerlo funcionar mediante assets (todos los javascript se cargan en todas las páginas ), y los métodos que encontramos por la web en cuanto a organización y carga condicional de los scripts no funcionaron.  -->
-<head>
-<script>
-    var marker;
-    var handler;
-    
-    // crear el mapa
-    handler = Gmaps.build('Google');
-    handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-        marker = handler.addMarkers((<%=raw @hash.to_json %>));
-        handler.bounds.extendWith(marker);
-        handler.getMap().setZoom(14);
-    });
-    
-    // si hay marcador, centrar el mapa en la posición del marcador
-    if(marker != null)
-    {
-        handler.map.setCenter(marker.getPosition());
-    } else {
-        handler.map.centerOn([-40.1552557,-71.3472031]);
-    }
-    
-</script>
 
-</head>
+<div class="row col-md-9">
 
-<h1>
-	<strong>T&iacute;tulo:</strong>
-	<%= @publication.title %>
-</h1>
 
-<h3>
-	Autor: <%= @publication.author.email%>
-</h3>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="text-center">
+        <strong>T&iacute;tulo:</strong>
+        <%= @publication.title %>
+      </h4>
+    </div>
+    <div class="panel-body">
+      <h4>
+    	   Autor: <%= @publication.author.email%>
+      </h4>
+    </div>
+  </div>
 
-<p>
-	<strong>Descripci&oacute;n:</strong>
-	<%= @publication.description %>
-</p>
+  <div class="col-md-12 thumbnail">
 
-<p>
-<strong>Image:</strong>
-<div class="col-md-4">
-    <%= image_tag @publication.photo.url(:medium) %>
+    <div class="col-md-6">
+      <strong>Image:</strong>
+      <%= image_tag @publication.photo.url(:medium) %>
+    </div>
+    <div class="col-md-5">
+      <strong>Ubicacion:</strong>
+      <div claas="col-md-4">
+        <div id="map" style="width: 400px; height:250px"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+      var marker;
+      var handler;
+
+      // crear el mapa
+      handler = Gmaps.build('Google');
+      handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+          marker = handler.addMarkers((<%=raw @hash.to_json %>));
+          handler.bounds.extendWith(marker);
+          handler.getMap().setZoom(14);
+      });
+
+      // si hay marcador, centrar el mapa en la posición del marcador
+      if(marker != null)
+      {
+          handler.map.setCenter(marker.getPosition());
+      } else {
+          handler.map.centerOn([-40.1552557,-71.3472031]);
+      }
+
+  </script>
+
+  <div class="btn-group">
+  	<% if policy(@publication).edit? %>
+  		<%= link_to 'Editar', edit_publication_path(@publication), :class => "btn btn-warning", 'data-no-turbolink' => true %>
+  	<% end %>
+
+  	<% if policy(@publication).destroy? %>
+  		<%= link_to 'Borrar', publication_path(@publication), method: :delete, :class => "btn btn-danger"  %>
+  	<% end %>
+
+  	<%= link_to 'Volver al índice', publications_path, :class => "btn btn-primary", 'data-no-turbolink' => true  %>
+  </div>
 </div>
-</p>
 
-<div class="clearfix"></div>
-
-<div claas="col-md-6">
-  <div id="map" style="width: 400px; height:250px"></div>
+<div class="panel panel-default col-md-3">
+  <p>
+    <h3>Descripci&oacute;n:</h3>
+    <%= @publication.description %>
+  </p>
 </div>
-
-<%= commontator_thread(@publication) %>
-
-<div class="clearfix" ></div>
-
-<div class="btn-group">
-	<% if policy(@publication).edit? %>
-		<%= link_to 'Editar', edit_publication_path(@publication), :class => "btn btn-default", 'data-no-turbolink' => true %>
-	<% end %>
-
-	<% if policy(@publication).destroy? %>
-		<%= link_to 'Borrar', publication_path(@publication), method: :delete, :class => "btn btn-default"  %>
-	<% end %>
-
-	<%= link_to 'Volver al índice', publications_path, :class => "btn btn-default", 'data-no-turbolink' => true  %>
+<div class="panel panel-default col-md-3">
+  <%= commontator_thread(@publication) %>
 </div>
