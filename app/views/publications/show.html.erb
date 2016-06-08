@@ -1,5 +1,5 @@
 <!-- El código javascript se encuentra en la página ya que no pudimos hacerlo funcionar mediante assets (todos los javascript se cargan en todas las páginas ), y los métodos que encontramos por la web en cuanto a organización y carga condicional de los scripts no funcionaron.  -->
-
+<head>
 <script>
     var marker;
     var handler;
@@ -21,6 +21,8 @@
     }
     
 </script>
+
+</head>
 
 <h1>
 	<strong>T&iacute;tulo:</strong>
@@ -48,6 +50,8 @@
 <div claas="col-md-6">
   <div id="map" style="width: 400px; height:250px"></div>
 </div>
+
+<%= commontator_thread(@publication) %>
 
 <div class="clearfix" ></div>
 

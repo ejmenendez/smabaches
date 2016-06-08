@@ -79,3 +79,9 @@ gem 'pundit', '~>1.1.0'
 #subida de imágenes
 gem 'carrierwave', '~> 0.10.0'
 gem 'mini_magick', '~> 4.3'
+
+#comentarios para las publicaciones
+gem 'commontator', '~> 4.11.1'
+
+#votos para las publicaciones via commontator
+gem 'acts_as_votable'

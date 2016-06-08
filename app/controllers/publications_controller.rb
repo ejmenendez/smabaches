@@ -13,6 +13,7 @@ class PublicationsController < ApplicationController
 		authorize @publication
 		# crea el marcador google maps de la publicación actual
 		@hash = create_markers(@publication)
+		commontator_thread_show(@publication)
 	end
 
 	def new
