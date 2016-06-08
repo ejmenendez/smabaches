@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160608003648) do
+ActiveRecord::Schema.define(version: 20160608005827) do
 
   create_table "commontator_comments", force: true do |t|
     t.string   "creator_type"
@@ -58,13 +58,17 @@ ActiveRecord::Schema.define(version: 20160608003648) do
   create_table "publications", force: true do |t|
     t.string   "description"
     t.boolean  "published"
-    t.decimal  "latitude",    precision: 20, scale: 16
-    t.decimal  "longitude",   precision: 20, scale: 16
+    t.decimal  "latitude",           precision: 20, scale: 16
+    t.decimal  "longitude",          precision: 20, scale: 16
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "title"
     t.integer  "author_id"
     t.string   "photo"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
   add_index "publications", ["author_id"], name: "index_publications_on_author_id", using: :btree
