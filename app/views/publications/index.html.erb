@@ -34,7 +34,7 @@
 								<% if publication.present?%>
 
 									<div class="item active">
-										<%= image_tag publication.photo.url(:medium), :class => "slide-image"%>
+										<%= image_tag publication.photo.url(:medium), :class => "slide-image img-thumbnail"%>
 										<div class="carousel-caption">
 											<h3><%= publication.title %></h3>
 			        				<p><%= publication.description %></p>
@@ -105,13 +105,18 @@
           <h1>Mapa De Baches En La Ciudad:</h1>
           <p>Ubicacion geografica en la Ciudad de San Martin De Los Andes, de los baches detallados en las publicaciones</p>
         </div>
-				<div class="col-md-5">
+				<div id="cont" class="col-md-5">
 				  <div id="map" style="width: 450px;height:250px"></div>
 				</div>
       </div>
   </div>
 
 <script>
+	$(window).resize(function(){
+		$('#map').css("width",$('#cont').width());
+		google.maps.event.trigger(map, 'resize');
+	});
+
 	handler = Gmaps.build('Google');
 	handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
 	  markers = handler.addMarkers((<%=raw @hash.to_json %>));
