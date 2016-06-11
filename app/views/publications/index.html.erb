@@ -84,10 +84,21 @@
 									<h4><%= link_to publication.title, publication_path(publication), :protocol => 'https://' %></h4>
 									<p><%= publication.description%></a>.</p>
 								</div>
+                <%= link_to like_publication_path(publication), method: :put do %>
+                  <div class="col-md-3">
+                		<%= image_tag('like.gif')%>
+                  </div>
+                  <p class="col-md-3"><%= publication.get_upvotes.size %></p>
+                <% end %>
 
+            		<%= link_to dislike_publication_path(publication), method: :put do %>
+                  <div class="col-md-3">
+                    <%= image_tag('dislike.gif')%>
+                  </div>
+                  <%= publication.get_downvotes.size %>
+            		<% end %>
 						</div>
-
-					</div>
+          </div>
 
 				<% end %>
 			</div>

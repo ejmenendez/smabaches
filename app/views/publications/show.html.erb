@@ -31,7 +31,7 @@
           $('#map').css("width",$('#cont').width());
           google.maps.event.trigger(map, 'resize');
         });
-        
+
         var marker;
         var handler;
 
@@ -66,8 +66,31 @@
     <div class="panel panel-default col-md-3"  style="overflow-y: auto; height:300px">
       <%= commontator_thread(@publication) %>
     </div>
-  </div>
+    <h2>Votos:</h2>
+    <%
+    if @publication.votes_for.present?
+     total =  @publication.votes_for.size
+      porcentaje_pos =  @publication.get_upvotes.size * 100 / total
+      porcentaje_neg = @publication.get_downvotes.size * 100 / total
+    end
+    %>
+    <h4>Positivos: <%= @publication.get_upvotes.size %></h4>
+    <div class="progress col-md-12">
+      <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="<%= porcentaje_pos%>"
+        aria-valuemin="0" aria-valuemax="100" style="width:<%= porcentaje_pos%>%">
+        Positivo:<%= porcentaje_pos%>%
+      </div>
+    </div>
+    <h4>Negativos: <%= @publication.get_downvotes.size %></h4>
+    <div class="progress col-md-12">
+      <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="<%= porcentaje_neg%>"
+        aria-valuemin="0" aria-valuemax="100" style="width:<%= porcentaje_neg%>%">
+        Negativo:<%= porcentaje_neg%>%
+      </div>
+    </div>
+
 </div>
+
 <div class="btn-group">
   <% if policy(@publication).edit? %>
     <%= link_to 'Editar', edit_publication_path(@publication), :class => "btn btn-warning", 'data-no-turbolink' => true %>

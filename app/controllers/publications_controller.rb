@@ -4,7 +4,7 @@ class PublicationsController < ApplicationController
 	def index
 		authorize Publication
 		@publications = Publication.all
-		# crear los marcadores para el google maps  
+		# crear los marcadores para el google maps
 		@hash = create_markers(@publications)
 	end
 
@@ -25,7 +25,7 @@ class PublicationsController < ApplicationController
 	  @publication = Publication.new(publication_params)
 	  @publication.author = current_user
 	  authorize @publication
-	  
+
 	  begin
 		  @publication.save!
 		  redirect_to @publication, 'data-no-turbolink' => true
@@ -37,7 +37,7 @@ class PublicationsController < ApplicationController
 	def destroy
 		@publication = Publication.find(params[:id])
 		authorize @publication
-		
+
 		@publication.destroy
 		redirect_to publications_path, 'data-no-turbolink' => true
 	end
@@ -47,7 +47,7 @@ class PublicationsController < ApplicationController
 		authorize @publication
 		# crea el marcador google maps de la publicación actual
 		@hash = create_markers(@publication)
-		
+
 	end
 
 	def update
@@ -63,6 +63,19 @@ class PublicationsController < ApplicationController
 	  end
 	end
 
+	#votos para publicaciones
+	def upvote
+		@publication = Publication.find(params[:id])
+		@publication.upvote_by current_user
+		redirect_to :back
+	end
+
+	def downvote
+		@publication = Publication.find(params[:id])
+		@publication.downvote_by current_user
+		redirect_to :back
+	end
+
 	private
 
 	def publication_params
@@ -76,5 +89,5 @@ class PublicationsController < ApplicationController
 			marker.infowindow publication.title
 		end
 	end
-	
+
 end
