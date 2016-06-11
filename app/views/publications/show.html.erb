@@ -10,8 +10,8 @@
         <%= @publication.title %>
       </h4>
     </div>
-      
-      
+  </div>
+
   <div class="col-md-12 thumbnail">
 
     <div class="col-md-4">
@@ -31,10 +31,8 @@
           $('#map').css("width",$('#cont').width());
           google.maps.event.trigger(map, 'resize');
         });
-
         var marker;
         var handler;
-
         // crear el mapa
         handler = Gmaps.build('Google');
         handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
@@ -42,7 +40,6 @@
             handler.bounds.extendWith(marker);
             handler.getMap().setZoom(14);
         });
-
         // si hay marcador, centrar el mapa en la posición del marcador
         if(marker != null)
         {
@@ -50,26 +47,9 @@
         } else {
             handler.map.centerOn([-40.1552557,-71.3472031]);
         }
-
-<<<<<<< HEAD
-  <div class="panel panel-default col-md-3">
-      <%= commontator_thread(@publication) %>
-  </div>
-
-  <div class="btn-group">
-  	<% if policy(@publication).edit? %>
-  		<%= link_to 'Editar', edit_publication_path(@publication), :class => "btn btn-warning", 'data-no-turbolink' => true %>
-  	<% end %>
-=======
     </script>
->>>>>>> 50dc6e1420f7dfde541efe3485edd89c6305b514
 
 
-<<<<<<< HEAD
-  	<%= link_to 'Volver al índice', publications_path, :class => "btn btn-primary", 'data-no-turbolink' => true  %>
-  </div>
-</div>
-=======
     <div class="panel panel-default col-md-3">
       <h4>
          Autor: <%= @publication.author.email%>
@@ -118,4 +98,3 @@
 
   <%= link_to 'Volver al índice', publications_path, :class => "btn btn-primary", 'data-no-turbolink' => true  %>
 </div>
->>>>>>> 50dc6e1420f7dfde541efe3485edd89c6305b514

@@ -64,7 +64,10 @@
 </script>
 
 <%= form_for @publication do |form| %>
-
+    <p>
+        <%= form.label :category %><br>
+        <%= form.collection_select :category_id, Category.order(:name),:id,:name, :selected => @publication.category_id %>
+    </p>
 	<p>
 		<%= form.label :title %><br>
 		<%= form.text_field :title %>
