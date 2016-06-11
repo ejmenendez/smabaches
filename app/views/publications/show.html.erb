@@ -1,6 +1,6 @@
 <!-- El código javascript se encuentra en la página ya que no pudimos hacerlo funcionar mediante assets (todos los javascript se cargan en todas las páginas ), y los métodos que encontramos por la web en cuanto a organización y carga condicional de los scripts no funcionaron.  -->
 
-<div class="row col-md-9">
+<div class="row col-md-12">
 
 
   <div class="panel panel-default">
@@ -11,57 +11,47 @@
       </h4>
     </div>
       
-    <div class="panel panel-default col-md-3">
-      <p>
-        <h3>Descripci&oacute;n:</h3>
-        <%= @publication.description %>
-      </p>
-    </div>
-
-    <div class="panel-body">
-      <h4>
-    	   Autor: <%= @publication.author.email%>
-      </h4>
-    </div>
-  </div>
-
+      
   <div class="col-md-12 thumbnail">
 
-    <div class="col-md-6">
+    <div class="col-md-4">
       <strong>Image:</strong>
-      <%= image_tag @publication.photo.url(:medium) %>
+      <%= image_tag @publication.photo.url(:medium)%>
     </div>
-    <div class="col-md-5">
+    <div id="cont" class="col-md-5">
       <strong>Ubicacion:</strong>
       <div claas="col-md-4">
         <div id="map" style="width: 400px; height:250px"></div>
       </div>
     </div>
-  </div>
 
 
-  <script>
-      var marker;
-      var handler;
+    <script>
+        $(window).resize(function(){
+          $('#map').css("width",$('#cont').width());
+          google.maps.event.trigger(map, 'resize');
+        });
 
-      // crear el mapa
-      handler = Gmaps.build('Google');
-      handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-          marker = handler.addMarkers((<%=raw @hash.to_json %>));
-          handler.bounds.extendWith(marker);
-          handler.getMap().setZoom(14);
-      });
+        var marker;
+        var handler;
 
-      // si hay marcador, centrar el mapa en la posición del marcador
-      if(marker != null)
-      {
-          handler.map.setCenter(marker.getPosition());
-      } else {
-          handler.map.centerOn([-40.1552557,-71.3472031]);
-      }
+        // crear el mapa
+        handler = Gmaps.build('Google');
+        handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+            marker = handler.addMarkers((<%=raw @hash.to_json %>));
+            handler.bounds.extendWith(marker);
+            handler.getMap().setZoom(14);
+        });
 
-  </script>
+        // si hay marcador, centrar el mapa en la posición del marcador
+        if(marker != null)
+        {
+            handler.map.setCenter(marker.getPosition());
+        } else {
+            handler.map.centerOn([-40.1552557,-71.3472031]);
+        }
 
+<<<<<<< HEAD
   <div class="panel panel-default col-md-3">
       <%= commontator_thread(@publication) %>
   </div>
@@ -70,11 +60,62 @@
   	<% if policy(@publication).edit? %>
   		<%= link_to 'Editar', edit_publication_path(@publication), :class => "btn btn-warning", 'data-no-turbolink' => true %>
   	<% end %>
+=======
+    </script>
+>>>>>>> 50dc6e1420f7dfde541efe3485edd89c6305b514
 
-  	<% if policy(@publication).destroy? %>
-  		<%= link_to 'Borrar', publication_path(@publication), method: :delete, :class => "btn btn-danger"  %>
-  	<% end %>
 
+<<<<<<< HEAD
   	<%= link_to 'Volver al índice', publications_path, :class => "btn btn-primary", 'data-no-turbolink' => true  %>
   </div>
 </div>
+=======
+    <div class="panel panel-default col-md-3">
+      <h4>
+         Autor: <%= @publication.author.email%>
+      </h4>
+      <p>
+        <h5>Descripci&oacute;n:</h5>
+        <%= @publication.description %>
+      </p>
+    </div>
+    <div class="panel panel-default col-md-3"  style="overflow-y: auto; height:300px">
+      <%= commontator_thread(@publication) %>
+    </div>
+    <h2>Votos:</h2>
+    <%
+    if @publication.votes_for.present?
+     total =  @publication.votes_for.size
+      porcentaje_pos =  @publication.get_upvotes.size * 100 / total
+      porcentaje_neg = @publication.get_downvotes.size * 100 / total
+    end
+    %>
+    <h4>Positivos: <%= @publication.get_upvotes.size %></h4>
+    <div class="progress col-md-12">
+      <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="<%= porcentaje_pos%>"
+        aria-valuemin="0" aria-valuemax="100" style="width:<%= porcentaje_pos%>%">
+        Positivo:<%= porcentaje_pos%>%
+      </div>
+    </div>
+    <h4>Negativos: <%= @publication.get_downvotes.size %></h4>
+    <div class="progress col-md-12">
+      <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="<%= porcentaje_neg%>"
+        aria-valuemin="0" aria-valuemax="100" style="width:<%= porcentaje_neg%>%">
+        Negativo:<%= porcentaje_neg%>%
+      </div>
+    </div>
+
+</div>
+
+<div class="btn-group">
+  <% if policy(@publication).edit? %>
+    <%= link_to 'Editar', edit_publication_path(@publication), :class => "btn btn-warning", 'data-no-turbolink' => true %>
+  <% end %>
+
+  <% if policy(@publication).destroy? %>
+    <%= link_to 'Borrar', publication_path(@publication), method: :delete, :class => "btn btn-danger"  %>
+  <% end %>
+
+  <%= link_to 'Volver al índice', publications_path, :class => "btn btn-primary", 'data-no-turbolink' => true  %>
+</div>
+>>>>>>> 50dc6e1420f7dfde541efe3485edd89c6305b514
