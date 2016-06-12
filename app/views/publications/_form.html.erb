@@ -60,7 +60,27 @@
             });
         }
     }
+    
+    function getGeocodeLocation()
+    {
+        var searchText = $('street').text()+" "+$('number').val()+" ,San Martin de los Andes";
+        var geocoder = new google.maps.Geocoder();
 
+        if(!geocoder) geocoder = new GClientGeocoder();
+        
+         geocoder.geocode({'address': searchText}, function(results, status) {
+        if (status === google.maps.GeocoderStatus.OK) {
+          handler.map.setCenter(results[0].geometry.location);
+          var marker = new google.maps.Marker({
+            map: handler.map,
+            position: results[0].geometry.location
+          });
+        } else {
+          alert('Geocode was not successful for the following reason: ' + status);
+        }
+  });
+
+    }
 </script>
 
 <%= form_for @publication do |form| %>
@@ -68,6 +88,17 @@
         <%= form.label :category %><br>
         <%= form.collection_select :category_id, Category.order(:name),:id,:name, :selected => @publication.category_id %>
     </p>
+
+     <p>
+         <%= form.label :street, :id=>'street' %><br>
+         <%= select("name", "street_id", Street.all.collect {|s| [ s.name, s.id ] }) %>
+         <%= form.label :number %>
+         <%= form.text_field :number, :id=>'number' %>
+    </p>
+    <p>
+        <button type="button" onclick="JavaScript:getGeocodeLocation()">Get Location</button> 
+    </p>
+
 	<p>
 		<%= form.label :title %><br>
 		<%= form.text_field :title %>
@@ -92,7 +123,7 @@
 	</p>
 
 	<p>
-        	<%= form.hidden_field :published, :id=>"publicado", :class => 'checkbox', :value => 'false' %>
+        <%= form.hidden_field :published, :id=>"publicado", :class => 'checkbox', :value => 'true' %>
 	</p>
 
 	<div style='width: 500px;'>

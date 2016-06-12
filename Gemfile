@@ -73,6 +73,9 @@ end
 #google maps
 gem 'gmaps4rails'
 
+#geocoder para sacar latitud y longitud con una dirección
+gem 'geocoder'
+
 #manejo de permisos
 gem 'pundit', '~>1.1.0'
 
