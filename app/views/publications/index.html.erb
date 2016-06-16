@@ -26,46 +26,40 @@
 							<li data-target="#carousel-example-generic" data-slide-to="2"></li>
 						</ol>
 
-					<div class="carousel-inner">
-						<% publication = @publications.first %>
-								<% if publication.present?%>
+						<div class="carousel-inner">
+							<% publication = @publications.first %>
+									<% if publication.present?%>
 
-									<div class="item active">
-										<%= image_tag publication.photo.url(:medium), :class => "slide-image img-thumbnail"%>
-										<div class="carousel-caption">
-											<h3><%= publication.title %></h3>
-			        				<p><%= publication.description %></p>
-			      				</div>
-							 		</div>
-
-								<% end %>
-
-								<% @publications.each do |publication| %>
-
-									<% if publication != @publications.first%>
-
-									<div class="item">
-										<%= image_tag publication.photo.url(:medium)%>
-										<div class="carousel-caption">
-											<h3><%= publication.title %></h3>
-			        				<p><%= publication.description %></p>
-			      				</div>
-									</div>
+										<div class="item active">
+											<%= image_tag publication.photo.url(:medium), :class => "slide-image img-thumbnail"%>
+											<div class="carousel-caption">
+												<h3><%= publication.title %></h3>
+				        				<p><%= publication.description %></p>
+				      				</div>
+								 		</div>
 
 									<% end %>
 
-						<% end %>
+									<% @publications.each do |publication| %>
 
+										<% if publication != @publications.first%>
+
+										<div class="item">
+											<%= image_tag publication.photo.url(:medium)%>
+											<div class="carousel-caption">
+												<h3><%= publication.title %></h3>
+				        				<p><%= publication.description %></p>
+				      				</div>
+										</div>
+
+										<% end %>
+
+							<% end %>
+						</div>
 					</div>
-
 				</div>
-
 			</div>
-
-			</div>
-
 			<hr>
-
 			<div class="row" >
 
 				<% @publications.each do |publication| %>
@@ -99,9 +93,8 @@
 
 				<% end %>
 			</div>
+		</div>
 	</div>
-</div>
-
 </div>
 
 <!-- /.section -->
@@ -125,13 +118,9 @@
 		google.maps.event.trigger(map, 'resize');
 	});
 
-	handler = Gmaps.build('Google');
-	handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-	  markers = handler.addMarkers((<%=raw @hash.to_json %>));
-	  handler.bounds.extendWith(markers);
-		handler.map.centerOn([-40.1552557,-71.3472031])
-		handler.getMap().setZoom(12);
-	});
+	createMap();
+	markers = handler.addMarkers((<%=raw @hash.to_json %>));
+	handler.bounds.extendWith(markers);
 </script>
 
 <!-- /.container -->
