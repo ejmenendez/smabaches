@@ -1,7 +1,4 @@
-<h1>Publicaciones</h1>
-
-<%= link_to 'Nueva Publicación', new_publication_path, :protocol => 'https://', :class => "btn btn-primary"%>
-
+<h1 style="margin: 50px">Publicaciones</h1>
 
 <!-- Contenido de la pagina -->
 <div class="container">
@@ -11,14 +8,9 @@
 		<div class="col-md-12">
 			<div class="row carousel-holder">
 
-				<div class="col-md-3">
-	        <p class="lead">Categorias:</p>
-                    <%= select("name", "category_id", Category.all.collect {|c| [ c.name, c.id ] }) %> <!-- , onchange => 'alert("cambio");' -->
-	      </div>
+				<div class="col-md-12" >
 
-				<div class="col-md-9" >
-
-					<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+					<div id="carousel" class="carousel slide" data-ride="carousel">
 
 						<ol class="carousel-indicators">
 							<li data-target="#carousel-example-generic" data-slide-to="0"></li>
@@ -45,7 +37,7 @@
 										<% if publication != @publications.first%>
 
 										<div class="item">
-											<%= image_tag publication.photo.url(:medium)%>
+											<%= image_tag publication.photo.url(:medium), :class => "slide-image img-thumbnail"%>
 											<div class="carousel-caption">
 												<h3><%= publication.title %></h3>
 				        				<p><%= publication.description %></p>
@@ -55,12 +47,23 @@
 										<% end %>
 
 							<% end %>
+							<a class="carousel-control left" href="#carousel" data-slide="prev">
+        				<span class="glyphicon glyphicon-chevron-left"></span>
+    					</a>
+    					<a class="carousel-control right" href="#carousel" data-slide="next">
+        				<span class="glyphicon glyphicon-chevron-right"></span>
+    					</a>
 						</div>
 					</div>
 				</div>
 			</div>
 			<hr>
-			<div class="row" >
+			<div class="row">
+				<div class="col-md-3">
+					<%= link_to 'Nueva Publicación', new_publication_path, :protocol => 'https://', :class => "btn btn-primary"%>	
+					<p class="lead">Categorias:</p>
+					<%= select("name", "category_id", Category.all.collect {|c| [ c.name, c.id ] }) %> <!-- , onchange => 'alert("cambio");' -->
+				</div>
 
 				<% @publications.each do |publication| %>
 
