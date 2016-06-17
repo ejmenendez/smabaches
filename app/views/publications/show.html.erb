@@ -16,7 +16,7 @@
 
     <div class="col-md-4">
       <strong>Image:</strong>
-      <%= image_tag @publication.photo.url(:medium)%>
+      <%= image_tag @publication.photo.url(:thumb1)%>
     </div>
     <div id="cont" class="col-md-5">
       <strong>Ubicacion:</strong>
@@ -59,10 +59,10 @@
         <%= @publication.description %>
       </p>
     </div>
-    <div class="panel panel-default col-md-3"  style="overflow-y: auto; height:300px">
+    <div class="panel panel-default col-md-3"  style="overflow-y: auto; max-height:300px">
       <%= commontator_thread(@publication) %>
     </div>
-    <h2>Votos:</h2>
+    <h2 class="col-md-12">Votos:</h2>
     <%
     if @publication.votes_for.present?
      total =  @publication.votes_for.size
@@ -70,14 +70,14 @@
       porcentaje_neg = @publication.get_downvotes.size * 100 / total
     end
     %>
-    <h4>Positivos: <%= @publication.get_upvotes.size %></h4>
+    <h4 class="col-md-12">Positivos: <%= @publication.get_upvotes.size %></h4>
     <div class="progress col-md-12">
       <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="<%= porcentaje_pos%>"
         aria-valuemin="0" aria-valuemax="100" style="width:<%= porcentaje_pos%>%">
         Positivo:<%= porcentaje_pos%>%
       </div>
     </div>
-    <h4>Negativos: <%= @publication.get_downvotes.size %></h4>
+    <h4 class="col-md-12">Negativos: <%= @publication.get_downvotes.size %></h4>
     <div class="progress col-md-12">
       <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="<%= porcentaje_neg%>"
         aria-valuemin="0" aria-valuemax="100" style="width:<%= porcentaje_neg%>%">

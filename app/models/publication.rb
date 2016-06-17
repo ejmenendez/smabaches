@@ -6,16 +6,16 @@ class Publication < ActiveRecord::Base
     #atributos virtuales para usar en el geocoder calle y numero
     attr_accessor :address #nombre de la calle y altura
     attr_accessor :number #altura, solo para poder usar en el form
-    
+
     geocoded_by :street
-  validates :author, :title, :description, :latitude, :longitude, presence: true 
-    
+  validates :author, :title, :description, :latitude, :longitude, presence: true
+
   belongs_to :author, class_name: 'User'
 
-    has_attached_file :photo, 
-        styles: {medium: "400x400#", thumb: "200x200#"}, 
+    has_attached_file :photo,
+        styles: {medium: "400x400#", thumb: "200x200#",thumb1: "300x250"}, 
         default_url: "/images/:style/missing.png"
     validates_attachment_content_type :photo, content_type: /\Aimage\/.*\Z/
     belongs_to :category
-    
+
 end

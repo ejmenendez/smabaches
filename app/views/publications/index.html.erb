@@ -60,7 +60,7 @@
 			<hr>
 			<div class="row">
 				<div class="col-md-3">
-					<%= link_to 'Nueva Publicación', new_publication_path, :protocol => 'https://', :class => "btn btn-primary"%>	
+					<%= link_to 'Nueva Publicación', new_publication_path, :protocol => 'https://', :class => "btn btn-primary"%>
 					<p class="lead">Categorias:</p>
 					<%= select("name", "category_id", Category.all.collect {|c| [ c.name, c.id ] }) %> <!-- , onchange => 'alert("cambio");' -->
 				</div>
@@ -120,7 +120,6 @@
 		$('#map').css("width",$('#cont').width());
 		google.maps.event.trigger(map, 'resize');
 	});
-
 	createMap();
 	markers = handler.addMarkers((<%=raw @hash.to_json %>));
 	handler.bounds.extendWith(markers);
