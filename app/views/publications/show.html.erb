@@ -31,22 +31,8 @@
           $('#map').css("width",$('#cont').width());
           google.maps.event.trigger(map, 'resize');
         });
-        var marker;
-        var handler;
-        // crear el mapa
-        handler = Gmaps.build('Google');
-        handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-            marker = handler.addMarkers((<%=raw @hash.to_json %>));
-            handler.bounds.extendWith(marker);
-            handler.getMap().setZoom(14);
-        });
-        // si hay marcador, centrar el mapa en la posición del marcador
-        if(marker != null)
-        {
-            handler.map.setCenter(marker.getPosition());
-        } else {
-            handler.map.centerOn([-40.1552557,-71.3472031]);
-        }
+        
+        createMap(<%=raw @hash.to_json %>, 14);
     </script>
 
 

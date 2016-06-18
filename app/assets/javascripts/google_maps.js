@@ -1,5 +1,7 @@
 var marker;
 var handler = Gmaps.build('Google');
+var markers;
+
 // Toma del navegador las coordenadas y llama a una función usePosition que debe ser definida
 // en la página que incluye a éste script
 function getLocation()
@@ -19,30 +21,49 @@ function usePosition(position) {
     handler.map.centerOn([position.coords.latitude, position.coords.longitude]);
 }
 
-function createMap()
+// crea el mapa con los marcadores que se envían por parámetro
+// el zoom se asigna de acuerdo a la página que se esté mostrando
+function createMap(paramMarkers, zoom)
 {
-    // cuando se construye el mapa el centro está en el centro de SMA
     handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
         handler.fitMapToBounds();
-        handler.map.centerOn([-40.1552557,-71.3472031]);
-        handler.getMap().setZoom(14);
+        handler.addMarkers(paramMarkers); // markers =
+	    handler.bounds.extendWith(markers);
+        handler.getMap().setZoom(zoom);
     });
-
+    
+    document.write(paramMarkers.toJSON());
+    centerMap();
 }
+
+// si el marcador es único, centra el mapa en la posición del marcador
+// si es un array, centra en una posición fija
+function centerMap()
+{
+     // si hay marcador, centrar el mapa en la posición del marcador
+    if(markers != null && !Array.isArray(markers))
+    {
+        handler.map.setCenter(markers.getPosition());
+    } else {
+        handler.map.centerOn([-40.1552557,-71.3472031]);
+    }
+}
+
 //funcion que genera un marker en la posicion donde se genero el evento del mouse
 function listener(){
   // listener para agregar un marker. se permite sólo uno
-  google.maps.event.addListener(handler.getMap(),'click',function(event){
+  google.maps.event.addListener(handler.getMap(), 'click', function(event){
       $("#latitud").val(event.latLng.lat());
       $("#longitud").val(event.latLng.lng());
       addMarker(event.latLng);
   });
-
+  
 }
 
 // si existe el marker, lo cambia a la nueva posición, si no exite lo crea
-function addMarker(location){
-    if ( marker )
+function addMarker(location)
+{
+    if (marker)
     {
         marker.setPosition(location);
     } else {
@@ -52,6 +73,7 @@ function addMarker(location){
         });
     }
 }
+
 
 function getGeocodeLocation()
 {
