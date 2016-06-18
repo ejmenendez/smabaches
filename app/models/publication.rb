@@ -13,9 +13,17 @@ class Publication < ActiveRecord::Base
   belongs_to :author, class_name: 'User'
 
     has_attached_file :photo,
-        styles: {medium: "400x400#", thumb: "200x200#",thumb1: "300x250"}, 
+        styles: {medium: "400x400#", thumb: "200x200#",thumb1: "300x250"},
         default_url: "/images/:style/missing.png"
     validates_attachment_content_type :photo, content_type: /\Aimage\/.*\Z/
     belongs_to :category
 
+    def self.filter(filter)
+      if filter.present?
+        where({category_id: filter})
+      else
+        all
+      end
+
+    end
 end

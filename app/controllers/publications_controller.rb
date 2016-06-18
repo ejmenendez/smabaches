@@ -3,7 +3,7 @@ class PublicationsController < ApplicationController
 
 	def index
 		authorize Publication
-		@publications = Publication.all
+		@publications = Publication.filter(params[:category])
 		# crear los marcadores para el google maps
 		@hash = create_markers(@publications)
 	end
@@ -79,7 +79,7 @@ class PublicationsController < ApplicationController
 	private
 
 	def publication_params
-		params.require(:publication).permit(:description, :latitude, :longitude, :title, :published, :photo)
+		params.require(:publication).permit(:description, :latitude, :longitude, :title, :published, :photo,:category_id)
 	end
 
 	def create_markers(publications)

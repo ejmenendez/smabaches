@@ -62,10 +62,12 @@
 				<div class="col-md-3">
 					<%= link_to 'Nueva Publicación', new_publication_path, :protocol => 'https://', :class => "btn btn-primary"%>
 					<p class="lead">Categorias:</p>
-					<%= select("name", "category_id", Category.all.collect {|c| [ c.name, c.id ] }) %> <!-- , onchange => 'alert("cambio");' -->
+					<%= form_tag publications_path, :method =>'get', id: "filter" do %>
+						<%= select_tag "category", options_from_collection_for_select(Category.all, "id", "name", params[:category]),
+						:onchange => "$('#filter').submit();"%>
+					<% end %>
 				</div>
-
-				<% @publications.each do |publication| %>
+					<% @publications.each do |publication| %>
 
 					<div class="col-sm-3 col-md-3">
 
