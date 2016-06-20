@@ -6,7 +6,7 @@ class Publication < ActiveRecord::Base
     #atributos virtuales para usar en el geocoder calle y numero
     attr_accessor :address #nombre de la calle y altura
     attr_accessor :number #altura, solo para poder usar en el form
-
+    
     geocoded_by :street
   validates :author, :title, :description, :latitude, :longitude, presence: true
 

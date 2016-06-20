@@ -1,5 +1,7 @@
 var marker;
 var handler = Gmaps.build('Google');
+var markers = new Array();
+
 // Toma del navegador las coordenadas y llama a una función usePosition que debe ser definida
 // en la página que incluye a éste script
 function getLocation()
@@ -19,39 +21,76 @@ function usePosition(position) {
     handler.map.centerOn([position.coords.latitude, position.coords.longitude]);
 }
 
-function createMap()
+// crea el mapa con los marcadores que se envían por parámetro
+// el zoom se asigna de acuerdo a la página que se esté mostrando
+function createMap(paramMarkers, zoom)
 {
-    // cuando se construye el mapa el centro está en el centro de SMA
     handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
         handler.fitMapToBounds();
-        handler.map.centerOn([-40.1552557,-71.3472031]);
-        handler.getMap().setZoom(14);
+        //markers = handler.addMarkers(paramMarkers);  
+	    handler.bounds.extendWith(markers);
+       
     });
+    
+    // recorro el json wnviado con los datos de los marcadores, y los agrego al mapa
+    $.each(paramMarkers, function(i, value) 
+    {
+        var myLatlng = new google.maps.LatLng(value.lat, value.lng);
+        var myMarker = new google.maps.Marker({
+        position: myLatlng,
+        map: handler.getMap(),
+        
+        infowindow: new google.maps.InfoWindow({
+            content: value.infowindow
+            })
+        });
 
+        markers.push(myMarker);
+    });
+               
+    centerMap();
+    handler.getMap().setZoom(zoom);
 }
+
+// centra el mapa en la posición del primer marcador del mapa
+function centerMap()
+{
+     // si hay marcador, centrar el mapa en la posición del marcador
+    if(markers != null && markers.length > 0)
+    {
+        handler.map.centerOn(markers[0].getPosition());
+    } else {
+        handler.map.centerOn([-40.1552557,-71.3472031]);
+    }
+}
+
 //funcion que genera un marker en la posicion donde se genero el evento del mouse
 function listener(){
   // listener para agregar un marker. se permite sólo uno
-  google.maps.event.addListener(handler.getMap(),'click',function(event){
+  google.maps.event.addListener(handler.getMap(), 'click', function(event){
       $("#latitud").val(event.latLng.lat());
       $("#longitud").val(event.latLng.lng());
+            
       addMarker(event.latLng);
   });
-
+  
 }
 
 // si existe el marker, lo cambia a la nueva posición, si no exite lo crea
-function addMarker(location){
-    if ( marker )
+function addMarker(location)
+{
+    if (markers[0] != null)
     {
-        marker.setPosition(location);
+        markers[0].setPosition(location);
     } else {
         marker = new google.maps.Marker({
             position: location,
             map: handler.getMap()
         });
+        markers[0] = marker;
     }
 }
+
 
 function getGeocodeLocation()
 {
