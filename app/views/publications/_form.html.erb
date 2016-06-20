@@ -14,14 +14,14 @@
 <%= form_for @publication do |form| %>
     <p>
         <%= form.label :category %><br>
-        <%= form.collection_select :category_id, Category.order(:name),:id,:name, :selected => @publication.category_id %>
+        <%= form.collection_select :category_id, Category.order(:name), :id, :name, :selected => @publication.category_id %>
     </p>
 
      <p>
-         <%= form.label :street, :id=>'street' %><br>
-         <%= select("name", "street_id", Street.all.collect {|s| [ s.name, s.id ] }) %>
+         <%= form.label :street %><br>
+         <%= select_tag "street", options_from_collection_for_select(Street.all, "id", "name" ) %>
          <%= form.label :number %>
-         <%= form.text_field :number, :id=>'number' %>
+         <%= form.number_field :number %>
     </p>
     <p>
         <button type="button" onclick="JavaScript:getGeocodeLocation()">Get Location</button>

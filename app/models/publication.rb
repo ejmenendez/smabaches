@@ -4,7 +4,11 @@ class Publication < ActiveRecord::Base
     #para la gema act_as_votable
   acts_as_votable
 
-  geocoded_by :address
+  #atributos virtuales para usar en el geocoder calle y numero
+  attr_accessor :address #nombre de la calle y altura
+  attr_accessor :number #altura, solo para poder usar en el form
+    
+  geocoded_by :street
 
   validates :author, :title, :description, :latitude, :longitude, presence: true
 
@@ -27,7 +31,7 @@ class Publication < ActiveRecord::Base
 
     def self.search(search)
       if search.present?
-        where('title LIKE :search OR description LIKE :search',search: "%#{search}%")
+        where('title LIKE :search OR description LIKE :search', search: "%#{search}%")
       else
         all
       end
