@@ -26,4 +26,13 @@ class Publication < ActiveRecord::Base
       end
 
     end
+
+    def self.search(search)
+      if search.present?
+        where('title LIKE :search OR description LIKE :search',search: "%#{search}%")
+      else
+        all
+      end
+
+    end
 end

@@ -4,6 +4,7 @@ class PublicationsController < ApplicationController
 	def index
 		authorize Publication
 		@publications = Publication.filter(params[:category])
+		@publications = Publication.search(params[:search])
 		# crear los marcadores para el google maps
 		@hash = create_markers(@publications)
 	end
