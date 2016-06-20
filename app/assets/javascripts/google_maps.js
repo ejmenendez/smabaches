@@ -92,23 +92,26 @@ function addMarker(location)
 }
 
 
+// geolocalizar a partir de calle - número
 function getGeocodeLocation()
 {
-    var searchText = $('street').text()+" "+$('number').val()+" ,San Martin de los Andes";
+    var searchText = $("#street option:selected").text() +" "+ $('#publication_number').val()+" ,San Martín de los Andes";
+    
     var geocoder = new google.maps.Geocoder();
 
     if(!geocoder) geocoder = new GClientGeocoder();
 
-     geocoder.geocode({'address': searchText}, function(results, status) {
-    if (status === google.maps.GeocoderStatus.OK) {
-      handler.map.setCenter(results[0].geometry.location);
-      var marker = new google.maps.Marker({
-        map: handler.map,
-        position: results[0].geometry.location
-      });
-    } else {
-      alert('Geocode was not successful for the following reason: ' + status);
-    }
+    geocoder.geocode({'address': searchText}, function(results, status) 
+    {
+        if (status === google.maps.GeocoderStatus.OK) {
+            handler.map.centerOn(results[0].geometry.location);
+            handler.getMap().setZoom(14);
+            addMarker(results[0].geometry.location);
+            $("#latitud").val(results[0].geometry.location.lat);
+            $("#longitud").val(results[0].geometry.location.lng);
+        } else {
+          alert('Geocode was not successful for the following reason: ' + status);
+        }
   });
 
 }
