@@ -3,7 +3,7 @@
     // funcion de get_location.js
     $(document).ready(function()
     {
-        getLocation();
+        //getLocation();
         // crear el mapa
         createMap(<%=raw @hash.to_json %>, 14);
         listener();
@@ -49,6 +49,10 @@
 	<p>
         	<%= form.hidden_field :longitude, :id=>"longitud", :class => 'text_field', :step => 'any' %>
 	</p>
+    
+    <p>
+        <button type="button" onclick="JavaScript:geocodeLatLng()">Reverse Geocoding</button>
+    </p>
 
 	<p>
         <%= form.hidden_field :published, :id=>"publicado", :class => 'checkbox', :value => 'true' %>
