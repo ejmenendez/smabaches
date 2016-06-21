@@ -113,5 +113,34 @@ function getGeocodeLocation()
           alert('Geocode was not successful for the following reason: ' + status);
         }
   });
+}
 
+// geocoder con la latitud y longitud devuelve la dirección
+function geocodeLatLng() {
+  var geocoder = new google.maps.Geocoder();
+  if(!geocoder) geocoder = new GClientGeocoder();
+  var infowindow = new google.maps.InfoWindow();
+  
+  var latlng = {lat: parseFloat($("#latitud").val()), lng: parseFloat( $("#longitud").val())};
+     window.alert($("#latitud").val()+" "+$("#longitud").val());
+  geocoder.geocode({'location': latlng}, function(results, status) {
+    if (status === google.maps.GeocoderStatus.OK) {
+      if (results[1]) {
+       var pepe = "";
+        for(var x = 0; x<results.length; x++)
+            {
+                pepe = pepe+results[x].toString();
+            }
+          window.alert(pepe);
+        handler.getMap().setZoom(11);
+        addMarker(latlng);
+        infowindow.setContent(results[1].formatted_address);
+        infowindow.open(handler.getMap(), marker);
+      } else {
+        window.alert('No results found');
+      }
+    } else {
+      window.alert('Geocoder failed due to: ' + status);
+    }
+  });
 }
