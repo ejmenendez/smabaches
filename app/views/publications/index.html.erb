@@ -1,15 +1,29 @@
-<h1 style="margin-top: 50px">Publicaciones</h1>
+<div class="col-md-5">
+	<h1 style="margin-top: 50px">Publicaciones</h1>
 
-<%= form_tag publications_path, :method =>'get', id: "filter", class: 'form-inline' do %>
-	<p>
-		<div class="form-group">
-			<%= text_field_tag :search, params[:search], class: 'form-control' %>
-			<%= submit_tag "Buscar", :name => nil, class: 'btn btn-primary'%>
-		</div>
-	</p>
+	<%= form_tag publications_path, :method =>'get', id: "filter", class: 'form-inline' do %>
+		<p>
+			<div class="form-group col-md-12">
+				<%= text_field_tag :search, params[:search], class: 'form-control' %>
+				<%= submit_tag "Buscar", :name => nil, class: 'btn btn-primary'%>
+			</div>
+		</p>
 
-<% end %>
+	<% end %>
+</div>
 
+<div class="row" style="margin: 40px">
+	<div  id="cont" class="col-md-6 thumbnail">
+		<div id="map" style="width: 100%; height:250px"></div>
+	</div>
+</div>
+<script>
+	$(window).resize(function(){
+		$('#map').css("width",$('#cont').width());
+		google.maps.event.trigger(map, 'resize');
+	});
+	createMap(<%=raw @hash.to_json %>, 13);
+</script>
 
 <!-- Contenido de la pagina -->
 <div class="container">
@@ -17,57 +31,6 @@
 	<div class="row">
 
 		<div class="col-md-12">
-			<div class="row carousel-holder">
-
-				<div class="col-md-12" >
-
-					<div id="carousel" class="carousel slide" data-ride="carousel">
-
-						<ol class="carousel-indicators">
-							<li data-target="#carousel-example-generic" data-slide-to="0"></li>
-							<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-							<li data-target="#carousel-example-generic" data-slide-to="2"></li>
-						</ol>
-
-						<div class="carousel-inner">
-							<% publication = @publications.first %>
-									<% if publication.present?%>
-
-										<div class="item active">
-											<%= image_tag publication.photo.url(:medium), :class => "slide-image img-thumbnail"%>
-											<div class="carousel-caption">
-												<h3><%= publication.title %></h3>
-				        				<p><%= publication.description %></p>
-				      				</div>
-								 		</div>
-
-									<% end %>
-
-									<% @publications.each do |publication| %>
-
-										<% if publication != @publications.first%>
-
-										<div class="item">
-											<%= image_tag publication.photo.url(:medium), :class => "slide-image img-thumbnail"%>
-											<div class="carousel-caption">
-												<h3><%= publication.title %></h3>
-				        				<p><%= publication.description %></p>
-				      				</div>
-										</div>
-
-										<% end %>
-
-							<% end %>
-							<a class="carousel-control left" href="#carousel" data-slide="prev">
-        				<span class="glyphicon glyphicon-chevron-left"></span>
-    					</a>
-    					<a class="carousel-control right" href="#carousel" data-slide="next">
-        				<span class="glyphicon glyphicon-chevron-right"></span>
-    					</a>
-						</div>
-					</div>
-				</div>
-			</div>
 			<hr>
 			<div class="row">
 				<div class="col-md-3">
@@ -112,30 +75,6 @@
 		</div>
 	</div>
 </div>
-
-<!-- /.section -->
-<hr>
-
-  <div class="section">
-    <div class="row">
-        <div class="col-md-7">
-          <h1>Mapa De Baches En La Ciudad:</h1>
-          <p>Ubicacion geografica en la Ciudad de San Martin De Los Andes, de los baches detallados en las publicaciones</p>
-        </div>
-				<div id="cont" class="col-md-12">
-				  <div id="map" style="width: 100%; height:250px"></div>
-				</div>
-      </div>
-  </div>
-
-<script>
-	$(window).resize(function(){
-		$('#map').css("width",$('#cont').width());
-		google.maps.event.trigger(map, 'resize');
-	});
-	createMap(<%=raw @hash.to_json %>, 13);
-</script>
-
 
 <!-- /.container -->
 <div class="container">
