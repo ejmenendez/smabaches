@@ -86,7 +86,8 @@ function show_table(nr) {
 								<%= link_to 'Editar', edit_publication_path(publication), :class => "btn btn-warning", 'data-no-turbolink' => true %>
 							<% end %>
 							<% if policy(publication).destroy? %>
-								<button class="btn btn-default" data-href="/delete.php?id=54" data-toggle="modal" data-target="#confirm-delete">
+								<%= render :partial => 'publications/modal_confirm_delete', :locals => { :publication => publication }%>
+								<button class="btn btn-danger" data-toggle="modal" data-target="#confirm-delete<%=publication.id %>">
 									Borrar
 								</button>
 							<% end %>
@@ -96,39 +97,7 @@ function show_table(nr) {
 			</div>
 		</div>
 	</div>
-
-	<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	          <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
-	      </div>
-
-	      <div class="modal-body">
-	          <p>You are about to delete one track, this procedure is irreversible.</p>
-	          <p>Do you want to proceed?</p>
-	          <p class="debug-url"></p>
-	      </div>
-
-	      <div class="modal-footer">
-	          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-	          <%= link_to 'Borrar', publication_path(publication), method: :delete, :class => "btn btn-danger"%>
-	      </div>
-	    </div>
-		</div>
-	</div>
 <% end %>
-
-<script>
-    $('#confirm-delete').on('show.bs.modal', function(e) {
-        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
-
-        $('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
-    });
-</script>
-
-
 <!-- /.container -->
 <div class="container col-md-12">
 	<hr>
