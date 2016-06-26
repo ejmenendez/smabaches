@@ -1,6 +1,6 @@
 class PublicationsController < ApplicationController
 	skip_before_action :authenticate_user!, only: [:index, :show]
-
+    
 	def index
 		authorize Publication
 		@publications = Publication.filter(params[:category])
@@ -80,7 +80,7 @@ class PublicationsController < ApplicationController
 	private
 
 	def publication_params
-		params.require(:publication).permit(:description, :latitude, :longitude, :title, :published, :photo,:category_id)
+		params.require(:publication).permit(:description, :latitude, :longitude, :title, :published, :photo, :category_id, :nwlat, :nwlng, :selat, :selng)
 	end
 
 	def create_markers(publications)

@@ -23,26 +23,84 @@ function usePosition(position) {
 
 // crea el mapa con los marcadores que se envían por parámetro
 // el zoom se asigna de acuerdo a la página que se esté mostrando
-function createMap(paramMarkers, zoom)
+function createMap(jsonMarkers, zoom)
 {
     handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
         handler.fitMapToBounds();
-        //markers = handler.addMarkers(paramMarkers);  
-	    handler.bounds.extendWith(markers);
-       
     });
     
-    // recorro el json wnviado con los datos de los marcadores, y los agrego al mapa
-    $.each(paramMarkers, function(i, value) 
+    addJsonMarkers(jsonMarkers, zoom);
+    //limitPanning();
+}
+
+// limita el paneo del google map a SMA y alrededores
+// el mapa debe estar centrado dentro de los límites antes de invocar éste método
+function limitPanning()
+{
+    // NOOOOOOOOOOOOOOOOOOOOOOOO FUNCIONAAAAAAAAAAAAAAAAAAA
+    // ARREGLAAAAAAAAAAAAAAARRRRRR
+    // bounds, primero latitud y longitud de la esquina NE y después de la SW
+    var allowedBounds = new google.maps.LatLngBounds(
+         new google.maps.LatLng(-40.111752666854954 , -71.16297483444214), 
+         new google.maps.LatLng(-40.17736337407632, -71.47711515426636)
+    );
+    // centro actual del mapa
+    var lastValidCenter = handler.getMap().getCenter();
+    
+    // listener para cambio de centro
+    google.maps.event.addListener(handler.getMap(), 'center_changed', function() {
+        if (allowedBounds.contains(handler.getMap().getCenter())) 
+        {
+            lastValidCenter = handler.getMap().getCenter();
+            return; 
+        }
+        // última posición válida
+        handler.getMap().panTo(lastValidCenter);
+    });
+
+}
+
+// agrega el listener al mapa para que se muestren los marcadores del mapa visible
+// después de un drag o zoom
+function addDragListener()
+{
+    google.maps.event.addListener(handler.getMap(), 'idle', function(event){
+        //window.alert(this.getBounds());
+        var bounds = this.getBounds();
+        var ne = bounds.getNorthEast(); 
+        var sw = bounds.getSouthWest();
+       
+        for(var i = 0; i < markers.length; i++)
+        {
+            // cada uno de los marcadores actuales
+            var auxMarker = markers[i];
+            var auxLat = auxMarker.getPosition().lat();
+            var auxLng = auxMarker.getPosition().lng();
+            
+            // si está dentro de las coordenadas, lo asocio al mapa
+            // latitudes y longitudes son negativas
+            if(auxLat <= ne.lat() && auxLat >= sw.lat() && 
+               auxLng <= ne.lng() && auxLng >= sw.lng())
+            {
+                auxMarker.setMap(handler.getMap());
+            } else {
+                // si está fuera, le saco la asociación al mapa
+                auxMarker.setMap(null);
+            }
+        }
+  });
+}
+
+// agrega los marcadores enviados por json al mapa
+function addJsonMarkers(jsonMarkers, zoom)
+{   
+    // recorro el json enviado con los datos de los marcadores, y los agrego al mapa
+    $.each(jsonMarkers, function(i, value) 
     {
         var myLatlng = new google.maps.LatLng(value.lat, value.lng);
         var myMarker = new google.maps.Marker({
         position: myLatlng,
-        map: handler.getMap(),
-        
-        infowindow: new google.maps.InfoWindow({
-            content: value.infowindow
-            })
+        map: handler.getMap()            
         });
 
         markers.push(myMarker);
@@ -65,7 +123,8 @@ function centerMap()
 }
 
 //funcion que genera un marker en la posicion donde se genero el evento del mouse
-function listener(){
+function listener()
+{
   // listener para agregar un marker. se permite sólo uno
   google.maps.event.addListener(handler.getMap(), 'click', function(event){
       $("#latitud").val(event.latLng.lat());
@@ -73,7 +132,6 @@ function listener(){
             
       addMarker(event.latLng);
   });
-  
 }
 
 // si existe el marker, lo cambia a la nueva posición, si no exite lo crea

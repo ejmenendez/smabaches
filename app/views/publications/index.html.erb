@@ -10,7 +10,6 @@
 
 <% end %>
 
-
 <!-- Contenido de la pagina -->
 <div class="container">
 
@@ -133,7 +132,9 @@
 		$('#map').css("width",$('#cont').width());
 		google.maps.event.trigger(map, 'resize');
 	});
+    
 	createMap(<%=raw @hash.to_json %>, 13);
+    addDragListener();
 </script>
 
 
