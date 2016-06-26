@@ -31,7 +31,7 @@
           $('#map').css("width",$('#cont').width());
           google.maps.event.trigger(map, 'resize');
         });
-        
+
         createMap(<%=raw @hash.to_json %>, 14);
     </script>
 
@@ -70,17 +70,15 @@
         Negativo:<%= porcentaje_neg%>%
       </div>
     </div>
+    <div class="btn-group col-md-12">
+      <% if policy(@publication).edit? %>
+        <%= link_to 'Editar', edit_publication_path(@publication), :class => "btn btn-warning", 'data-no-turbolink' => true %>
+      <% end %>
 
-</div>
+      <% if policy(@publication).destroy? %>
+        <%= link_to 'Borrar', publication_path(@publication), method: :delete, :class => "btn btn-danger"  %>
+      <% end %>
 
-<div class="btn-group">
-  <% if policy(@publication).edit? %>
-    <%= link_to 'Editar', edit_publication_path(@publication), :class => "btn btn-warning", 'data-no-turbolink' => true %>
-  <% end %>
-
-  <% if policy(@publication).destroy? %>
-    <%= link_to 'Borrar', publication_path(@publication), method: :delete, :class => "btn btn-danger"  %>
-  <% end %>
-
-  <%= link_to 'Volver al índice', publications_path, :class => "btn btn-primary", 'data-no-turbolink' => true  %>
+      <%= link_to 'Volver al índice', publications_path, :class => "btn btn-primary", 'data-no-turbolink' => true  %>
+    </div>
 </div>

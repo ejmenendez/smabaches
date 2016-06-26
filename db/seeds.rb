@@ -21,12 +21,40 @@ user = User.new(
 )
 estebanUser.save!
 
-Publication.create!(title: 'Primera Publicacion',description: 'Bache molesto', author: rodriUser, latitude: -40.1362682 , longitude: -71.29446349999999);
-Publication.create!(title: 'Segunda Publiacion',description: 'Bache molesto', author: estebanUser, latitude: -40.14 , longitude: -71.295);
-Publication.create!(title: 'Tercera Publicacion',description: 'Bache molesto',author: estebanUser, latitude: -40.15 , longitude: -71.296);
+bache = Category.create!(name: 'Bache')
+graffiti = Category.create!(name: 'Graffiti')
 
-Category.create!(name: 'Bache')
-Category.create!(name: 'Graffiti')
+
+for i in 0..10
+   publ = Publication.create!({
+        title: "Bache numero #{i}",
+        description: "Bache molesto",
+        author: rodriUser,
+        category: bache,
+        latitude: ("-40.13#{i}6268").to_f ,
+        longitude:("-71.29446#{i}39999").to_f,
+        photo: File.open(File.join(Rails.root, 'app', 'assets','images',  'exampleBache.jpg'))
+       })
+end
+for i in 0..5
+   publ = Publication.create!({
+        title: "Graffiti numero #{i}",
+        description: "Graffiti molesto",
+        author: estebanUser,
+        category: graffiti,
+        latitude:  ("-40.1#{i}362682").to_f ,
+        longitude: ("-71.29446349#{i}9999").to_f,
+        photo: File.open(File.join(Rails.root, 'app', 'assets','images',  'exampleGraffiti.jpg'))
+       })
+end
+
+
+#Publication.create!(title: 'Primera Publicacion',description: 'Bache molesto', author: rodriUser, latitude: -40.1362682 , longitude: -71.29446349999999,category_id: bache.id,
+##photo: File.open(File.join(Rails.root, 'app', 'assets','images',  'exampleBache.jpg')));
+#Publication.create!(title: 'Segunda Publiacion',description: 'Bache molesto', author: estebanUser, latitude: -40.14 , longitude: -71.295,category: bache.id,
+#photo: File.open(File.join(Rails.root, 'app', 'assets','images',  'exampleBache.jpg')));
+#Publication.create!(title: 'Tercera Publicacion',description: 'Bache molesto',author: estebanUser, latitude: -40.15 , longitude: -71.296);
+
 
 Street.create!( name:  '3 DE CABALLERIA')
 Street.create!( name:  'CARLOS WEBER')
