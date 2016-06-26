@@ -1,83 +1,136 @@
 <div class="col-md-5">
-	<h1 style="margin-top: 50px">Publicaciones</h1>
-
-	<%= form_tag publications_path, :method =>'get', id: "filter", class: 'form-inline' do %>
+	<h1>Publicaciones</h1>
+	<%= form_tag publications_path, :method =>'get', id: "search", class: 'form-inline' do %>
 		<p>
-			<div class="form-group col-md-12">
+			<div class="form-group col-md-12" style="margin: 10px">
 				<%= text_field_tag :search, params[:search], class: 'form-control' %>
 				<%= submit_tag "Buscar", :name => nil, class: 'btn btn-primary'%>
 			</div>
 		</p>
-
 	<% end %>
-</div>
 
-<div class="row" style="margin: 40px">
-	<div  id="cont" class="col-md-6 thumbnail">
+	<div  id="cont" class="thumbnail col-md-12">
 		<div id="map" style="width: 100%; height:250px"></div>
+		<%= link_to 'Nueva Publicación', new_publication_path, :protocol => 'https://', :class => "btn btn-primary"%>
 	</div>
+
+	<script>
+	  var currentDetail = null;
+		$(window).resize(function(){
+			$('#map').css("width",$('#cont').width());
+			google.maps.event.trigger(map, 'resize');
+		});
+		createMap(<%=raw @hash.to_json %>, 13);
+	</script>
 </div>
-<script>
-	$(window).resize(function(){
-		$('#map').css("width",$('#cont').width());
-		google.maps.event.trigger(map, 'resize');
-	});
-	createMap(<%=raw @hash.to_json %>, 13);
-</script>
 
-<!-- Contenido de la pagina -->
-<div class="container">
-
-	<div class="row">
-
-		<div class="col-md-12">
-			<hr>
-			<div class="row">
-				<div class="col-md-3">
-					<%= link_to 'Nueva Publicación', new_publication_path, :protocol => 'https://', :class => "btn btn-primary"%>
-					<p class="lead">Categorias:</p>
-					<%= form_tag publications_path, :method =>'get', id: "filter" do %>
-						<%= select_tag "category", options_from_collection_for_select(Category.all, "id", "name", params[:category]),
-						:onchange => "$('#filter').submit();", :class => 'form-control'%>
-					<% end %>
-				</div>
-					<% @publications.each do |publication| %>
-
-					<div class="col-sm-3 col-md-3">
-
-						<div class="thumbnail">
-							<%= link_to publication_path(publication) do %>
-  							<%= image_tag (publication.photo.url(:thumb)) %>
-							<% end %>
-
-								<div class="caption">
-									<h4><%= link_to publication.title, publication_path(publication), :protocol => 'https://' %></h4>
-									<p><%= publication.description%></a>.</p>
-								</div>
-								<%= link_to like_publication_path(publication), method: :put do %>
-														<div class="col-md-3">
-															<span class="glyphicon glyphicon-thumbs-up"></span>
-														</div>
-														<p class="col-md-3"><%= publication.get_upvotes.size %></p>
-													<% end %>
-
-													<%= link_to like_publication_path(publication), method: :put do %>
-																			<div class="col-md-3">
-																				<span class="glyphicon glyphicon-thumbs-down"></span>
-																			</div>
-																			<p class="col-md-3"><%= publication.get_upvotes.size %></p>
-																		<% end %>
-						</div>
-          </div>
-
+<div class="col-md-3" style="margin: 20px;">
+	<div class="panel panel-primary" style="overflow-y:auto;max-height:400px;">
+		<div class="panel-heading"><strong>Publicaciones:</strong></div>
+		<div class="panel-body">
+			<p>
+				<%= form_tag publications_path, :method =>'get', id: "filter", :class => "form-group " do %>
+					Categorias:
+					<%= select_tag "category", options_from_collection_for_select(Category.all, "id", "name", params[:category]),
+					prompt: "Todos",:onchange => "$('#filter').submit();",:class => 'form-control'%>
 				<% end %>
-			</div>
+			</p>
+			<hr>
+			<% @publications.each do |publication| %>
+				<div class="panel panel-default">
+					<h4><a href="javascript:void(0)" onclick='show_table(<%= publication.id %>)'> <%= publication.title%> </a></h4>
+				</div>
+			<% end %>
 		</div>
 	</div>
 </div>
 
+<script>
+function show_table(nr) {
+	if (currentDetail) {
+		$(currentDetail).hide();
+	}
+	currentDetail = "#table"+nr;
+  $(currentDetail).show();
+	return false;
+}
+</script>
+<% @publications.each do |publication| %>
+	<div class="col-md-3" style="margin-top:20px;">
+	  <div style="display:none;" id="<%= 'table'+publication.id.to_s %>">
+			<div class="row">
+				<div class="col-sm-12 col-md-12">
+  				<div class="thumbnail" style="height:350px;">
+						<%= link_to publication_path(publication) do %>
+							<%= image_tag (publication.photo.url(:thumb))%>
+						<% end %>
+    				<div class="caption">
+      				<h4><%= link_to publication.title, publication_path(publication), :protocol => 'https://' %></h4>
+      				<p><%= publication.description%></a>.</p>
+							<div class="col-md-6 col-xm-6"  style="text-align:center;">
+								<%= link_to like_publication_path(publication), method: :put do %>
+									<span class="glyphicon glyphicon-thumbs-up"></span>
+									<%= publication.get_upvotes.size %>
+								<% end %>
+							</div>
+							<div class="col-md-6 col-xm-6"  style="text-align:center;">
+								<%= link_to like_publication_path(publication), method: :put do %>
+									<span class="glyphicon glyphicon-thumbs-down"></span>
+									<%= publication.get_upvotes.size %>
+								<% end %>
+							</div>
+    				</div>
+						<div class="btn-group col-md-12">
+							<%= link_to 'Ver', publication_path(publication), :class => "btn btn-primary", 'data-no-turbolink' => true  %>
+							<% if policy(publication).edit? %>
+								<%= link_to 'Editar', edit_publication_path(publication), :class => "btn btn-warning", 'data-no-turbolink' => true %>
+							<% end %>
+							<% if policy(publication).destroy? %>
+								<button class="btn btn-default" data-href="/delete.php?id=54" data-toggle="modal" data-target="#confirm-delete">
+									Borrar
+								</button>
+							<% end %>
+						</div>
+  				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	          <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+	      </div>
+
+	      <div class="modal-body">
+	          <p>You are about to delete one track, this procedure is irreversible.</p>
+	          <p>Do you want to proceed?</p>
+	          <p class="debug-url"></p>
+	      </div>
+
+	      <div class="modal-footer">
+	          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+	          <%= link_to 'Borrar', publication_path(publication), method: :delete, :class => "btn btn-danger"%>
+	      </div>
+	    </div>
+		</div>
+	</div>
+<% end %>
+
+<script>
+    $('#confirm-delete').on('show.bs.modal', function(e) {
+        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+
+        $('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
+    });
+</script>
+
+
 <!-- /.container -->
-<div class="container">
+<div class="container col-md-12">
 	<hr>
 	<!-- Footer -->
 		<footer>
