@@ -1,5 +1,5 @@
-<div class="col-md-5">
-	<h1>Publicaciones</h1>
+<div class="col-md-5 col-sm-5">
+	<h1>SmAndes Baches</h1>
 	<%= form_tag publications_path, :method =>'get', id: "search", class: 'form-inline' do %>
 		<p>
 			<div class="form-group col-md-12" style="margin: 10px">
@@ -9,8 +9,8 @@
 		</p>
 	<% end %>
 
-	<div  id="cont" class="thumbnail col-md-12">
-		<div id="map" style="width: 100%; height:250px"></div>
+	<div  id="cont" class="thumbnail col-md-12 col-sm-12">
+		<div id="map" style="width: 100%; height:310px"></div>
 		<%= link_to 'Nueva Publicación', new_publication_path, :protocol => 'https://', :class => "btn btn-primary"%>
 	</div>
 
@@ -24,23 +24,27 @@
 	</script>
 </div>
 
-<div class="col-md-3" style="margin: 20px;">
-	<div class="panel panel-primary" style="overflow-y:auto;max-height:400px;">
+<div class="col-md-3 col-sm-3" style="margin: 30px;top: 37px;">
+	<div class="panel panel-primary" style="max-height:415px;">
 		<div class="panel-heading"><strong>Publicaciones:</strong></div>
-		<div class="panel-body">
-			<p>
-				<%= form_tag publications_path, :method =>'get', id: "filter", :class => "form-group " do %>
-					Categorias:
-					<%= select_tag "category", options_from_collection_for_select(Category.all, "id", "name", params[:category]),
-					prompt: "Todos",:onchange => "$('#filter').submit();",:class => 'form-control'%>
-				<% end %>
-			</p>
-			<hr>
-			<% @publications.each do |publication| %>
-				<div class="panel panel-default">
-					<h4><a href="javascript:void(0)" onclick='show_table(<%= publication.id %>)'> <%= publication.title%> </a></h4>
+		<div class="panel-body;max-height:600px;">
+			<%= form_tag publications_path, :method =>'get', id: "filter", :class => "form-group " do %>
+				<div class="form-group col-md-12">
+					<label for="message" class="col-sm-4 control-label">Categorias:</label>
+					<div class="col-md-7">
+						<%= select_tag "category", options_from_collection_for_select(Category.all, "id", "name", params[:category]),
+						prompt: "Todos",:onchange => "$('#filter').submit();",:class => 'form-control'%>
+					</div>
 				</div>
 			<% end %>
+			<hr>
+			<div style="overflow-y:auto;max-height:295px;margin:5px;">
+				<% @publications.each do |publication| %>
+					<div class="panel panel-default">
+						<h4><a href="javascript:void(0)" onclick='show_table(<%= publication.id %>)'> <%= publication.title%> </a></h4>
+					</div>
+				<% end %>
+			</div>
 		</div>
 	</div>
 </div>
@@ -51,7 +55,7 @@
 		$('#map').css("width",$('#cont').width());
 		google.maps.event.trigger(map, 'resize');
 	});
-    
+
 	createMap(<%=raw @hash.to_json %>, 13);
     addDragListener();
 function show_table(nr) {
@@ -64,31 +68,31 @@ function show_table(nr) {
 }
 </script>
 
-<% @publications.each do |publication| %>
-	<div class="col-md-3" style="margin-top:20px;">
+<div class="col-md-3 col-sm-3" style="margin-top: 20px;">
+	<% @publications.each do |publication| %>
 	  <div style="display:none;" id="<%= 'table'+publication.id.to_s %>">
 			<div class="row">
-				<div class="col-sm-12 col-md-12">
-  				<div class="thumbnail" style="height:350px;">
+				<div class="col-sm-12 col-md-12" style="top: 50px;">
+					<div class="thumbnail" style="height:350px;">
 						<%= link_to publication_path(publication) do %>
 							<%= image_tag (publication.photo.url(:thumb))%>
 						<% end %>
-    				<div class="caption">
-      				<h4><%= link_to publication.title, publication_path(publication), :protocol => 'https://' %></h4>
-      				<p><%= publication.description%></a>.</p>
-							<div class="col-md-6 col-xm-6"  style="text-align:center;">
+	  				<div class="caption">
+	    				<h4><%= link_to publication.title, publication_path(publication), :protocol => 'https://' %></h4>
+	    				<p><%= publication.description%></a>.</p>
+							<div class="col-md-6 col-sm-6 col-xs-6"  style="text-align:center;">
 								<%= link_to like_publication_path(publication), method: :put do %>
 									<span class="glyphicon glyphicon-thumbs-up"></span>
 									<%= publication.get_upvotes.size %>
 								<% end %>
 							</div>
-							<div class="col-md-6 col-xm-6"  style="text-align:center;">
+							<div class="col-md-6 col-sm-6 col-xs-6"  style="text-align:center;">
 								<%= link_to like_publication_path(publication), method: :put do %>
 									<span class="glyphicon glyphicon-thumbs-down"></span>
 									<%= publication.get_upvotes.size %>
 								<% end %>
 							</div>
-    				</div>
+	  				</div>
 						<div class="btn-group col-md-12">
 							<%= link_to 'Ver', publication_path(publication), :class => "btn btn-primary", 'data-no-turbolink' => true  %>
 							<% if policy(publication).edit? %>
@@ -101,14 +105,15 @@ function show_table(nr) {
 								</button>
 							<% end %>
 						</div>
-  				</div>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-<% end %>
+	<% end %>
+</div>
+
 <!-- /.container -->
-<div class="container col-md-12">
+<div class="container col-md-12 col-sm-12">
 	<hr>
 	<!-- Footer -->
 		<footer>
