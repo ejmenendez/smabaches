@@ -10,7 +10,7 @@
           <%= hidden_field_tag :swLng, params[:swLng], :class => 'text_field', :id => "swLng" %>
           <%= hidden_field_tag :neLat, params[:neLat], :class => 'text_field', :id => "neLat" %>
           <%= hidden_field_tag :neLng, params[:neLng], :class => 'text_field', :id => "neLng" %>
-        </p> 
+        </p>
 				<%= submit_tag "Buscar", :name => nil, class: 'btn btn-primary'%>
 			</div>
 		</p>
@@ -65,9 +65,9 @@
 
   createMap(<%=raw @hash.to_json %>, 13);
   addDragListener();
-  
+
   function show_table(nr) {
-    if (currentDetail) 
+    if (currentDetail)
     {
       $(currentDetail).hide();
     }
@@ -129,6 +129,7 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<p>SmaBaches &copy; Laboratorio 4 Año:2016, Contacto: smabaches@gmail.com</p>
+					<%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
 				</div>
 			</div>
 		</footer>

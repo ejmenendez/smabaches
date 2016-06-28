@@ -94,5 +94,6 @@ gem 'acts_as_votable'
 #para el manejo de las fotos
 gem 'imagemagick-identify', '~> 0.0.1'
 gem 'paperclip'
-
+#Autorizacion por facebook
+gem 'omniauth-facebook'
 
