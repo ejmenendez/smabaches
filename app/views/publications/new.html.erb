@@ -13,11 +13,10 @@
 <script>
   $(document).ready(function()
   {
-      getLocation();
-      // crear el mapa
-      createMap(<%=raw @hash.to_json %>, 14);
-      addMarkerOnClick();
+    // crear el mapa
+    createMap(null, 14);
+    centerMap();
+    addMarkerOnClick();
+    getLocation();
   });
-    
-  addMarkerOnClick();
 </script>
