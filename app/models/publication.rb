@@ -6,8 +6,8 @@ class Publication < ActiveRecord::Base
   acts_as_votable
 
   #atributos virtuales para usar en el geocoder calle y numero
-  #attr_accessor :address #nombre de la calle y altura
-  #attr_accessor :number #altura, solo para poder usar en el form
+  attr_accessor :address #nombre de la calle y altura
+  attr_accessor :number #altura, solo para poder usar en el form
   
   # geocoding con la gema geocoder,  para poder hacer querys con latitud y longitud
   geocoded_by :street, :latitude  => :latitude, :longitude => :longitude 
@@ -27,9 +27,11 @@ class Publication < ActiveRecord::Base
   belongs_to :category
   
   #para la gema clipboard, archivos de imágenes adjuntos
+  #se borrarán los archivos cuando se borre la publicación
   has_attached_file :photo,
       styles: {medium: "400x400#", thumb: "200x200#",thumb1: "300x250"},
-      default_url: "/images/:style/missing.png"
+      default_url: "/images/:style/missing.png",
+      :preserve_files => "false" 
   validates_attachment_content_type :photo, content_type: /\Aimage\/.*\Z/
 
   # para la gema geokit-rails, que se encarga de buscar publicaciones dentro del rectángulo
