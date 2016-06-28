@@ -66,6 +66,7 @@ gem 'devise','~> 3.5.6'
 gem 'rails_admin','~> 0.8.1'
 gem 'rolify','~> 5.1'
 gem 'bootstrap-sass'
+
 group :development do
 	gem 'rails_layout'
 end
@@ -74,7 +75,12 @@ end
 gem 'gmaps4rails'
 
 #geocoder para sacar latitud y longitud con una dirección
+#y hacer querys en la base de datos con las coordenadas de un mapa
 gem 'geocoder'
+
+#permite buscar modelos que tengan latitud y longitud dentro de un rectángulo
+#que se puede delimitar con las coordenadas delmapa
+gem 'geokit-rails'
 
 #manejo de permisos
 gem 'pundit', '~>1.1.0'

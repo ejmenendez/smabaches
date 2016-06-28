@@ -54,13 +54,13 @@
     </div><br>
   </div>
 	
-<!-- Latitud y longitud las saco del browser y van en campos ocultos. -->
-	<p>
+  <!-- Latitud y longitud las saco del browser y van en campos ocultos. -->
+  <p>
          <%= form.hidden_field :latitude, :id=>"latitud", :class => 'text_field', :step => 'any' %>
-	</p>
-	<p>
+  </p>
+  <p>
          <%= form.hidden_field :longitude, :id=>"longitud", :class => 'text_field', :step => 'any' %>
-	</p>
+  </p>
 
   <p>
     <%= link_to 'Volver al índice', publications_path, :class => "btn btn-success", 'data-no-turbolink' => true%>

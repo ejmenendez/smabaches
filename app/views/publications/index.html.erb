@@ -1,9 +1,16 @@
 <div class="col-md-5 col-sm-5">
 	<h1>SmAndes Baches</h1>
-	<%= form_tag publications_path, :method =>'get', id: "search", class: 'form-inline' do %>
+  <%= form_tag publications_path, :method =>'get', id: "search", class: 'form-inline' do %>
 		<p>
 			<div class="form-group col-md-12" style="margin: 10px">
 				<%= text_field_tag :search, params[:search], class: 'form-control' %>
+        <!-- Coordenadas de las esquinas del viewport del mapa en campos ocultos. -->
+        <p>
+          <%= hidden_field_tag :swLat, params[:swLat], :class => 'text_field', :id => "swLat" %>
+          <%= hidden_field_tag :swLng, params[:swLng], :class => 'text_field', :id => "swLng" %>
+          <%= hidden_field_tag :neLat, params[:neLat], :class => 'text_field', :id => "neLat" %>
+          <%= hidden_field_tag :neLng, params[:neLng], :class => 'text_field', :id => "neLng" %>
+        </p> 
 				<%= submit_tag "Buscar", :name => nil, class: 'btn btn-primary'%>
 			</div>
 		</p>
@@ -51,21 +58,23 @@
 
 <script>
 
-	$(window).resize(function(){
-		$('#map').css("width",$('#cont').width());
-		google.maps.event.trigger(map, 'resize');
-	});
+  $(window).resize(function(){
+    $('#map').css("width",$('#cont').width());
+    google.maps.event.trigger(map, 'resize');
+  });
 
-	createMap(<%=raw @hash.to_json %>, 13);
-    addDragListener();
-function show_table(nr) {
-	if (currentDetail) {
-		$(currentDetail).hide();
-	}
-	currentDetail = "#table"+nr;
-  $(currentDetail).show();
-	return false;
-}
+  createMap(<%=raw @hash.to_json %>, 13);
+  addDragListener();
+  
+  function show_table(nr) {
+    if (currentDetail) 
+    {
+      $(currentDetail).hide();
+    }
+    currentDetail = "#table"+nr;
+    $(currentDetail).show();
+    return false;
+  }
 </script>
 
 <div class="col-md-3 col-sm-3" style="margin-top: 20px;">

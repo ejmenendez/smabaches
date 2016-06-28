@@ -65,29 +65,34 @@ function limitPanning()
 function addDragListener()
 {
     google.maps.event.addListener(handler.getMap(), 'idle', function(event){
-        //window.alert(this.getBounds());
-        var bounds = this.getBounds();
-        var ne = bounds.getNorthEast(); 
-        var sw = bounds.getSouthWest();
-       
-        for(var i = 0; i < markers.length; i++)
-        {
-            // cada uno de los marcadores actuales
-            var auxMarker = markers[i];
-            var auxLat = auxMarker.getPosition().lat();
-            var auxLng = auxMarker.getPosition().lng();
-            
-            // si está dentro de las coordenadas, lo asocio al mapa
-            // latitudes y longitudes son negativas
-            if(auxLat <= ne.lat() && auxLat >= sw.lat() && 
-               auxLng <= ne.lng() && auxLng >= sw.lng())
-            {
-                auxMarker.setMap(handler.getMap());
-            } else {
-                // si está fuera, le saco la asociación al mapa
-                auxMarker.setMap(null);
-            }
-        }
+      var bounds = this.getBounds();
+      var ne = bounds.getNorthEast(); 
+      var sw = bounds.getSouthWest();
+      // paso el valor a los campos hidden del mapa
+      $("#swLat").val(sw.lat());
+      $("#swLng").val(sw.lng());
+      $("#neLat").val(ne.lat());
+      $("#neLng").val(ne.lng());
+      
+      // muestra dinámicamente los markers dentro del wiexpor actual.
+      for(var i = 0; i < markers.length; i++)
+      {
+          // cada uno de los marcadores actuales
+          var auxMarker = markers[i];
+          var auxLat = auxMarker.getPosition().lat();
+          var auxLng = auxMarker.getPosition().lng();
+
+          // si está dentro de las coordenadas, lo asocio al mapa
+          // latitudes y longitudes son negativas
+          if(auxLat <= ne.lat() && auxLat >= sw.lat() && 
+             auxLng <= ne.lng() && auxLng >= sw.lng())
+          {
+              auxMarker.setMap(handler.getMap());
+          } else {
+              // si está fuera, le saco la asociación al mapa
+              auxMarker.setMap(null);
+          }
+      }
   });
 }
 

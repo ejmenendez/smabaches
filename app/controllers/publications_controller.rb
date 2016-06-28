@@ -4,14 +4,28 @@ class PublicationsController < ApplicationController
 	def index
 		authorize Publication
 		if params[:category].present?
+      #buscar por categoría - en este caso asociado al combo de categoría
 			@publications = Publication.filter(params[:category])
-		else
+    elsif params[:search].present?
+      # texto de búsqueda del que llega del textbox 
 			@publications = Publication.search(params[:search])
+    elsif params[:swLat].present? && params[:neLat].present? &&
+          params[:swLng].present? && params[:neLng].present?
+      # objetos de límite de geokit_rails para esquinas NE y SW 
+      swGeokit = Geokit::LatLng.new(params[:swLat].to_f, params[:swLng].to_f)
+      neGeokit = Geokit::LatLng.new(params[:neLat].to_f, params[:neLng].to_f)
+      # array con los límites
+      bounds = [swGeokit, neGeokit]
+      #llamo al método de act_as_mappable para traer las publicaciones dentro del viewport
+      @publications = Publication.in_bounds(bounds)
+    else
+      # criterio de búsqueda por defecto
+      @publications = Publication.search(params[:search])
 		end
 		# crear los marcadores para el google maps
 		@hash = create_markers(@publications)
 	end
-
+  
 	def show
 		@publication = Publication.find(params[:id])
 		authorize @publication
@@ -51,7 +65,6 @@ class PublicationsController < ApplicationController
 		authorize @publication
 		# crea el marcador google maps de la publicación actual
 		@hash = create_markers(@publication)
-
 	end
 
 	def update
@@ -59,6 +72,7 @@ class PublicationsController < ApplicationController
 		authorize @publication
 		# crea el marcador google maps de la publicación actual
 		@hash = create_markers(@publication)
+    
 	  begin
 		  @publication.update!(publication_params)
 		  redirect_to @publication, 'data-no-turbolink' => true
@@ -83,7 +97,7 @@ class PublicationsController < ApplicationController
 	private
 
 	def publication_params
-		params.require(:publication).permit(:description, :latitude, :longitude, :title, :published, :photo, :category_id, :nwlat, :nwlng, :selat, :selng)
+		params.require(:publication).permit(:description, :latitude, :longitude, :title, :published, :photo, :category_id, :swLat, :swLng, :neLat, :neLng)
 	end
 
 	def create_markers(publications)
@@ -93,5 +107,4 @@ class PublicationsController < ApplicationController
 			marker.infowindow publication.title
 		end
 	end
-
 end
