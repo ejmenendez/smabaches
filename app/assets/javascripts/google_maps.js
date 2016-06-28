@@ -123,13 +123,12 @@ function centerMap()
 }
 
 //funcion que genera un marker en la posicion donde se genero el evento del mouse
-function listener()
+function addMarkerOnClick()
 {
   // listener para agregar un marker. se permite sólo uno
   google.maps.event.addListener(handler.getMap(), 'click', function(event){
       $("#latitud").val(event.latLng.lat());
       $("#longitud").val(event.latLng.lng());
-            
       addMarker(event.latLng);
   });
 }

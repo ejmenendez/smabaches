@@ -6,3 +6,15 @@
     <%= render 'form' %>
   </div>
 </div>
+
+<!-- si es edición, no tomo la ubicación actual del GPS -->
+<script>
+  $(document).ready(function()
+  {
+      // crear el mapa
+      createMap(<%=raw @hash.to_json %>, 14);
+      addMarkerOnClick();
+  });
+  
+  addMarkerOnClick();
+</script>

@@ -1,18 +1,9 @@
-<!-- El código javascript se encuentra en la página ya que no pudimos hacerlo funcionar mediante assets (todos los javascript se cargan en todas las páginas ), y los métodos que encontramos por la web en cuanto a organización y carga condicional de los scripts no funcionaron.  -->
+<!-- listener de resize de la ventana para que el google map se adecúe al tamaño nuevo -->
 <script>
   $(window).resize(function(){
     $('#map').css("width",$('#cont').width());
-    google.maps.event.trigger(map, 'resize');
+    google.maps.event.trigger(handler.getMap(), 'resize');
   });
-  // funcion de get_location.js
-  $(document).ready(function()
-  {
-      getLocation();
-      // crear el mapa
-      createMap(<%=raw @hash.to_json %>, 14);
-      listener();
-  });
-  listener();
 </script>
 
 <%= form_for @publication do |form| %>
@@ -62,13 +53,13 @@
       <div id="map" style='width: 100%; height: 230px;'></div>
     </div><br>
   </div>
-	<!-- Latitud y longitud las saco del browser y van en campos ocultos. -->
+	
+<!-- Latitud y longitud las saco del browser y van en campos ocultos. -->
 	<p>
-    <%= form.hidden_field :latitude, :id=>"latitud", :class => 'text_field', :step => 'any' %>
+         <%= form.hidden_field :latitude, :id=>"latitud", :class => 'text_field', :step => 'any' %>
 	</p>
-
 	<p>
-    <%= form.hidden_field :longitude, :id=>"longitud", :class => 'text_field', :step => 'any' %>
+         <%= form.hidden_field :longitude, :id=>"longitud", :class => 'text_field', :step => 'any' %>
 	</p>
 
   <p>

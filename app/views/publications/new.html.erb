@@ -2,7 +2,22 @@
   <div class="panel-heading">
     <h1>Publicaci&oacute;n nueva</h1>
   </div>
-  <div class="panel-body">
+    
+  <div class="panel-body" id="body-new-publication">
     <%= render 'form' %>
   </div>
+    
 </div>
+
+<!-- toma la ubicación actual mediante el navegador cuando es una publicación nueva -->
+<script>
+  $(document).ready(function()
+  {
+      getLocation();
+      // crear el mapa
+      createMap(<%=raw @hash.to_json %>, 14);
+      addMarkerOnClick();
+  });
+    
+  addMarkerOnClick();
+</script>
