@@ -1,38 +1,45 @@
 <!-- listener de resize de la ventana para que el google map se adecúe al tamaño nuevo -->
 <script>
-  $(window).resize(function(){
-    $('#map').css("width",$('#cont').width());
-    google.maps.event.trigger(handler.getMap(), 'resize');
-  });
+$(window).resize(function(){
+  $('#map').css("width",$('#cont').width());
+  google.maps.event.trigger(handler.getMap(), 'resize');
+});
 </script>
 
 <%= form_for @publication do |form| %>
 
   <div class="form-group col-md-12 col-sm-12">
     <%= form.label "Calle:",class:"col-md-2 col-sm-2 control-label", style: "margin-right: 25px;"%>
+    
     <div class="col-md-3">
       <%= select_tag "street", options_from_collection_for_select(Street.all, "id", "name" ),class:"form-control"%>
     </div>
-    <%= form.label "Altura",class:"col-md-1 col-sm-1 control-label"%>
+    
+    <%= form.label "Altura", class: "col-md-1 col-sm-1 control-label" %>
+    
     <div class="col-md-1 col-sm-1">
-      <%= form.number_field :number,class:"form-control" %>
+      <%= form.number_field :number, class:"form-control" %>
     </div>
+    
     <button type="button" onclick="JavaScript:getGeocodeLocation()" class="btn btn-success">Ver Ubicacion</button>
   </div>
 
-<div class="form-group col-md-7 col-sm-7" style="padding-left: 0px;">
+  <div class="form-group col-md-7 col-sm-7" style="padding-left: 0px;">
+
     <div class="form-group col-md-12 col-sm-12">
       <%= form.label "Titulo de la publicacion", class:"col-md-4 col-sm-4 control-label"%>
       <div class="col-md-6 col-sm-6">
         <%= form.text_field :title,class:"form-control" %>
       </div>
     </div>
+
     <div class="form-group col-md-12 col-sm-12">
-    	<%= form.label "Descripcion",class:"col-md-4 col-sm-4 control-label"%>
+      <%= form.label "Descripcion",class:"col-md-4 col-sm-4 control-label"%>
       <div class="col-md-6 col-sm-6">
-    		<%= form.text_area :description,class:"form-control"%>
-    	</div>
+        <%= form.text_area :description,class:"form-control"%>
+      </div>
     </div>
+
     <div class="form-group col-md-12 col-sm-12">
         <%= form.label 'Categoria:',class:"col-md-4 col-sm-4 control-label" %>
         <div class="col-md-6 col-sm-6">
@@ -46,20 +53,22 @@
         <%= form.file_field :photo, class:"form-control" %>
       </div>
     </div>
-</div>
+
+  </div>
+
   <div class="form-group col-md-4 col-sm-4">
     <%= form.label "Ubicacion",class:"col-md-2 col-sm-2 control-label" %>
     <div id="cont" class="col-md-12 col-sm-12 thumbnail" style="margin-right:100%">
       <div id="map" style='width: 100%; height: 230px;'></div>
     </div><br>
   </div>
-	
+
   <!-- Latitud y longitud las saco del browser y van en campos ocultos. -->
   <p>
-         <%= form.hidden_field :latitude, :id=>"latitud", :class => 'text_field', :step => 'any' %>
+    <%= form.hidden_field :latitude, :id=>"latitud", :class => 'text_field', :step => 'any' %>
   </p>
   <p>
-         <%= form.hidden_field :longitude, :id=>"longitud", :class => 'text_field', :step => 'any' %>
+    <%= form.hidden_field :longitude, :id=>"longitud", :class => 'text_field', :step => 'any' %>
   </p>
 
   <p>

@@ -1,17 +1,17 @@
 class PublicationsController < ApplicationController
 	skip_before_action :authenticate_user!, only: [:index, :show]
-    
+
 	def index
 		authorize Publication
 		if params[:category].present?
       #buscar por categoría - en este caso asociado al combo de categoría
 			@publications = Publication.filter(params[:category])
     elsif params[:search].present?
-      # texto de búsqueda del que llega del textbox 
+      # texto de búsqueda del que llega del textbox
 			@publications = Publication.search(params[:search])
     elsif params[:swLat].present? && params[:neLat].present? &&
           params[:swLng].present? && params[:neLng].present?
-      # objetos de límite de geokit_rails para esquinas NE y SW 
+      # objetos de límite de geokit_rails para esquinas NE y SW
       swGeokit = Geokit::LatLng.new(params[:swLat].to_f, params[:swLng].to_f)
       neGeokit = Geokit::LatLng.new(params[:neLat].to_f, params[:neLng].to_f)
       # array con los límites
@@ -22,10 +22,13 @@ class PublicationsController < ApplicationController
       # criterio de búsqueda por defecto
       @publications = Publication.search(params[:search])
 		end
+		if current_user.present?
+			@publications_current_user = @publications.select{|p| p.author == current_user}
+		end
 		# crear los marcadores para el google maps
 		@hash = create_markers(@publications)
 	end
-  
+
 	def show
 		@publication = Publication.find(params[:id])
 		authorize @publication
@@ -72,7 +75,7 @@ class PublicationsController < ApplicationController
 		authorize @publication
 		# crea el marcador google maps de la publicación actual
 		@hash = create_markers(@publication)
-    
+
 	  begin
 		  @publication.update!(publication_params)
 		  redirect_to @publication, 'data-no-turbolink' => true
