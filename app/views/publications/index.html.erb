@@ -1,24 +1,33 @@
 <div class="col-md-5 col-sm-5">
-	<h1>SmAndes Baches</h1>
   <%= form_tag publications_path, :method =>'get', id: "search", class: 'form-inline' do %>
 		<p>
-			<div class="form-group col-md-12" style="margin: 10px">
-				<%= text_field_tag :search, params[:search], class: 'form-control' %>
+			<div class="form-group col-md-12">
         <!-- Coordenadas de las esquinas del viewport del mapa en campos ocultos. -->
-        <p>
           <%= hidden_field_tag :swLat, params[:swLat], :class => 'text_field', :id => "swLat" %>
           <%= hidden_field_tag :swLng, params[:swLng], :class => 'text_field', :id => "swLng" %>
           <%= hidden_field_tag :neLat, params[:neLat], :class => 'text_field', :id => "neLat" %>
           <%= hidden_field_tag :neLng, params[:neLng], :class => 'text_field', :id => "neLng" %>
-        </p> 
-				<%= submit_tag "Buscar", :name => nil, class: 'btn btn-primary'%>
 			</div>
 		</p>
 	<% end %>
 
 	<div  id="cont" class="thumbnail col-md-12 col-sm-12">
-		<div id="map" style="width: 100%; height:310px"></div>
-		<%= link_to 'Nueva Publicación', new_publication_path, :protocol => 'https://', :class => "btn btn-primary"%>
+		<%= form_tag publications_path, :method =>'get', id: "filter", :class => "form-group " do %>
+			<div class="form-group col-md-12"  style="margin-top:20px;">
+				<label for="message" class=" col-md-2 col-sm-2 control-label">Categorias:</label>
+				<div class="col-md-10">
+					<%= select_tag "category", options_from_collection_for_select(Category.all, "id", "name", params[:category]),
+					prompt: "Todos",:onchange => "$('#filter').submit();",:class => 'form-control'%>
+				</div>
+			</div>
+		<% end %>
+		<div class="form-group col-md-12">
+			<div class="col-md-9 col-sm-9 col-xs-9">
+				<%= text_field_tag :search, params[:search], class: 'form-control' %>
+			</div>
+			<%= submit_tag "Buscar", :name => nil, class: 'btn btn-primary'%>
+		</div>
+		<div class="thumbnail" id="map" style="width: 100%; height:310px"></div>
 	</div>
 
 	<script>
@@ -31,26 +40,34 @@
 	</script>
 </div>
 
-<div class="col-md-3 col-sm-3" style="margin: 30px;top: 37px;">
-	<div class="panel panel-primary" style="max-height:415px;">
+<div class="col-md-3 col-sm-3" style="margin: 15px">
+	<div class="panel panel-primary" style="max-height:455px;height:455px;">
 		<div class="panel-heading"><strong>Publicaciones:</strong></div>
 		<div class="panel-body;max-height:600px;">
-			<%= form_tag publications_path, :method =>'get', id: "filter", :class => "form-group " do %>
-				<div class="form-group col-md-12">
-					<label for="message" class="col-sm-4 control-label">Categorias:</label>
-					<div class="col-md-7">
-						<%= select_tag "category", options_from_collection_for_select(Category.all, "id", "name", params[:category]),
-						prompt: "Todos",:onchange => "$('#filter').submit();",:class => 'form-control'%>
-					</div>
-				</div>
-			<% end %>
-			<hr>
-			<div style="overflow-y:auto;max-height:295px;margin:5px;">
-				<% @publications.each do |publication| %>
-					<div class="panel panel-default">
-						<h4><a href="javascript:void(0)" onclick='show_table(<%= publication.id %>)'> <%= publication.title%> </a></h4>
-					</div>
-				<% end %>
+			<ul class="nav nav-tabs">
+		    <li class="active"><a data-toggle="tab" href="#todos">Todos</a></li>
+				<% if @publications_current_user.present?%>
+		    	<li><a data-toggle="tab" href="#menu1">Mis Publicaciones</a></li>
+				<% end %>	
+		  </ul>
+
+		  <div class="tab-content">
+		    <div id="todos" class="tab-pane fade in active"  style="overflow-y:auto;max-height:355px;height:355px;margin:5px;">
+					<% @publications.each do |publication| %>
+						<div class="panel panel-default">
+							<h4><a href="javascript:void(0)" onclick='show_table(<%= publication.id %>)'> <%= publication.title%> </a></h4>
+						</div>
+					<% end %>
+		    </div>
+		    <div id="menu1" class="tab-pane fade" style="overflow-y:auto;max-height:355px;height:355px;margin:5px;">
+					<% if @publications_current_user.present?%>
+						<% @publications_current_user.each do |publication| %>
+							<div class="panel panel-default">
+								<h4><a href="javascript:void(0)" onclick='show_table(<%= publication.id %>)'> <%= publication.title%> </a></h4>
+							</div>
+						<% end %>
+					<% end %>
+		    </div>
 			</div>
 		</div>
 	</div>
@@ -65,10 +82,10 @@
 
   createMap(<%=raw @hash.to_json %>, 13);
   addDragListener();
-  
-  function show_table(nr) 
+
+  function show_table(nr)
   {
-    if (currentDetail) 
+    if (currentDetail)
     {
       $(currentDetail).hide();
     }
@@ -121,7 +138,7 @@
 		</div>
 	<% end %>
 </div>
-
+		<%= link_to 'Nueva Publicación', new_publication_path, :protocol => 'https://', :class => "btn btn-primary"%>
 <!-- /.container -->
 <div class="container col-md-12 col-sm-12">
 	<hr>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160620220830) do
+ActiveRecord::Schema.define(version: 20160628201641) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -60,6 +60,17 @@ ActiveRecord::Schema.define(version: 20160620220830) do
   end
 
   add_index "commontator_threads", ["commontable_id", "commontable_type"], name: "index_commontator_threads_on_c_id_and_c_type", unique: true, using: :btree
+
+  create_table "profiles", force: true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "photo"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
 
   create_table "publications", force: true do |t|
     t.string   "description"
@@ -117,6 +128,8 @@ ActiveRecord::Schema.define(version: 20160620220830) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
+    t.string   "provider"
+    t.string   "uid"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

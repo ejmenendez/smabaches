@@ -100,3 +100,7 @@ gem 'paperclip'
 gem 'compass-rails'
 gem 'chosen-rails'
 
+#Autorizacion por facebook
+gem 'omniauth-facebook'
+
+
