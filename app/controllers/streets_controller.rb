@@ -1,0 +1,3 @@
+class StreetsController < ApplicationController
+ 
+end

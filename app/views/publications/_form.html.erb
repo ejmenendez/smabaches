@@ -12,7 +12,11 @@ $(window).resize(function(){
     <%= form.label "Calle:",class:"col-md-2 col-sm-2 control-label", style: "margin-right: 25px;"%>
     
     <div class="col-md-3">
-      <%= select_tag "street", options_from_collection_for_select(Street.all, "id", "name" ),class:"form-control"%>
+      <%= form.select :address,
+            Street.all.map { |s| [s.name, s.id] },
+               { include_blank: true },
+               { class: 'chosen-select' }
+      %>
     </div>
     
     <%= form.label "Altura", class: "col-md-1 col-sm-1 control-label" %>
