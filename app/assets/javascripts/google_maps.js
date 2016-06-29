@@ -20,7 +20,7 @@ function getLocation()
   navigator.geolocation.getCurrentPosition(function(position){
       usePosition(position);
   }, function(error) {
-          x.innerHTML = "Geolocation is not supported by this browser.";
+      x.innerHTML = "Geolocation is not supported by this browser.";
   });
 }
 
@@ -31,6 +31,7 @@ function usePosition(position)
   $("#longitud").val(position.coords.longitude);
   // centro el mapa en la posición que envía el navegador
   handler.map.centerOn([position.coords.latitude, position.coords.longitude]);
+  addMarker(new google.maps.LatLng(position.coords.latitude,  position.coords.longitude));
 }
 
 // crea el mapa con los marcadores que se envían por parámetro
@@ -46,6 +47,8 @@ function createMap(jsonMarkers, zoom)
     addJsonMarkers(jsonMarkers, zoom);
   }
 
+  centerMap();
+  handler.getMap().setZoom(zoom);
   //limitPanning();
 }
 
@@ -122,19 +125,17 @@ function addDragListener()
 // agrega los marcadores enviados por json al mapa
 function addJsonMarkers(jsonMarkers, zoom)
 {   
-    // recorro el json enviado con los datos de los marcadores, y los agrego al mapa
-    $.each(jsonMarkers, function(i, value) 
-    {
-        var myLatlng = new google.maps.LatLng(value.lat, value.lng);
-        var myMarker = new google.maps.Marker({
-        position: myLatlng,
-        map: handler.getMap()            
-        });
-
-        markers.push(myMarker);
+  // recorro el json enviado con los datos de los marcadores, y los agrego al mapa
+  $.each(jsonMarkers, function(i, value) 
+  {
+    var myLatlng = new google.maps.LatLng(value.lat, value.lng);
+    var myMarker = new google.maps.Marker({
+    position: myLatlng,
+    map: handler.getMap()            
     });
-               
-    centerMap();
+
+    markers.push(myMarker);
+  });
 }
 
 // centra el mapa en la posición del primer marcador del mapa
