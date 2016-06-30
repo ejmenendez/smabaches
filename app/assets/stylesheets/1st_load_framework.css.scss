@@ -1,7 +1,7 @@
 // import the CSS framework
 @import "bootstrap-sprockets";
 @import "bootstrap";
-
+@import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"); 
 
 // make all images responsive by default
 img {
@@ -37,7 +37,7 @@ img {
 main {
   @extend .container;
   background-color: #dedede;
-  padding-bottom: 80px;
+  padding-bottom: 45px;
   width: 100%;
   margin-top: 51px; // accommodate the navbar
   }
