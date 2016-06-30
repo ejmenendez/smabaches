@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  #Administrador 
+  #Administrador
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   #Gema para comentar las publicaciones
   mount Commontator::Engine => '/commontator'
@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   # ruta raíz
   root 'publications#index'
-  
+
   #para los likes/dislikes de las publicaciones
   resources :publications do
     member do
