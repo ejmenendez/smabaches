@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   mount Commontator::Engine => '/commontator'
 
   #Autorización de ingreso
-  devise_for :users
   #Autorización omniauth para redes sociales
   devise_for :users, :controllers => { registrations: 'registrations', :omniauth_callbacks => "users/omniauth_callbacks" }
 

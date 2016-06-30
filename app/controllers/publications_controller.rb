@@ -22,6 +22,8 @@ class PublicationsController < ApplicationController
       # criterio de búsqueda por defecto
       @publications = Publication.search(params[:search])
 		end
+    #si hay usuario logueado, mostrar las publicaciones que le corresponden
+    #dentro de las que ya estan filtradas
 		if current_user.present?
 			@publications_current_user = @publications.select{|p| p.author == current_user}
 		end
@@ -102,7 +104,8 @@ class PublicationsController < ApplicationController
 	def publication_params
 		params.require(:publication).permit(:description, :latitude, :longitude, :title, :published, :photo, :category_id, :swLat, :swLng, :neLat, :neLng)
 	end
-
+  #creación de los marcadores para google maps de cada una de las publicaciones
+  #que están dentro de la colección enviada por parámetro
 	def create_markers(publications)
 		 Gmaps4rails.build_markers(publications) do |publication, marker|
 			marker.lat publication.latitude
