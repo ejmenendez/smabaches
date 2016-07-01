@@ -206,8 +206,7 @@ function geocodeLatLng()
         var number = components.street_number;
 
         // valor asignado al textbox de búsqueda del select
-        //$('.chosen-search input').val(street);
-        $("#street option:selected").text(street);
+        $('.chosen-search input').val(street);
         //$('.chosen-select').val().trigger('chosen:updated');
         $('#street_number').val(parseInt(number));
 
