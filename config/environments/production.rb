@@ -81,12 +81,13 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  # emails
+  # configuración para enviaar emails
   config.action_mailer.default_url_options = {:host => 'https://smabaches-menendez.rhcloud.com' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.perform_deliveries = true
-
+  
+  # los datos se guardan en las variables de entorno de openshift
   ActionMailer::Base.smtp_settings =
   {
 	  :port           => 587,
@@ -96,5 +97,8 @@ Rails.application.configure do
 	  :password       =>  ENV['EMAIL_PASSWORD'],
 	  :authentication => :plain
   }
+  
+  #internacionalización, idioma español
+  config.i18n.available_locales = :es
 
 end
