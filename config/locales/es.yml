@@ -1,0 +1,34 @@
+# traducción de los atributos de los modelos ActiveRecord 
+ 
+es: 
+  activerecord: 
+    attributes: 
+      smabaches/category: 
+        name: Categoría
+      smabaches/publication: 
+        title: Título
+        description: Descripción
+        published: Publicada
+        latidude: Latitud
+        longitude: Longitud
+        street: Calle
+        street_number: Altura
+        author: Autor
+        category: Categoría
+      smabaches/street: 
+        name: Calle
+      smabaches/user: 
+        email: E-Mail
+    models: 
+      smabaches/category: 
+        one: categoría
+        other: categorías
+      smabaches/publication: 
+        one: publicación
+        other: publicaciones
+      smabaches/street: 
+        one: calle
+        other: calles
+      smabaches/user: 
+        one: usuario
+        other: usuarios

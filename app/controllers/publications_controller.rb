@@ -53,6 +53,7 @@ class PublicationsController < ApplicationController
 		  @publication.save!
 		  redirect_to @publication, 'data-no-turbolink' => true
 	  rescue ActiveRecord::RecordInvalid
+      flash[:notice] = error_message
 		  render 'new'
 	  end
 	end
@@ -82,6 +83,7 @@ class PublicationsController < ApplicationController
 		  @publication.update!(publication_params)
 		  redirect_to @publication, 'data-no-turbolink' => true
 	  rescue ActiveRecord::RecordInvalid
+      flash[:notice] = error_message
 		  render 'edit'
 	  end
 	end
@@ -114,6 +116,20 @@ class PublicationsController < ApplicationController
 	def publication_params
 		params.require(:publication).permit(:description, :latitude, :longitude, :title, :published, :photo, :category_id, :swLat, :swLng, :neLat, :neLng)
 	end
+  
+  #manejo de los mensajes de error de las publicaciones
+  def error_message
+			if @publication.errors.any? 
+      message = '<div id="error_explanation"> ' +	
+        '<h2>' + @publication.errors.count.to_s + ' error(es) tratando de grabar la publicación:</h2> <ul>'
+      @publication.errors.full_messages.each do |msg|
+        message = message + '<li>'+ msg +'</li>'
+      end
+      message = message + '</ul>	</div> '
+      message.html_safe
+    end 
+  end
+  
   #creación de los marcadores para google maps de cada una de las publicaciones
   #que están dentro de la colección enviada por parámetro
 	def create_markers(publications)
