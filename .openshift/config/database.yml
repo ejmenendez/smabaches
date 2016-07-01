@@ -13,7 +13,7 @@ defaults: &defaults
   timeout: 5000
   encoding: utf8
   <<: *<%= ENV['RAILS_DB'] || "mysql" %>
-  
+
 development:
   pool: 5
   timeout: 5000
@@ -27,7 +27,15 @@ development:
 
 
 test: &test
-  <<: *defaults
+  pool: 5
+  timeout: 5000
+  encoding: utf8
+  adapter: mysql2
+  database: smabaches
+  username: "root"
+  password: "1q2w3e4r5t"
+  host: localhost
+  port: 3306
 
 production:
   <<: *defaults

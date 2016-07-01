@@ -20,6 +20,8 @@ group :development, :test do
   gem 'mysql2'
   gem 'minitest'
   gem 'thor'
+	#gema para testear
+	gem 'rspec-rails', '~>3.0'
 end
 
 # Add support for the MySQL
