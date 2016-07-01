@@ -1,101 +1,34 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
---- 
-en: 
+# traducción de los atributos de los modelos ActiveRecord 
+ 
+es: 
   activerecord: 
     attributes: 
-      commontator/comment: 
-        body: Comentar
-        creator: Crear
-        editor: Editar
-        thread: Hilo
-      commontator/subscription: 
-        subscriber: Suscriptor
-        thread: Hilo
-      commontator/thread: 
-        commontable: Commontable
+      smabaches/category: 
+        name: Categoría
+      smabaches/publication: 
+        title: Título
+        description: Descripción
+        published: Publicada
+        latidude: Latitud
+        longitude: Longitud
+        street: Calle
+        street_number: Altura
+        author: Autor
+        category: Categoría
+      smabaches/street: 
+        name: Calle
+      smabaches/user: 
+        email: E-Mail
     models: 
-      commontator/comment: 
-        one: comentario
-        other: comentarios
-      commontator/subscription: 
-        one: suscripción
-        other: suscripciones
-      commontator/thread: 
-        one: hilo
-        other: hilos
-  commontator: 
-    anonymous: Anónimo
-    comment: 
-      actions: 
-        cancel: Cancelar
-        confirm_delete: "¿Está seguro que quiere borrar el comentario?"
-        create: "Escribir comentario"
-        delete: Borrar
-        edit: Editar
-        new: "Crear Comentario"
-        undelete: Deshacer
-        update: "Modificar Comentario"
-      errors: 
-        already_deleted: "El comentario ya fue borrado."
-        create: "No se pudo crear el comentario, "
-        double_posted: "es un duplicado de otro comentario."
-        not_deleted: "El comentario no ha sido borrado."
-        update: "El comentario no se pudo modificar, "
-      status: 
-        created_at: "Creado el: %{created_at}."
-        deleted_by: "Borrado por: %{deleter_name}."
-        updated_at: "Modificado por últma vez por: %{editor_name} el %{updated_at}."
-    email: 
-      comment_created: 
-        body: "%{creator_name} comentó en %{commontable_name}:"
-        subject: "%{creator_name} comentó en %{commontable_name}"
-      thread_link_html: "<a href=\"%{comment_url}\">Click aquí</a> para ver todos los comentarios sobre %{commontable_name}."
-      undisclosed_recipients: "Destinatarios ocultos"
-    require_login: "Debe ingresar para poder crear un comentario."
-    subscription: 
-      actions: 
-        confirm_unsubscribe: "¿Está seguro de cancelar la suscripción a este hilo?"
-        subscribe: Suscribirse
-        unsubscribe: Cancelar Suscripción
-      errors: 
-        already_subscribed: "Ya está suscripto a este hilo."
-        not_subscribed: "No está suscripto a este hilo."
-    thread: 
-      actions: 
-        show_all: "Mostrar todos los comentarios"
-        filter: "Filtrar comentarios"
-        close: "Cerrar el hilo"
-        confirm_close: "¿Desea cerrar el hilo?"
-        reopen: "Reabrir hilo"
-        show: "Mostrar Comentarios"
-        hide: "Ocultar Comentarios"
-      errors:
-        already_closed: "Este hilo ya ha sido cerrado."
-        not_closed: "Este hilo no esytá cerrado."
-      status: 
-        cannot_post: "Por el momento no se pueden crear nuevos comentarios."
-        closed: "Comentarios (Cerrado por %{closer_name})"
-        open: Comentarios
-  time: 
-    formats: 
-      commontator: "%b %d %Y at %I:%M%p %Z"
+      smabaches/category: 
+        one: categoría
+        other: categorías
+      smabaches/publication: 
+        one: publicación
+        other: publicaciones
+      smabaches/street: 
+        one: calle
+        other: calles
+      smabaches/user: 
+        one: usuario
+        other: usuarios
