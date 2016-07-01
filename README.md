@@ -195,7 +195,7 @@ A la izquierda hay un panel de búsqueda, en los que se pueden aplicar los sigui
   
 Para buscar por cualquier criterio se debe apretar el botón "Buscar"
 
-**Listado de publicaciones**
+**Listado de publicaciones**  
 A la derecha hay una lista de publicaciones, si usted inició sesión podrá aceder a la pestaña "Mis publicaciones" en la que se listarás las publicaciones de las cuales es autor dentro del criterio de búsqueda actual.
 Al hacer click sobre las publicaciones de la lista, se mostrará una ventana con el detalle de la misma. Si en dicha ventana se hace click en "Ver" se muestra una página con los detalles completos de la publicación.
 
@@ -203,35 +203,38 @@ En el menú superior tendrá las opciones para ir al inicio, ingresar o cerrar s
 
 Si no se inicia sesión, sólo se podrán ver las publicaciones, no editar, agregar ni borrar.
 
-**Crear Usuario**
+**Crear Usuario**  
 Se debe registrar como usuario para poder crear, editar, borrar o comentar publicaciones. Se puede crear un usuario haciendo click en el menú superior en "Ingresar" y luego cuando se pide usuario y clave, hacer click en el vínculo "Crear Usuario"
 
-**Perfil del Usuario** 
+**Perfil del Usuario**  
 Puede ingresar a su perfil de usuario haciendo click sobre su el vínculo Usuario:<su dirección de correo>, que se encuentra en el menú superior
 
 **IMPORTANTE:** el sistema enviará un correo a la dirección que registró con el usuario con un vínculo para confirmar el usuario creado.
 
-**¿Olvidó su clave?**
+**¿Olvidó su clave?**  
 Si olvidó su clave, puede hacer click en el vínculo ¿Olvidó su clave?, se le pedirá su dirección de correo y se le enviará un mensaje con instrucciones para crear una nueva clave.
 
-**Nueva publicación**
+**Nueva publicación**  
 Al hacer click sobre el botón "Nueva publicación", si usted no inició sesión se le pedirá que la inicie, o cree un usuario si no creó uno todavía.
 Al acceder a la página de creación de publicaciones, el navegador le pedirá que comparta su ubicación actual. Si usted accede, se creará un marcador sobre el mapa con su ubicación actual. Si no, debe buscar la ubicación seleccionando una calle e ingresando una altura. Puede hacer click sobre el mapa para cambiar de lugar el marcador de ubicación de la publicación. 
 Luego debe ingresar un título y una descripción de la publicación, indicar si es un bache o un graffiti y adjuntar una foto. Todos los campos son obligatorios para poder grabar la publicación.
 
-**Editar una publicación**
+**Editar una publicación**  
 Para poder editar una publicación, usted debe ser un usuario registrado y ser el autor de la misma. La ventana de edición tendrá los valores actuales de la publicación en los distintos campos, usted puede cambiarlos de la misma manera que con una publicación nueva, recordando que los campos son obligatorios.
 
-**Borrar una publicación**
+**Borrar una publicación**  
 Usted podrá borrar solamente sus publicaciones, para esto haga click en el botón "Borrar" ya sea en la ventana de detalles o en la de vista de la publicación. Se le pedirá una confirmación para el borrado.
 
-**Votar publicación** 
+**Votar publicación**  
 Se puede asignaar un voto positivo o negativo por usuario a cada publicación. Se puede realizar desde la ventana de detalles o de la Vista, donde también se muestra el porcentaje de cada tipo de votos para la publicación
 
-**Comentar publicación**
+**Denunciar una Publicación**  
+Si usted considera que una publicación es inapropiada, puede denunciarla haciendo click sobre el ícono rojo en la ventana de detalles. Se les enviará un correo electrónico a los administradores para que moderen la publicación denunciada.
+
+**Comentar publicación**  
 Si ha iniciado sesión, puede comentar una publicación con su usuario. También puede votar como positivos o negativos otros comentarios (un voto por cada uno), y borrar comentarios si usted es el autor
 
-**Borrar usuario**
+**Borrar usuario**  
 Si no desea utilizar más la aplicación como usuario registrado, puede borrarlo ingresando a su perfil.
 
 ## Tests implementados
@@ -239,6 +242,40 @@ Si no desea utilizar más la aplicación como usuario registrado, puede borrarlo
 Por medio de la gema **rspec-rails** se realizaron los siguientes tests
 
   * PublicationPolicy, ver `specs/policies/publication_policy_spec.rb`
+    Resultado:
+    PublicationPolicy
+      new?
+        no se puede crear publicación sin usuario ingresado
+        cualquier usuario ingresado puede crear publicación
+      destroy?
+        no se puede borrar publicación sin usuario logueado
+        no puede borrar la publicación un usuario que no es el autor
+        el autor puede borrar su publicación
+        un administrador puede borrar cualquier publicación
+      edit? y update?
+        no se puede editar publicación sin usuario ingresado
+        no puede editar la publicación un usuario que no es el autor
+        el autor puede editar su publicación
+        un administrador puede editar cualquier publicación
+
+  * Publication, ver `specs/policies/publication_spec.rb`
+    Resultado:
+      Publication
+      Validaciones
+        no es válido si el título está ausente
+        el título no es válido si tiene menos de 5 caracteres
+        es válido si el título tiene 5 o más caracteres
+        no es válido si la descripción está ausente
+        no es válido si la descripción tiene menos de 10 caracteres
+        es válido si la descripción tiene 10 o más caracteres
+        no es válido si no tiene autor asignado
+        no es válido si no tiene categoría asignada
+        no es válido si no tiene latitud asignada
+        no es válido si no tiene longitud asignada
+        no es válido si no tiene foto adjunta
+        no es válido si no tiene calle asignada
+        no es válido si no tiene altura asignada
+
 
 ## Problemas conocidos
 
