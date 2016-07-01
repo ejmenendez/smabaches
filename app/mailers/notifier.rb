@@ -6,6 +6,6 @@ class Notifier < ActionMailer::Base
     @publication = publication
     @url  = publication_url(@publication)
     @user = user
-    mail(to: @user.email, subject: 'Welcome to My Awesome Site')
+    mail(to: @user.email, subject: 'Nueva Denuncia')
   end
 end

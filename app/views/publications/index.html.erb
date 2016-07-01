@@ -100,7 +100,7 @@
 							<%= image_tag (publication.photo.url(:thumb))%>
 						<% end %>
 	  				<div class="caption">
-	    				<h4><%= link_to publication.title, publication_path(publication), :protocol => 'https://' %>
+	    				<h4><%= link_to publication.title, publication_path(publication), :protocol => 'https' %>
 
 							<%= link_to report_publication_path(publication), method: :put do%>
 								<span style="color: #d9534f;" title="Denunciar" class="glyphicon glyphicon-exclamation-sign"></span>
@@ -123,7 +123,7 @@
 						<div class="btn-group col-md-12">
 							<%= link_to 'Ver', publication_path(publication), :class => "btn btn-primary", 'data-no-turbolink' => true  %>
 							<% if policy(publication).edit? %>
-								<%= link_to 'Editar', edit_publication_path(publication), :class => "btn btn-warning", 'data-no-turbolink' => true %>
+								<%= link_to 'Editar', edit_publication_path(publication),:protocol => 'https', :class => "btn btn-warning", 'data-no-turbolink' => true %>
 							<% end %>
 							<% if policy(publication).destroy? %>
 								<%= render :partial => 'publications/modal_confirm_delete', :locals => { :publication => publication }%>
@@ -141,7 +141,7 @@
 <!-- /.container -->
 <div class="container col-md-12 col-sm-12">
 	<div class="col-md-12" style="margin-bottom:2px;">
-		<%= link_to 'Nueva Publicación', new_publication_path, :protocol => 'https://',style:'float: right;',:class => "btn btn-success"%>
+		<%= link_to 'Nueva Publicación', new_publication_path, :protocol => 'https',style:'float: right;',:class => "btn btn-success"%>
 	</div>
 	<hr>
 	<!-- Footer -->
