@@ -3,11 +3,11 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title><%= content_for?(:title) ? yield(:title) : "SMA Baches" %></title>
-    
+
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "SMA Baches" %>">
     <link href="//netdna.bootstrapcdn.com/bootstrap/<%= bootstrap_version %>/css/bootstrap.min.css" rel="stylesheet">
     <!-- scripts para google maps -->
-    <script src="//maps.google.com/maps/api/js?v=3.23&client=&key=&libraries=geometry&language=&hl=&region=">
+    <script src="//maps.google.com/maps/api/js?v=3.23&client=&key=AIzaSyC_EKjBuQak61m_FuwOvLsrvNVJGBzAXVI&libraries=geometry&language=&hl=&region=">
     </script>
 
     <script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js">
@@ -21,7 +21,7 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
   </head>
-  
+
   <body>
     <header>
       <%= render 'layouts/navigation' %>
