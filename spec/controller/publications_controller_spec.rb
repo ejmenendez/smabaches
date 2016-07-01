@@ -96,7 +96,7 @@ RSpec.describe PublicationsController, :type => :controller do
                 )]
 
         get :index
-        expect(assigns(:publications_current_user)).to eq(p)
+          expect(assigns(:publications_current_user)).to eq(p)
     end
 
 
