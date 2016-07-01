@@ -31,7 +31,7 @@ test: &test
   timeout: 5000
   encoding: utf8
   adapter: mysql2
-  database: smabaches
+  database: test.smabaches
   username: "root"
   password: "1q2w3e4r5t"
   host: localhost

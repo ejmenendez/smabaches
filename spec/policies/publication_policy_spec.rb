@@ -18,7 +18,9 @@ RSpec.describe PublicationPolicy, :type => :model do
        category: Category.new(name:'bachecito'),
        latitude: ("-40.13556268").to_f ,
        longitude:("-71.29446565639999").to_f,
-       photo: File.open(File.join(Rails.root, 'app', 'assets','images',  'exampleBache.jpg'))
+       photo: File.open(File.join(Rails.root, 'app', 'assets','images',  'exampleBache.jpg')),
+       street: 'calle test',
+       street_number: 100
       )}
 
   permissions :new? do
