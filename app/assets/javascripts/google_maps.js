@@ -4,9 +4,9 @@ var markers = new Array();
 // bounds, primero latitud y longitud de la esquina NE y después de la SW
 // para limitar hasta donde se puede arrastrar al mapa
 var allowedBounds =new google.maps.LatLngBounds(
-     new google.maps.LatLng(-40.111752666854954 , -71.16297483444214), 
+     new google.maps.LatLng(-40.111752666854954 , -71.16297483444214),
      new google.maps.LatLng(-40.17736337407632, -71.47711515426636)
-  ); 
+  );
 
 // último centro de mapa válido, para limitar el panning
 var lastValidCenter;
@@ -25,7 +25,7 @@ function getLocation()
 }
 
 // usePosition es llamada desde getLocation.js
-function usePosition(position) 
+function usePosition(position)
 {
   $("#latitud").val(position.coords.latitude);
   $("#longitud").val(position.coords.longitude);
@@ -52,47 +52,13 @@ function createMap(jsonMarkers, zoom)
   //limitPanning();
 }
 
-// limita el paneo del google map a SMA y alrededores
-// el mapa debe estar centrado dentro de los límites antes de invocar éste método
-function limitPanning()
-{
-  // NOOOOOOOOOOOOOOOOOOOOOOOO FUNCIONAAAAAAAAAAAAAAAAAAA
-  // ARREGLAAAAAAAAAAAAAAARRRRRR
-  // centro actual del mapa
-  //var lastValidCenter = handler.getMap().getCenter();
-
-
-  // listener para cambio de centro
-  google.maps.event.addListener(handler.getMap(), 'dragend', function() 
-  {
-    if(google.maps.geometry.spherical.computeDistanceBetween(
-      allowedBounds.getNorthEast(),
-      this.getBounds().getNorthEast()) < SameThreshold || 
-      google.maps.geometry.spherical.computeDistanceBetween(
-      allowedBounds.getSouthWest(),
-      this.getBounds().getSouthWest()) < SameThreshold)
-      {
-        
-      } else {
-        lastValidCenter = handler.getMap().getCenter();
-        return; 
-      }
-    
-      // última posición válida
-      handler.getMap().panTo(lastValidCenter);
-  });
-}
-
-
-//------------------------------------------------------
-
 // agrega el listener al mapa para que se muestren los marcadores del mapa visible
 // después de un drag o zoom
 function addDragListener()
 {
   google.maps.event.addListener(handler.getMap(), 'idle', function(event){
     var bounds = this.getBounds();
-    var ne = bounds.getNorthEast(); 
+    var ne = bounds.getNorthEast();
     var sw = bounds.getSouthWest();
     // paso el valor a los campos hidden del mapa
     $("#swLat").val(sw.lat());
@@ -110,7 +76,7 @@ function addDragListener()
 
         // si está dentro de las coordenadas, lo asocio al mapa
         // latitudes y longitudes son negativas
-        if(auxLat <= ne.lat() && auxLat >= sw.lat() && 
+        if(auxLat <= ne.lat() && auxLat >= sw.lat() &&
            auxLng <= ne.lng() && auxLng >= sw.lng())
         {
             auxMarker.setMap(handler.getMap());
@@ -124,14 +90,14 @@ function addDragListener()
 
 // agrega los marcadores enviados por json al mapa
 function addJsonMarkers(jsonMarkers, zoom)
-{   
+{
   // recorro el json enviado con los datos de los marcadores, y los agrego al mapa
-  $.each(jsonMarkers, function(i, value) 
+  $.each(jsonMarkers, function(i, value)
   {
     var myLatlng = new google.maps.LatLng(value.lat, value.lng);
     var myMarker = new google.maps.Marker({
     position: myLatlng,
-    map: handler.getMap()            
+    map: handler.getMap()
     });
 
     markers.push(myMarker);
@@ -148,8 +114,8 @@ function centerMap()
   } else {
       handler.map.centerOn([-40.1552557,-71.3472031]);
   }
-  
-  lastValidCenter = handler.getMap().getCenter(); 
+
+  lastValidCenter = handler.getMap().getCenter();
 }
 
 //funcion que genera un marker en la posicion donde se genero el evento del mouse
@@ -184,18 +150,18 @@ function addMarker(location)
 // geolocalizar a partir de calle - número
 function getGeocodeLocation()
 {
-    var searchText = $("#street option:selected").text() +" "+ $('#publication_number').val()+" ,San Martín de los Andes";
-    
+    var searchText = $("#street option:selected").text() +" "+ $('#street_number').val()+" ,San Martín de los Andes";
+
     var geocoder = new google.maps.Geocoder();
 
     if(!geocoder)
     {
       geocoder = new GClientGeocoder();
     }
-  
-    geocoder.geocode({'address': searchText}, function(results, status) 
+
+    geocoder.geocode({'address': searchText}, function(results, status)
     {
-      if (status === google.maps.GeocoderStatus.OK) 
+      if (status === google.maps.GeocoderStatus.OK)
       {
         handler.map.centerOn(results[0].geometry.location);
         handler.getMap().setZoom(14);
@@ -211,39 +177,40 @@ function getGeocodeLocation()
 // reverse geocoding
 // geocoder con la latitud y longitud devuelve la dirección
 // toma latitud y longitud de los campos ocultos del form
-function geocodeLatLng() 
+function geocodeLatLng()
 {
   var geocoder = new google.maps.Geocoder();
   if(!geocoder) geocoder = new GClientGeocoder();
   var infowindow = new google.maps.InfoWindow();
-  
+
   var latlng = {lat: parseFloat($("#latitud").val()), lng: parseFloat( $("#longitud").val())};
-  
+
   geocoder.geocode({'location': latlng, 'language': 'es'}, function(results, status) {
-    if (status === google.maps.GeocoderStatus.OK) 
+    if (status === google.maps.GeocoderStatus.OK)
     {
-      if (results[0]) 
+      if (results[0])
       {
         /*
-        Si hay resultados,el geocoder envía un JSON con varios datos, de los que 
+        Si hay resultados,el geocoder envía un JSON con varios datos, de los que
         solamente interesa calle y altura.
         Google envía todo como parte de un address_components
         */
         var address_components = results[0].address_components;
-        var components={}; 
-        
+        var components={};
+
         // mapeo lo que envía google como mapa y tengo disponible toda la información
         jQuery.each(address_components, function(k,v1) {jQuery.each(v1.types, function(k2, v2){components[v2]=v1.long_name});})
-        
+
         // calle y altura
         var street = components.route;
         var number = components.street_number;
-        
+
         // valor asignado al textbox de búsqueda del select
-        $('.chosen-search input').val(street);        
+        //$('.chosen-search input').val(street);
+        $("#street option:selected").text(street);
         //$('.chosen-select').val().trigger('chosen:updated');
-        $('#address_number').val(parseInt(number));        
-        
+        $('#street_number').val(parseInt(number));
+
       } else {
         window.alert('No se encontraron resultados');
       }

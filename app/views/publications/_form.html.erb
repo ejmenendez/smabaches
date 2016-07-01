@@ -25,14 +25,14 @@
       <%= form.select :street,
               Street.all.map { |s| [s.name, s.id] },
               { include_blank: true },
-              { class: 'chosen-select form-control', :id => 'address_street', :data => { :placeholder => 'Seleccione calle...'}, search_contains: true }
+              { class: 'chosen-select form-control', :id => 'street', :data => { :placeholder => 'Seleccione calle...'}, search_contains: true }
       %>
     </div>
 
     <%= form.label "Altura", class: "col-md-1 col-sm-1 control-label" %>
 
     <div class="col-md-1 col-sm-1">
-      <%= form.number_field :street_number, :id => "address_number", class:"form-control" %>
+      <%= form.number_field :street_number, :id => "street_number", class:"form-control" %>
     </div>
 
     <button type="button" onclick="JavaScript:getGeocodeLocation()" class="btn btn-success">Ver Ubicacion</button>
