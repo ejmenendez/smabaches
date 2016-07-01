@@ -33,7 +33,9 @@ for i in 0..10
         category: bache,
         latitude: ("-40.13#{i}6268").to_f ,
         longitude:("-71.29446#{i}39999").to_f,
-        photo: File.open(File.join(Rails.root, 'app', 'assets','images',  'exampleBache.jpg'))
+        photo: File.open(File.join(Rails.root, 'app', 'assets','images',  'exampleBache.jpg')),
+        street: '1',
+        street_number: 100
        })
 end
 for i in 0..5
@@ -44,7 +46,8 @@ for i in 0..5
         category: graffiti,
         latitude:  ("-40.1#{i}362682").to_f ,
         longitude: ("-71.29446349#{i}9999").to_f,
-        photo: File.open(File.join(Rails.root, 'app', 'assets','images',  'exampleGraffiti.jpg'))
+        photo: File.open(File.join(Rails.root, 'app', 'assets','images',  'exampleGraffiti.jpg')),
+        street: '1',
+        street_number: 100
        })
 end
-
