@@ -98,7 +98,7 @@ Rails.application.configure do
 	  :authentication => :plain
   }
   
-  #internacionalización, idioma español
-  config.i18n.available_locales = :es
+   #internacionalización, idioma español, inglés disponible
+  config.i18n.available_locales = [:es, :en]
 
 end

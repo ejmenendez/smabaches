@@ -1,0 +1,87 @@
+es:
+  activerecord:
+    models:
+      acts_as_votable/vote: Actúa como VOTable / voto  #g
+      category: Categoría  #g
+      habtm_roles: papeles HABTM  #g
+      habtm_users: usuarios HABTM  #g
+      profile: Perfil  #g
+      publication: Publicación  #g
+      role: Papel  #g
+      street: Calle  #g
+      user: Usuario  #g
+
+    attributes:
+      acts_as_votable/vote:
+        votable: :activerecord.models.votable  #g
+        votable_type: tipo VOTable  #g
+        vote_flag: bandera de voto  #g
+        vote_scope: vote_scope  #g
+        vote_weight: peso voto  #g
+        voter: :activerecord.models.voter  #g
+        voter_type: tipo de votantes  #g
+
+      category:
+        name: Nombre  #g
+
+      habtm_roles:
+        left_side: :activerecord.models.left_side  #g
+        role: :activerecord.models.role  #g
+
+      habtm_users:
+        left_side: :activerecord.models.left_side  #g
+        user: :activerecord.models.user  #g
+
+      profile:
+        first_name: Nombre de pila  #g
+        last_name: Apellido  #g
+        photo: Foto  #g
+        user: :activerecord.models.user  #g
+
+      publication:
+        address: Dirección  #g
+        author: :activerecord.models.author  #g
+        category: :activerecord.models.category  #g
+        description: Descripción  #g
+        latitude: Latitud  #g
+        longitude: Longitud  #g
+        photo: photo  #g
+        photo_content_type: Foto de tipo de contenido  #g
+        photo_file_name: Foto de nombre de archivo  #g
+        photo_file_size: tamaño de archivo de fotografía  #g
+        photo_fingerprint: huella digital de fotos  #g
+        photo_updated_at: Foto actualizada en  #g
+        published: Publicado  #g
+        thread: :activerecord.models.thread  #g
+        title: Título  #g
+        votes_for: votos para las  #g
+
+      role:
+        name: Nombre  #g
+        resource: :activerecord.models.resource  #g
+        resource_type: Tipo de recurso  #g
+        users: usuarios  #g
+
+      street:
+        name: Nombre  #g
+
+      user:
+        comments: comentarios  #g
+        confirmation_sent_at: confirmation_sent_at  #g
+        confirmation_token: Confirmación de contadores  #g
+        confirmed_at: confirmado en  #g
+        current_sign_in_at: current_sign_in_at  #g
+        current_sign_in_ip: current_sign_in_ip  #g
+        email: Correo electrónico  #g
+        encrypted_password: contraseña encriptada  #g
+        last_sign_in_at: Última señal en por lo  #g
+        last_sign_in_ip: Última señal en IP  #g
+        profile: :activerecord.models.profile  #g
+        provider: Proveedor  #g
+        remember_created_at: Recuerde creado el  #g
+        reset_password_sent_at: Restablecer la contraseña enviada al  #g
+        reset_password_token: Restablecer token contraseña  #g
+        roles: Roles  #g
+        subscriptions: Suscripciones  #g
+        uid: uid  #g
+        unconfirmed_email: correo electrónico sin confirmar  #g
