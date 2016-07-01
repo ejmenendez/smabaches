@@ -1,42 +1,56 @@
+# traducción para los modelos de la aplicación
+
 es:
   activerecord:
     models:
-      acts_as_votable/vote: Actúa como VOTable / voto  #g
+      acts_as_votable/vote: Clase votable / voto  #g
       category: Categoría  #g
-      habtm_roles: papeles HABTM  #g
+      habtm_roles: roles HABTM  #g
       habtm_users: usuarios HABTM  #g
       profile: Perfil  #g
       publication: Publicación  #g
-      role: Papel  #g
+      role: Rol  #g
       street: Calle  #g
       user: Usuario  #g
+      created_at: Fecha creación  #g
+      updated_at: Última modificación  #g
 
     attributes:
       acts_as_votable/vote:
         votable: :activerecord.models.votable  #g
-        votable_type: tipo VOTable  #g
-        vote_flag: bandera de voto  #g
-        vote_scope: vote_scope  #g
-        vote_weight: peso voto  #g
+        votable_type: tipo votable  #g
+        vote_flag: indicador de voto  #g
+        vote_scope: alcance del voto  #g
+        vote_weight: peso del voto  #g
         voter: :activerecord.models.voter  #g
         voter_type: tipo de votantes  #g
-
+        created_at: Fecha creación  #g
+        updated_at: Última modificación  #g
+      
       category:
-        name: Nombre  #g
+        name: Categoría  #g
+        created_at: Fecha creación  #g
+        updated_at: Última modificación  #g
 
       habtm_roles:
         left_side: :activerecord.models.left_side  #g
         role: :activerecord.models.role  #g
+        created_at: Fecha creación  #g
+        updated_at: Última modificación  #g
 
       habtm_users:
         left_side: :activerecord.models.left_side  #g
         user: :activerecord.models.user  #g
+        created_at: Fecha creación  #g
+        updated_at: Última modificación  #g
 
       profile:
-        first_name: Nombre de pila  #g
+        first_name: Nombre  #g
         last_name: Apellido  #g
         photo: Foto  #g
         user: :activerecord.models.user  #g
+        created_at: Fecha creación  #g
+        updated_at: Última modificación  #g
 
       publication:
         address: Dirección  #g
@@ -45,7 +59,7 @@ es:
         description: Descripción  #g
         latitude: Latitud  #g
         longitude: Longitud  #g
-        photo: photo  #g
+        photo: Foto  #g
         photo_content_type: Foto de tipo de contenido  #g
         photo_file_name: Foto de nombre de archivo  #g
         photo_file_size: tamaño de archivo de fotografía  #g
@@ -54,34 +68,44 @@ es:
         published: Publicado  #g
         thread: :activerecord.models.thread  #g
         title: Título  #g
-        votes_for: votos para las  #g
+        votes_for: votos para la  #g
+        created_at: Fecha creación  #g
+        updated_at: Última modificación  #g
+        street: Calle  #g
+        street_number: Altura  #g
 
       role:
         name: Nombre  #g
         resource: :activerecord.models.resource  #g
         resource_type: Tipo de recurso  #g
         users: usuarios  #g
+        created_at: Fecha creación  #g
+        updated_at: Última modificación  #g
 
       street:
-        name: Nombre  #g
+        name: Calle  #g
+        created_at: Fecha creación  #g
+        updated_at: Última modificación  #g
 
       user:
         comments: comentarios  #g
-        confirmation_sent_at: confirmation_sent_at  #g
-        confirmation_token: Confirmación de contadores  #g
-        confirmed_at: confirmado en  #g
-        current_sign_in_at: current_sign_in_at  #g
-        current_sign_in_ip: current_sign_in_ip  #g
-        email: Correo electrónico  #g
-        encrypted_password: contraseña encriptada  #g
-        last_sign_in_at: Última señal en por lo  #g
-        last_sign_in_ip: Última señal en IP  #g
+        confirmation_sent_at: confirmación enviada el  #g
+        confirmation_token: Clave de confirmación  #g
+        confirmed_at: fecha confirmación  #g
+        current_sign_in_at: sesión actual comenzada  #g
+        current_sign_in_ip: IP actual  #g
+        email: E-Mail  #g
+        encrypted_password: clave encriptada  #g
+        last_sign_in_at: Último ingreso  #g
+        last_sign_in_ip: Última IP registrada  #g
         profile: :activerecord.models.profile  #g
         provider: Proveedor  #g
-        remember_created_at: Recuerde creado el  #g
-        reset_password_sent_at: Restablecer la contraseña enviada al  #g
-        reset_password_token: Restablecer token contraseña  #g
+        remember_created_at: Recordar activado el  #g
+        reset_password_sent_at: Borrar clave enviado el  #g
+        reset_password_token: Restablecer token clave  #g
         roles: Roles  #g
         subscriptions: Suscripciones  #g
         uid: uid  #g
-        unconfirmed_email: correo electrónico sin confirmar  #g
+        unconfirmed_email: e-mail sin confirmar  #g
+        created_at: Fecha creación  #g
+        updated_at: Última modificación  #g

@@ -72,6 +72,8 @@ gem 'bootstrap-sass'
 
 group :development do
 	gem 'rails_layout'
+  #generador de yml para i18n
+  gem 'i18n_generators'
 end
 
 #google maps
@@ -110,7 +112,3 @@ gem 'rails-i18n', '~> 4.0.0'
 
 #internacionalización para devise
 gem 'devise-i18n'
-
-#generador de yml para i18n
-gem 'i18n_generators'
-

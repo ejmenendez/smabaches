@@ -24,15 +24,28 @@ es:
   activerecord: 
     attributes: 
       commontator/comment: 
-        body: Comentar
-        creator: Crear
+        body: Comentario
+        creator: Creado por
         editor: Editar
-        thread: Hilo
+        thread: Conversación
+        cached_votes_up: Votos positivos
+        cached_votes_down: Votos negativos
+        deleted_at: Borrado el
+        created_at: Fecha creación
+        updated_at: Última modificación
       commontator/subscription: 
         subscriber: Suscriptor
-        thread: Hilo
+        thread: Conversación
+        created_at: Fecha creación
+        updated_at: Última modificación
       commontator/thread: 
-        commontable: Commontable
+        commontable: Publicación
+        closed_at: Cerrada el
+        closer_type: Tipo de cierre
+        created_at: Fecha creación
+        updated_at: Última modificación
+        commontable: :activerecord.models.commontable
+        subscription: :activerecord.models.subscription
     models: 
       commontator/comment: 
         one: comentario
@@ -41,8 +54,8 @@ es:
         one: suscripción
         other: suscripciones
       commontator/thread: 
-        one: hilo
-        other: hilos
+        one: conversación
+        other: conversaciones
   commontator: 
     anonymous: Anónimo
     comment: 
@@ -74,24 +87,24 @@ es:
     require_login: "Debe ingresar para poder crear un comentario."
     subscription: 
       actions: 
-        confirm_unsubscribe: "¿Está seguro de cancelar la suscripción a este hilo?"
+        confirm_unsubscribe: "¿Está seguro de cancelar la suscripción a esta conversación?"
         subscribe: Suscribirse
         unsubscribe: Cancelar Suscripción
       errors: 
-        already_subscribed: "Ya está suscripto a este hilo."
-        not_subscribed: "No está suscripto a este hilo."
+        already_subscribed: "Ya está suscripto a esta conversación."
+        not_subscribed: "No está suscripto a esta conversación."
     thread: 
       actions: 
         show_all: "Mostrar todos los comentarios"
         filter: "Filtrar comentarios"
-        close: "Cerrar el hilo"
-        confirm_close: "¿Desea cerrar el hilo?"
-        reopen: "Reabrir hilo"
+        close: "Cerrar la conversación"
+        confirm_close: "¿Desea cerrar la conversación?"
+        reopen: "Reabrir conversación"
         show: "Mostrar Comentarios"
         hide: "Ocultar Comentarios"
       errors:
-        already_closed: "Este hilo ya ha sido cerrado."
-        not_closed: "Este hilo no esytá cerrado."
+        already_closed: "Esta conversación ya ha sido cerrado."
+        not_closed: "Esta conversación no esytá cerrado."
       status: 
         cannot_post: "Por el momento no se pueden crear nuevos comentarios."
         closed: "Comentarios (Cerrado por %{closer_name})"
