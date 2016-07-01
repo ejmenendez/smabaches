@@ -68,6 +68,7 @@ $ gem 'omniauth-facebook'
 $ gem 'rails-i18n', '~> 4.0.0'
 $ gem 'devise-i18n'
 $ gem 'i18n_generators'
+$ gem 'rspec-rails', '~>3.0'
 ```
 #### Gemas que utiliza la aplicación
 
@@ -117,7 +118,7 @@ $ sudo apt-get install imagemagick
 $ gem install rmagick
 ```
 
-##### **compass-rails** e **chosen-rails**
+##### **compass-rails** y **chosen-rails**
 Crean una lista desplegable en la que se puede buscar ingresando texto, utilizado para las calles.
 
 Instrucciones sobre ambas gemas en [ésta página](https://github.com/tsechingho/chosen-rails)
@@ -130,8 +131,7 @@ Instrucciones para **omniauth-facebook** en [ésta página](https://github.com/m
 ##### **Internacionalización**
 Se realiza a través de las gemas: 
 
-[rails-i18n](http://guides.rubyonrails.org/i18n.html)
-[devise-i18n](https://github.com/tigrish/devise-i18n)
+[rails-i18n](http://guides.rubyonrails.org/i18n.html) y para Devise [devise-i18n](https://github.com/tigrish/devise-i18n)
 
 Para generar automáticamente los archivos [yaml](https://yaml.org) de los modelos de la aplicación se utilizó [i18n-generators](https://github.com/amatsuda/i18n_generators)
 
@@ -142,8 +142,8 @@ Para generar automáticamente los archivos [yaml](https://yaml.org) de los model
 $ gem install mailcatcher
 ```
 
-luego se podrán ver los mensajes en la dirección local, puerto 1080 (http://localhost:1080)
-[Más iformación aquí](https://mailcatcher.me/)
+luego se podrán ver los mensajes en la dirección local, puerto 1080 (http://localhost:1080). 
+[Más iformación aquí.](https://mailcatcher.me/)
 
 
 ## Configuración de la aplicación
@@ -152,7 +152,7 @@ luego se podrán ver los mensajes en la dirección local, puerto 1080 (http://lo
 La aplicación se encuentra configurada para utilizar la el motor de base de datos [MySQL](https://www.mysql.com/). Debe tener instalado MySQL para poder utilizarla.
 Puede cambiar la configuración en `config/database.yml`
 
-Para ver más información sobre el tema, [click aquí](http://guides.rubyonrails.org/configuring.html#configuring-a-database)
+Para ver más información sobre cómo configurar una base de datos, [click aquí](http://guides.rubyonrails.org/configuring.html#configuring-a-database)
 
 El esquema de la base de datos se puede ver en `db/schema.rb`
 
@@ -171,7 +171,7 @@ config.i18n.available_locales = [:es, :en]
 ```
 para indicar los idiomas disponibles. 
 
-**IMPORTANTE:** si se incluyen otros idiomas, deben estar disponibles los diccionarios correspondientes. Para ver más información sobre el tema, [click aquí](http://guides.rubyonrails.org/i18n.html)
+**IMPORTANTE:** si se incluyen otros idiomas, deben estar disponibles los diccionarios correspondientes. Para ver más información sobre el tema, [click aquí.](http://guides.rubyonrails.org/i18n.html)
 
 #### Datos que se crean con la aplicación (local)
 
@@ -180,12 +180,65 @@ Todos los usuarios tienen la clave 12345678
 
 Además, en la migración <> se crean 400+ calles pertenecientes al ejido de San Martín de los Andes
 
-
 Se crean aparte 15 publicaciones, 10 baches y 5 graffitis que pertenecen a los usuarios esteban@example.com y rodri@example.com 
 
 Puede cambiar los datos que se generan en `db/seeds.rb`
 
 ## Uso de la aplicación
+
+**Página principal:** Muestra el mapa con los marcadores en donde se encuentran las publicaciones actuales, junto con una lista de las últimas publicaciones. 
+A la izquierda hay un panel de búsqueda, en los que se pueden aplicar los siguientes criterios:
+
+  * Por cattegoría: Elija entre Baches, Grafittis o Todos (se muestran las publicaciones de ambas categorías)
+  * Por campo libre, se ingresa un texto y se devuelven las publicaciones que lo contengan ya sea en su título y/o en su descripción.
+  * Por mapa: Se desplaza el mapa hasta la zona de la que están las publicaciones que se quieren ver, automáticamente mostrará los marcadores que se encuentran dentro del área y luego en la búsqueda traerá los datos de dichas publicaciones.
+  
+Para buscar por cualquier criterio se debe apretar el botón "Buscar"
+
+**Listado de publicaciones**
+A la derecha hay una lista de publicaciones, si usted inició sesión podrá aceder a la pestaña "Mis publicaciones" en la que se listarás las publicaciones de las cuales es autor dentro del criterio de búsqueda actual.
+Al hacer click sobre las publicaciones de la lista, se mostrará una ventana con el detalle de la misma. Si en dicha ventana se hace click en "Ver" se muestra una página con los detalles completos de la publicación.
+
+En el menú superior tendrá las opciones para ir al inicio, ingresar o cerrar sesión según corresponda, para iniciar sesión debe crear un usuario.
+
+Si no se inicia sesión, sólo se podrán ver las publicaciones, no editar, agregar ni borrar.
+
+**Crear Usuario**
+Se debe registrar como usuario para poder crear, editar, borrar o comentar publicaciones. Se puede crear un usuario haciendo click en el menú superior en "Ingresar" y luego cuando se pide usuario y clave, hacer click en el vínculo "Crear Usuario"
+
+**Perfil del Usuario** 
+Puede ingresar a su perfil de usuario haciendo click sobre su el vínculo Usuario:<su dirección de correo>, que se encuentra en el menú superior
+
+**IMPORTANTE:** el sistema enviará un correo a la dirección que registró con el usuario con un vínculo para confirmar el usuario creado.
+
+**¿Olvidó su clave?**
+Si olvidó su clave, puede hacer click en el vínculo ¿Olvidó su clave?, se le pedirá su dirección de correo y se le enviará un mensaje con instrucciones para crear una nueva clave.
+
+**Nueva publicación**
+Al hacer click sobre el botón "Nueva publicación", si usted no inició sesión se le pedirá que la inicie, o cree un usuario si no creó uno todavía.
+Al acceder a la página de creación de publicaciones, el navegador le pedirá que comparta su ubicación actual. Si usted accede, se creará un marcador sobre el mapa con su ubicación actual. Si no, debe buscar la ubicación seleccionando una calle e ingresando una altura. Puede hacer click sobre el mapa para cambiar de lugar el marcador de ubicación de la publicación. 
+Luego debe ingresar un título y una descripción de la publicación, indicar si es un bache o un graffiti y adjuntar una foto. Todos los campos son obligatorios para poder grabar la publicación.
+
+**Editar una publicación**
+Para poder editar una publicación, usted debe ser un usuario registrado y ser el autor de la misma. La ventana de edición tendrá los valores actuales de la publicación en los distintos campos, usted puede cambiarlos de la misma manera que con una publicación nueva, recordando que los campos son obligatorios.
+
+**Borrar una publicación**
+Usted podrá borrar solamente sus publicaciones, para esto haga click en el botón "Borrar" ya sea en la ventana de detalles o en la de vista de la publicación. Se le pedirá una confirmación para el borrado.
+
+**Votar publicación** 
+Se puede asignaar un voto positivo o negativo por usuario a cada publicación. Se puede realizar desde la ventana de detalles o de la Vista, donde también se muestra el porcentaje de cada tipo de votos para la publicación
+
+**Comentar publicación**
+Si ha iniciado sesión, puede comentar una publicación con su usuario. También puede votar como positivos o negativos otros comentarios (un voto por cada uno), y borrar comentarios si usted es el autor
+
+**Borrar usuario**
+Si no desea utilizar más la aplicación como usuario registrado, puede borrarlo ingresando a su perfil.
+
+## Tests implementados
+
+Por medio de la gema **rspec-rails** se realizaron los siguientes tests
+
+  * PublicationPolicy, ver `specs/policies/publication_policy_spec.rb`
 
 ## Problemas conocidos
 
@@ -198,7 +251,6 @@ Si se está ejecutando localmente, puede probar en `app/views/layouts/applicatio
 '<script src="//maps.google.com/maps/api/js?key=&libraries=geometry"></script>'
 ```
  
-
 #### Selector de calles y geolocation:
 Puede ocurrir que el selector de calles en el formulario para Nuevas Publicaciones y Modificación de Publicaciones `app/views/publications/_form.html.erb` no elija la calle devuelta por la geolocalización de Google
 
