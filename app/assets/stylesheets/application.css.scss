@@ -12,12 +12,17 @@
  *
  *= require chosen-compass
  *= require commontator/application
+ *= require bootstrap.min
  *= require_tree .
  *= require_self
  */
-@import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css");
-@import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css");
- hr {
+ // import the CSS framework
+ /* Override Bootstrap 3 font locations */
+ @import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css");
+ @import 'bootstrap-sprockets';
+ @import 'bootstrap';
+
+  hr {
     display: block;
     margin-top: 0.5em;
     margin-bottom: 0.5em;

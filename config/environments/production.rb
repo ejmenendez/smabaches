@@ -32,7 +32,7 @@ Rails.application.configure do
   # Generate digests for assets URLs.
   config.assets.digest = true
 
-  config.assets.precompile=  ['*.js', '*.css','*.css.scss', '*.css.erb']
+  config.assets.precompile =  ['*.js', '*.css','*.css.scss', '*.css.erb']
 
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
