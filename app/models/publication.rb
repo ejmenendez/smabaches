@@ -9,8 +9,9 @@ class Publication < ActiveRecord::Base
   #geocoded_by :street, :latitude  => :latitude, :longitude => :longitude
 
   #validación de los atributos
-  validates :author, :title, :description, :latitude, :longitude, presence: true
-
+  validates :author, :latitude, :longitude,:street,:street_number,:photo, presence: true
+  validates :title, presence: true, length: {minimum: 5}
+  validates :description, presence: true, length: {minimum: 10}
   #pertenece a un auor
   belongs_to :author, class_name: 'User'
   # y a una categoría (bache-greffiti-etc)

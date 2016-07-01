@@ -1,5 +1,4 @@
 require "rails_helper"
-require "pundit/rspec"
 
 RSpec.describe PublicationPolicy, :type => :model do
   subject { PublicationPolicy }
