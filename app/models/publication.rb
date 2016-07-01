@@ -5,18 +5,8 @@ class Publication < ActiveRecord::Base
   #para la gema act_as_votable
   acts_as_votable
 
-  #atributos virtuales para usar en el geocoder calle y numero
-  attr_accessor :address #nombre de la calle y altura
-  attr_accessor :number #altura, solo para poder usar en el form
-
   # geocoding con la gema geocoder,  para poder hacer querys con latitud y longitud
-  geocoded_by :street, :latitude  => :latitude, :longitude => :longitude
-
-  # ejemplo de geocoding com más de un campo
-  #geocoded_by :address
-  #def address
-  #  [street, city, state, country].compact.join(', ')
-  #end
+  #geocoded_by :street, :latitude  => :latitude, :longitude => :longitude
 
   #validación de los atributos
   validates :author, :title, :description, :latitude, :longitude, presence: true

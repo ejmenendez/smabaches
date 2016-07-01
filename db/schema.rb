@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160628201641) do
+ActiveRecord::Schema.define(version: 20160701052105) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -88,7 +88,8 @@ ActiveRecord::Schema.define(version: 20160628201641) do
     t.datetime "photo_updated_at"
     t.string   "photo_fingerprint"
     t.integer  "category_id"
-    t.string   "address"
+    t.integer  "street_number"
+    t.string   "street"
   end
 
   add_index "publications", ["author_id"], name: "index_publications_on_author_id", using: :btree

@@ -114,22 +114,25 @@ class PublicationsController < ApplicationController
 	private
 
 	def publication_params
-		params.require(:publication).permit(:description, :latitude, :longitude, :title, :published, :photo, :category_id, :swLat, :swLng, :neLat, :neLng)
+		params.require(:publication).permit(:description,
+		 :latitude, :longitude, :title, :published,
+		 :photo, :category_id, :swLat, :swLng, :neLat, :neLng,
+		 :street,:street_number)
 	end
-  
+
   #manejo de los mensajes de error de las publicaciones
   def error_message
-			if @publication.errors.any? 
-      message = '<div id="error_explanation"> ' +	
+			if @publication.errors.any?
+      message = '<div id="error_explanation"> ' +
         '<h2>' + @publication.errors.count.to_s + ' error(es) tratando de grabar la publicación:</h2> <ul>'
       @publication.errors.full_messages.each do |msg|
         message = message + '<li>'+ msg +'</li>'
       end
       message = message + '</ul>	</div> '
       message.html_safe
-    end 
+    end
   end
-  
+
   #creación de los marcadores para google maps de cada una de las publicaciones
   #que están dentro de la colección enviada por parámetro
 	def create_markers(publications)
