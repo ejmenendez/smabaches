@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     member do
       put 'like', to: 'publications#upvote'
       put 'dislike', to: 'publications#downvote'
+      put 'report', to: 'publications#report'
     end
   end
 end

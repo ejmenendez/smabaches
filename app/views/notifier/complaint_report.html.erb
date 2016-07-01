@@ -1,0 +1,15 @@
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1> La publicacion: <%= @publication.title %>, ha sido denunciada</h1>
+    <h3>Autor de la denuncia: "<%= @report_author.email %>"</h3>
+    <p>
+      La publicacion <%= @publication.title %> ha sido denunciada!!!
+    </p>
+    <p>
+      Para visualizarla haga click en el siguente enlace: <%= link_to 'ver publicacion', @url %>
+    </p>
+  </body>
+</html>

@@ -99,6 +99,16 @@ class PublicationsController < ApplicationController
 		redirect_to :back
 	end
 
+	def report
+		@publication = Publication.find(params[:id])
+		(User.with_role :admin).each do |user|
+
+			Notifier.complaint_report(user, @publication, current_user).deliver
+
+		end
+		redirect_to :back
+	end
+
 	private
 
 	def publication_params

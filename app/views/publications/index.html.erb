@@ -100,7 +100,12 @@
 							<%= image_tag (publication.photo.url(:thumb))%>
 						<% end %>
 	  				<div class="caption">
-	    				<h4><%= link_to publication.title, publication_path(publication), :protocol => 'https://' %></h4>
+	    				<h4><%= link_to publication.title, publication_path(publication), :protocol => 'https://' %>
+
+							<%= link_to report_publication_path(publication), method: :put do%>
+								<span style="color: #d9534f;" title="Denunciar" class="glyphicon glyphicon-exclamation-sign"></span>
+							<% end %>
+							</h4>
 	    				<p><%= publication.description%></a>.</p>
 							<div class="col-md-6 col-sm-6 col-xs-6"  style="text-align:center;">
 								<%= link_to like_publication_path(publication), method: :put do %>
