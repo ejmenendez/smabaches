@@ -1,9 +1,19 @@
 <!-- listener de resize de la ventana para que el google map se adecúe al tamaño nuevo -->
 <script>
-$(window).resize(function(){
-  $('#map').css("width",$('#cont').width());
-  google.maps.event.trigger(handler.getMap(), 'resize');
-});
+  // para que el mapa cambie de tamaño cuando se cambia el tamaño de la ventana
+  $(window).resize(function(){
+    $('#map').css("width",$('#cont').width());
+    google.maps.event.trigger(handler.getMap(), 'resize');
+  });
+  
+  // actualizar el valor del select y el numero de calle (llamado desde el reverse geocoding)
+  
+  function updateStreetAndNumber(street, number)
+  {
+    window.alert("pepe");
+   
+  }
+  
 </script>
 
 <%= form_for @publication do |form| %>
@@ -13,16 +23,16 @@ $(window).resize(function(){
     
     <div class="col-md-3">
       <%= form.select :address,
-            Street.all.map { |s| [s.name, s.id] },
-               { include_blank: true },
-               { class: 'chosen-select' }
+              Street.all.map { |s| [s.name, s.id] },
+              { include_blank: true },
+              { class: 'chosen-select form-control', :id => 'address_street', :data => { :placeholder => 'Seleccione calle...'}, search_contains: true }
       %>
     </div>
     
     <%= form.label "Altura", class: "col-md-1 col-sm-1 control-label" %>
     
     <div class="col-md-1 col-sm-1">
-      <%= form.number_field :number, class:"form-control" %>
+      <%= form.number_field :number, :id => "address_number", class:"form-control" %>
     </div>
     
     <button type="button" onclick="JavaScript:getGeocodeLocation()" class="btn btn-success">Ver Ubicacion</button>

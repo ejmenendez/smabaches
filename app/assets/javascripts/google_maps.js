@@ -20,7 +20,7 @@ function getLocation()
   navigator.geolocation.getCurrentPosition(function(position){
       usePosition(position);
   }, function(error) {
-      x.innerHTML = "Geolocation is not supported by this browser.";
+      x.innerHTML = "Este navegador no soporta Geolocalización.";
   });
 }
 
@@ -163,6 +163,7 @@ function addMarkerOnClick()
   });
 }
 
+// agrega un marcador único
 // si existe el marker, lo cambia a la nueva posición, si no exite lo crea
 function addMarker(location)
 {
@@ -176,6 +177,7 @@ function addMarker(location)
       });
       markers[0] = marker;
     }
+    geocodeLatLng();
 }
 
 
@@ -193,19 +195,22 @@ function getGeocodeLocation()
   
     geocoder.geocode({'address': searchText}, function(results, status) 
     {
-      if (status === google.maps.GeocoderStatus.OK) {
-          handler.map.centerOn(results[0].geometry.location);
-          handler.getMap().setZoom(14);
-          addMarker(results[0].geometry.location);
-          $("#latitud").val(results[0].geometry.location.lat);
-          $("#longitud").val(results[0].geometry.location.lng);
+      if (status === google.maps.GeocoderStatus.OK) 
+      {
+        handler.map.centerOn(results[0].geometry.location);
+        handler.getMap().setZoom(14);
+        addMarker(results[0].geometry.location);
+        $("#latitud").val(results[0].geometry.location.lat);
+        $("#longitud").val(results[0].geometry.location.lng);
       } else {
-        alert('Geocode was not successful for the following reason: ' + status);
+        window.alert('Falló la geolocalilzación, causa:  ' + status);
       }
   });
 }
 
+// reverse geocoding
 // geocoder con la latitud y longitud devuelve la dirección
+// toma latitud y longitud de los campos ocultos del form
 function geocodeLatLng() 
 {
   var geocoder = new google.maps.Geocoder();
@@ -213,25 +218,37 @@ function geocodeLatLng()
   var infowindow = new google.maps.InfoWindow();
   
   var latlng = {lat: parseFloat($("#latitud").val()), lng: parseFloat( $("#longitud").val())};
-     window.alert($("#latitud").val()+" "+$("#longitud").val());
-  geocoder.geocode({'location': latlng}, function(results, status) {
-    if (status === google.maps.GeocoderStatus.OK) {
-      if (results[1]) {
-       var pepe = "";
-        for(var x = 0; x<results.length; x++)
-            {
-                pepe = pepe+results[x].toString();
-            }
-          window.alert(pepe);
-        handler.getMap().setZoom(11);
-        addMarker(latlng);
-        infowindow.setContent(results[1].formatted_address);
-        infowindow.open(handler.getMap(), marker);
+  
+  geocoder.geocode({'location': latlng, 'language': 'es'}, function(results, status) {
+    if (status === google.maps.GeocoderStatus.OK) 
+    {
+      if (results[0]) 
+      {
+        /*
+        Si hay resultados,el geocoder envía un JSON con varios datos, de los que 
+        solamente interesa calle y altura.
+        Google envía todo como parte de un address_components
+        */
+        var address_components = results[0].address_components;
+        var components={}; 
+        
+        // mapeo lo que envía google como mapa y tengo disponible toda la información
+        jQuery.each(address_components, function(k,v1) {jQuery.each(v1.types, function(k2, v2){components[v2]=v1.long_name});})
+        
+        // calle y altura
+        var street = components.route;
+        var number = components.street_number;
+        
+        // valor asignado al textbox de búsqueda del select
+        $('.chosen-search input').val(street);        
+        //$('.chosen-select').val().trigger('chosen:updated');
+        $('#address_number').val(parseInt(number));        
+        
       } else {
-        window.alert('No results found');
+        window.alert('No se encontraron resultados');
       }
     } else {
-      window.alert('Geocoder failed due to: ' + status);
+      window.alert('Falló la geolocalilzación, causa: ' + status);
     }
   });
 }

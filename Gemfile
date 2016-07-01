@@ -103,4 +103,7 @@ gem 'chosen-rails'
 #Autorizacion por facebook
 gem 'omniauth-facebook'
 
+#internacionalización para devise
+gem 'devise-i18n'
+
 
