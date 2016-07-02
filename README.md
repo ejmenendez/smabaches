@@ -275,9 +275,31 @@ Por medio de la gema **rspec-rails** se realizaron los siguientes tests
         no es válido si no tiene foto adjunta
         no es válido si no tiene calle asignada
         no es válido si no tiene altura asignada
+  
+  * PublicationsController, ver `specs/policies/publications_controller_spec.rb`
+    Resultado:
+    PublicationsController
+      GET index
+        estado OK llamada al índice
+        render del index
+        render del show
+        render del edit
+        render del new
+        la colección de publicaciones es igual a la creada
+        prueba de la colección de publicaciones de current_user
+
+  * Test de Request, ver `specs/requests/request_new_publication_spec.rb`
+    Para este test se agregó `specs/shared_contexts.rb` y se modificó  `specs/spec_helper.rb`, con el fin de poder ingresar un usuario a la aplicación desde el test. El resultado, sin embargo, no parece el esperado
+    Resultado
+      Seguimiento de la creación de una publicación
+        render y seguimiento
+        new muestra el template correcto
 
 
 ## Problemas conocidos
+
+#### Google Chrome puede NO pedir localización
+Si ésto sucede, combruebe que esté ingresando a la página con protocolo https. 
 
 #### Geolocalización puede devolver un error "REQUEST_DENIED"
 Si sucede esto, debe consultar en la api de Google Maps [cómo obtener una clave de API de Google Maps](https://developers.google.com/maps/documentation/javascript/get-api-key?hl=es), para que la aplicación pueda acceder al servicio desde donde está alojada.
