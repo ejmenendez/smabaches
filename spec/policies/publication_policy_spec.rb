@@ -24,49 +24,55 @@ RSpec.describe PublicationPolicy, :type => :model do
       )}
 
   permissions :new? do
-    it "is denied to non-logged users" do
+    
+    it "no se puede crear publicación sin usuario ingresado" do
       expect(subject).not_to permit(nil, Publication)
     end
 
-    it "is allowed to any logged in user" do
+    it "cualquier usuario ingresado puede crear publicación" do
       expect(subject).to permit(user, Publication)
     end
+    
   end
 
   permissions :destroy? do
-    it "is denied to non-logged users" do
+    
+    it "no se puede borrar publicación sin usuario logueado" do
       expect(subject).not_to permit(nil, publication)
     end
 
-    it "is denied if the user is not the author" do
+    it "no puede borrar la publicación un usuario que no es el autor" do
       expect(subject).not_to permit(user, publication)
     end
 
-    it "is allowed if the user is the publication author" do
+    it "el autor puede borrar su publicación" do
       expect(subject).to permit(author, publication)
     end
 
-    it "is allowed if the user is an admin" do
+    it "un administrador puede borrar cualquier publicación" do
       expect(subject).to permit(admin, publication)
     end
+    
   end
 
-  permissions :edit? do
-    it "is denied to non-logged users" do
+  permissions :edit?, :update? do
+    
+    it "no se puede editar publicación sin usuario ingresado" do
       expect(subject).not_to permit(nil, publication)
     end
 
-    it "is denied if the user is not the author" do
+    it "no puede editar la publicación un usuario que no es el autor" do
       expect(subject).not_to permit(user, publication)
     end
 
-    it "is allowed if the user is the publication author" do
+    it "el autor puede editar su publicación" do
       expect(subject).to permit(author, publication)
     end
 
-    it "is allowed if the user is an admin" do
+    it "un administrador puede editar cualquier publicación" do
       expect(subject).to permit(admin, publication)
     end
+    
   end
 
 end

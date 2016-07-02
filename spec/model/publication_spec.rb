@@ -4,9 +4,9 @@ RSpec.describe Publication, :type => :model do
 
   let(:author) {User.new(email: "author @example.com", password: "12345678", password_confirmation: "12345678",confirmed_at: Time.now)}
 
-  describe "Validations" do
+  describe "Validaciones" do
 
-    it "is not valid if title is absent" do
+    it "no es válido si el título está ausente" do
       expect(Publication.new(
            description: "Bache molesto",
            author: author,
@@ -19,7 +19,7 @@ RSpec.describe Publication, :type => :model do
           )).not_to be_valid
     end
 
-    it "is not valid if the title's length is less than 5 characters" do
+    it "el título no es válido si tiene menos de 5 caracteres" do
       expect(Publication.new(
            title: "Test",
            description: "Bache molesto",
@@ -33,7 +33,7 @@ RSpec.describe Publication, :type => :model do
           )).not_to be_valid
     end
 
-    it "is valid if the title's length is 5 characters or more" do
+    it "es válido si el título tiene 5 o más caracteres" do
       expect(Publication.new(
            title: "Tests",
            description: "Bache molesto",
@@ -45,6 +45,7 @@ RSpec.describe Publication, :type => :model do
            street: 'calle test',
            street_number: '100'
           )).to be_valid
+      
       expect(Publication.new(
            title: "Tests #2",
            description: "Bache molesto",
@@ -57,7 +58,8 @@ RSpec.describe Publication, :type => :model do
            street_number: '100'
           )).to be_valid
     end
-    it "is not valid if description is absent" do
+    
+    it "no es válido si la descripción está ausente" do
       expect(Publication.new(
            title: "Test",
            author: author,
@@ -69,7 +71,8 @@ RSpec.describe Publication, :type => :model do
            street_number: '100'
           )).not_to be_valid
     end
-    it "is not valid if the description's length is less than 10 characters" do
+    
+    it "no es válido si la descripción tiene menos de 10 caracteres" do
       expect(Publication.new(
            title: "Tests",
            description: "TestBache",
@@ -83,7 +86,7 @@ RSpec.describe Publication, :type => :model do
           )).not_to be_valid
     end
 
-    it "is valid if the description's length is 10 characters or more" do
+    it "es válido si la descripción tiene 10 o más caracteres" do
       expect(Publication.new(
            title: "Tests",
            description: "Bache Tests",
@@ -95,6 +98,7 @@ RSpec.describe Publication, :type => :model do
            street: 'calle test',
            street_number: '100'
           )).to be_valid
+      
       expect(Publication.new(
            title: "Tests",
            description: "Bache tests 2",
@@ -108,7 +112,7 @@ RSpec.describe Publication, :type => :model do
           )).to be_valid
     end
 
-    it "is not valid if author is absent" do
+    it "no es válido si no tiene autor asignado" do
       expect(Publication.new(
            description: "Bache molesto",
            title: "Test",
@@ -120,7 +124,8 @@ RSpec.describe Publication, :type => :model do
            street_number: '100'
           )).not_to be_valid
     end
-    it "is not valid if category is absent" do
+    
+    it "no es válido si no tiene categoría asignada" do
       expect(Publication.new(
            description: "Bache molesto",
            author: author,
@@ -132,7 +137,8 @@ RSpec.describe Publication, :type => :model do
            street_number: '100'
           )).not_to be_valid
     end
-    it "is not valid if latitude is absent" do
+    
+    it "no es válido si no tiene latitud asignada" do
       expect(Publication.new(
            description: "Bache molesto",
            author: author,
@@ -144,7 +150,8 @@ RSpec.describe Publication, :type => :model do
            street_number: '100'
           )).not_to be_valid
     end
-    it "is not valid if longitude is absent" do
+    
+    it "no es válido si no tiene longitud asignada" do
       expect(Publication.new(
            description: "Bache molesto",
            author: author,
@@ -156,7 +163,8 @@ RSpec.describe Publication, :type => :model do
            street_number: '100'
           )).not_to be_valid
     end
-    it "is not valid if photo is absent" do
+    
+    it "no es válido si no tiene foto adjunta" do
       expect(Publication.new(
            description: "Bache molesto",
            author: author,
@@ -168,7 +176,8 @@ RSpec.describe Publication, :type => :model do
            street_number: '100'
           )).not_to be_valid
     end
-    it "is not valid if street is absent" do
+    
+    it "no es válido si no tiene calle asignada" do
       expect(Publication.new(
            description: "Bache molesto",
            author: author,
@@ -180,7 +189,8 @@ RSpec.describe Publication, :type => :model do
            street_number: '100'
           )).not_to be_valid
     end
-    it "is not valid if street_number is absent" do
+    
+    it "no es válido si no tiene altura asignada" do
       expect(Publication.new(
            description: "Bache molesto",
            author: author,

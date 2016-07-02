@@ -20,41 +20,42 @@ RSpec.describe PublicationsController, :type => :controller do
        street: 'calle test',
        street_number: 100
       )}
+  
   before(:each) do
     sign_in user
   end
 
   describe 'GET index' do
 
-    it "returns 200 (ok) response code" do
+    it "estado OK llamada al índice" do
       get :index
       expect(response).to have_http_status(:ok)
     end
 
-    it "renders the index template" do
+    it "render del index" do
       get :index
       expect(response).to render_template("index")
     end
 
-    it "renders the show template" do
+    it "render del show" do
       get :show, :id => publication.id.to_s
       expect(response).to render_template("show")
       expect(response).to have_http_status(:ok)
     end
 
-    it "renders the edit template" do
+    it "render del edit" do
       get :edit, :id => publication.id.to_s
       expect(response).to render_template("edit")
       expect(response).to have_http_status(:ok)
     end
 
-    it "renders the new template" do
+    it "render del new" do
       get :new
       expect(response).to render_template("new")
       expect(response).to have_http_status(:ok)
     end
 
-    it "" do
+    it "la colección de publicaciones es igual a la creada" do
         p = [Publication.create!(
              title: "Bache numero 1",
              description: "Bache molesto",
@@ -70,7 +71,7 @@ RSpec.describe PublicationsController, :type => :controller do
         expect(assigns(:publications)).to eq(p)
     end
 
-    it "" do
+    it "prueba de la colección de publicaciones de current_user" do
         p = [Publication.create!(
              title: "Bache numero 1",
              description: "Bache molesto",
