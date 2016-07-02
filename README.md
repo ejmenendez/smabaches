@@ -1,4 +1,4 @@
-# SMA Baches 
+# SMA Baches
 
 Sitio para denuncia de baches y grafittis en San Martín de los Andes
 
@@ -6,17 +6,17 @@ Sitio para denuncia de baches y grafittis en San Martín de los Andes
 
 Éste documento cubre los pasos necesarios para ejecutar el programa en **Linux**.
 
-### Requisitos 
+### Requisitos
 
 #### Ruby
 
 Tener instalado el Ruby en su computadora. Para comprobar si Ruby está instalado, ingrese el comando
 ```
 $ ruby --version
-``` 
-en su consola. 
+```
+en su consola.
 
-Debería aparecer la versión de Ruby instalada en su sistema. 
+Debería aparecer la versión de Ruby instalada en su sistema.
 El programa fue creado utilizando la versión `ruby 2.0.0p598`
 
 Si no tiene **Ruby** instalado, puede consultar cómo instalarlo en [ésta página](https://www.ruby-lang.org/es/downloads/)
@@ -41,7 +41,7 @@ $ gem install bundler
 
 ## Instalación de la aplicación
 
-Descargue los archivos contenidos en el repositorio. A la derecha, sobre la lista de archivos, 
+Descargue los archivos contenidos en el repositorio. A la derecha, sobre la lista de archivos,
 hay disponible una opción para descargar todo como un archivo **.zip**
 
 Una vez descargado (y descomprimido en la carpeta elegida, si es el caso), debe descargar las
@@ -78,7 +78,7 @@ Se instala para utilizar los servicios de [Google Maps API](https://developers.g
 Instrucciones para **gmaps4rails** en [ésta página](https://github.com/apneadiving/Google-Maps-for-Rails)
 
 ##### **geocoder**
-Se utiliza para obtener latitud y longitud con una dirección, 
+Se utiliza para obtener latitud y longitud con una dirección,
 y ejecutar querys en una base de datos con las coordenadas de un mapa
 
 Instrucciones para **geocoder** en [ésta página](https://github.com/alexreisner/geocoder)
@@ -123,13 +123,13 @@ Crean una lista desplegable en la que se puede buscar ingresando texto, utilizad
 
 Instrucciones sobre ambas gemas en [ésta página](https://github.com/tsechingho/chosen-rails)
 
-##### **omniauth-facebook** 
+##### **omniauth-facebook**
 Permite a los usuarios ingresar al sistema a través de Facebook
 
 Instrucciones para **omniauth-facebook** en [ésta página](https://github.com/mkdynamic/omniauth-facebook)
 
 ##### **Internacionalización**
-Se realiza a través de las gemas: 
+Se realiza a través de las gemas:
 
 [rails-i18n](http://guides.rubyonrails.org/i18n.html) y para Devise [devise-i18n](https://github.com/tigrish/devise-i18n)
 
@@ -142,7 +142,7 @@ Para generar automáticamente los archivos [yaml](https://yaml.org) de los model
 $ gem install mailcatcher
 ```
 
-luego se podrán ver los mensajes en la dirección local, puerto 1080 (http://localhost:1080). 
+luego se podrán ver los mensajes en la dirección local, puerto 1080 (http://localhost:1080).
 [Más iformación aquí.](https://mailcatcher.me/)
 
 
@@ -164,12 +164,12 @@ Puede cambiar la configuración en `config/application.rb` en la línea
 config.i18n.default_locale = :es
 ```
 
-Y dentro de los archivos de configuración de entornos en `config/environments/` puede cambiar la línea: 
+Y dentro de los archivos de configuración de entornos en `config/environments/` puede cambiar la línea:
 
 ```
 config.i18n.available_locales = [:es, :en]
 ```
-para indicar los idiomas disponibles. 
+para indicar los idiomas disponibles.
 
 **IMPORTANTE:** si se incluyen otros idiomas, deben estar disponibles los diccionarios correspondientes. Para ver más información sobre el tema, [click aquí.](http://guides.rubyonrails.org/i18n.html)
 
@@ -180,19 +180,20 @@ Todos los usuarios tienen la clave 12345678
 
 Además, en la migración <> se crean 400+ calles pertenecientes al ejido de San Martín de los Andes
 
-Se crean aparte 15 publicaciones, 10 baches y 5 graffitis que pertenecen a los usuarios esteban@example.com y rodri@example.com 
+Se crean aparte 15 publicaciones, 10 baches y 5 graffitis que pertenecen a los usuarios esteban@example.com y rodri@example.com
 
 Puede cambiar los datos que se generan en `db/seeds.rb`
 
 ## Uso de la aplicación
 
-**Página principal:** Muestra el mapa con los marcadores en donde se encuentran las publicaciones actuales, junto con una lista de las últimas publicaciones. 
+**Página principal:**  
+Muestra el mapa con los marcadores en donde se encuentran las publicaciones actuales, junto con una lista de las últimas publicaciones.
 A la izquierda hay un panel de búsqueda, en los que se pueden aplicar los siguientes criterios:
 
   * Por cattegoría: Elija entre Baches, Grafittis o Todos (se muestran las publicaciones de ambas categorías)
   * Por campo libre, se ingresa un texto y se devuelven las publicaciones que lo contengan ya sea en su título y/o en su descripción.
   * Por mapa: Se desplaza el mapa hasta la zona de la que están las publicaciones que se quieren ver, automáticamente mostrará los marcadores que se encuentran dentro del área y luego en la búsqueda traerá los datos de dichas publicaciones.
-  
+
 Para buscar por cualquier criterio se debe apretar el botón "Buscar"
 
 **Listado de publicaciones**  
@@ -216,7 +217,7 @@ Si olvidó su clave, puede hacer click en el vínculo ¿Olvidó su clave?, se le
 
 **Nueva publicación**  
 Al hacer click sobre el botón "Nueva publicación", si usted no inició sesión se le pedirá que la inicie, o cree un usuario si no creó uno todavía.
-Al acceder a la página de creación de publicaciones, el navegador le pedirá que comparta su ubicación actual. Si usted accede, se creará un marcador sobre el mapa con su ubicación actual. Si no, debe buscar la ubicación seleccionando una calle e ingresando una altura. Puede hacer click sobre el mapa para cambiar de lugar el marcador de ubicación de la publicación. 
+Al acceder a la página de creación de publicaciones, el navegador le pedirá que comparta su ubicación actual. Si usted accede, se creará un marcador sobre el mapa con su ubicación actual. Si no, debe buscar la ubicación seleccionando una calle e ingresando una altura. Puede hacer click sobre el mapa para cambiar de lugar el marcador de ubicación de la publicación.
 Luego debe ingresar un título y una descripción de la publicación, indicar si es un bache o un graffiti y adjuntar una foto. Todos los campos son obligatorios para poder grabar la publicación.
 
 **Editar una publicación**  
@@ -241,75 +242,75 @@ Si no desea utilizar más la aplicación como usuario registrado, puede borrarlo
 
 Por medio de la gema **rspec-rails** se realizaron los siguientes tests
 
-  * PublicationPolicy, ver `specs/policies/publication_policy_spec.rb`
-    Resultado:
-    PublicationPolicy
-      new?
-        no se puede crear publicación sin usuario ingresado
-        cualquier usuario ingresado puede crear publicación
-      destroy?
-        no se puede borrar publicación sin usuario logueado
-        no puede borrar la publicación un usuario que no es el autor
-        el autor puede borrar su publicación
-        un administrador puede borrar cualquier publicación
-      edit? y update?
-        no se puede editar publicación sin usuario ingresado
-        no puede editar la publicación un usuario que no es el autor
-        el autor puede editar su publicación
-        un administrador puede editar cualquier publicación
+  * PublicationPolicy, ver `specs/policies/publication_policy_spec.rb`  
+    Resultado:  
+    PublicationPolicy  
+      new?  
+        no se puede crear publicación sin usuario ingresado  
+        cualquier usuario ingresado puede crear publicación  
+      destroy?  
+        no se puede borrar publicación sin usuario logueado  
+        no puede borrar la publicación un usuario que no es el autor  
+        el autor puede borrar su publicación  
+        un administrador puede borrar cualquier publicación  
+      edit? y update?  
+        no se puede editar publicación sin usuario ingresado  
+        no puede editar la publicación un usuario que no es el autor  
+        el autor puede editar su publicación  
+        un administrador puede editar cualquier publicación  
 
-  * Publication, ver `specs/policies/publication_spec.rb`
-    Resultado:
-      Publication
-      Validaciones
-        no es válido si el título está ausente
-        el título no es válido si tiene menos de 5 caracteres
-        es válido si el título tiene 5 o más caracteres
-        no es válido si la descripción está ausente
-        no es válido si la descripción tiene menos de 10 caracteres
-        es válido si la descripción tiene 10 o más caracteres
-        no es válido si no tiene autor asignado
-        no es válido si no tiene categoría asignada
-        no es válido si no tiene latitud asignada
-        no es válido si no tiene longitud asignada
-        no es válido si no tiene foto adjunta
-        no es válido si no tiene calle asignada
-        no es válido si no tiene altura asignada
-  
-  * PublicationsController, ver `specs/policies/publications_controller_spec.rb`
-    Resultado:
-    PublicationsController
-      GET index
-        estado OK llamada al índice
-        render del index
-        render del show
-        render del edit
-        render del new
-        la colección de publicaciones es igual a la creada
-        prueba de la colección de publicaciones de current_user
+  * Publication, ver `specs/policies/publication_spec.rb`  
+    Resultado:  
+      Publication  
+      Validaciones  
+        no es válido si el título está ausente  
+        el título no es válido si tiene menos de 5 caracteres  
+        es válido si el título tiene 5 o más caracteres  
+        no es válido si la descripción está ausente  
+        no es válido si la descripción tiene menos de 10 caracteres  
+        es válido si la descripción tiene 10 o más caracteres  
+        no es válido si no tiene autor asignado  
+        no es válido si no tiene categoría asignada  
+        no es válido si no tiene latitud asignada  
+        no es válido si no tiene longitud asignada  
+        no es válido si no tiene foto adjunta  
+        no es válido si no tiene calle asignada  
+        no es válido si no tiene altura asignada  
 
-  * Test de Request, ver `specs/requests/request_new_publication_spec.rb`
+  * PublicationsController, ver `specs/policies/publications_controller_spec.rb`  
+    Resultado:  
+    PublicationsController  
+      GET index  
+        estado OK llamada al índice  
+        render del index  
+        render del show   
+        render del edit  
+        render del new  
+        la colección de publicaciones es igual a la creada  
+        prueba de la colección de publicaciones de current_user  
+
+  * Test de Request, ver `specs/requests/request_new_publication_spec.rb`  
     Para este test se agregó `specs/shared_contexts.rb` y se modificó  `specs/spec_helper.rb`, con el fin de poder ingresar un usuario a la aplicación desde el test. El resultado, sin embargo, no parece el esperado
-    Resultado
-      Seguimiento de la creación de una publicación
-        render y seguimiento
-        new muestra el template correcto
+    Resultado  
+      Seguimiento de la creación de una publicación  
+        render y seguimiento  
+        new muestra el template correcto  
 
 
 ## Problemas conocidos
 
 #### Google Chrome puede NO pedir localización
-Si ésto sucede, combruebe que esté ingresando a la página con protocolo https. 
+Si ésto sucede, combruebe que esté ingresando a la página con protocolo https.
 
 #### Geolocalización puede devolver un error "REQUEST_DENIED"
 Si sucede esto, debe consultar en la api de Google Maps [cómo obtener una clave de API de Google Maps](https://developers.google.com/maps/documentation/javascript/get-api-key?hl=es), para que la aplicación pueda acceder al servicio desde donde está alojada.
 
-Si se está ejecutando localmente, puede probar en `app/views/layouts/application.html.erb` dejar el parámetro `key=` sin valor en la  línea 
+Si se está ejecutando localmente, puede probar en `app/views/layouts/application.html.erb` dejar el parámetro `key=` sin valor en la  línea
 
 ```
 '<script src="//maps.google.com/maps/api/js?key=&libraries=geometry"></script>'
 ```
- 
+
 #### Selector de calles y geolocation:
 Puede ocurrir que el selector de calles en el formulario para Nuevas Publicaciones y Modificación de Publicaciones `app/views/publications/_form.html.erb` no elija la calle devuelta por la geolocalización de Google
 
@@ -319,9 +320,3 @@ Puede ocurrir que el selector de calles en el formulario para Nuevas Publicacion
 Rodrigo Chávez
 
 Esteban Menéndez
-
-
-
-
-
-
