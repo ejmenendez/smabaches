@@ -12,20 +12,12 @@
  *
  *= require chosen-compass
  *= require commontator/application
- *= require bootstrap.min
  *= require_tree .
  *= require_self
  */
  // import the CSS framework
  /* Override Bootstrap 3 font locations */
- @font-face {
-  font-family: 'Glyphicons Halflings';
-  src: url('../assets/glyphicons-halflings-regular.eot');
-  src: url('../assets/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
-       url('../assets/glyphicons-halflings-regular.woff') format('woff'),
-       url('../assets/glyphicons-halflings-regular.ttf') format('truetype'),
-       url('../assets/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
-}
+
   hr {
     display: block;
     margin-top: 0.5em;

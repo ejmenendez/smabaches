@@ -35,7 +35,9 @@
       <%= form.number_field :street_number, :id => "street_number", class:"form-control" %>
     </div>
 
-    <button type="button" onclick="JavaScript:getGeocodeLocation()" class="btn btn-primary">Ver Ubicacion</button>
+    <button type="button" onclick="JavaScript:getGeocodeLocation()" class="btn btn-primary">
+      <span class="glyphicon glyphicon-eye-open">Ver Ubicacion</span>
+    </button>
   </div>
 
   <div class="form-group col-md-7 col-sm-7" style="padding-left: 0px;">
@@ -86,8 +88,12 @@
   </p>
 
   <p>
-    <%= link_to 'Volver al índice', publications_path, :class => "btn btn-success", 'data-no-turbolink' => true%>
-    <%= form.submit 'Confirmar', :class => "btn btn-primary" %>
+    <%= link_to  publications_path, :class => "btn btn-success", 'data-no-turbolink' => true do%>
+      <span class="glyphicon glyphicon-arrow-left">VolverALIndice</span>
+    <% end %>
+    <%=  form.button :submit, class: 'btn btn-primary' do%>
+      <span class="glyphicon glyphicon-ok">Confirmar</span>
+    <% end %>
   </p>
 
 

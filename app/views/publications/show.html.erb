@@ -6,7 +6,7 @@
       <%= @publication.title %>
     </h4>
   </div>
-  
+
   <div class="panel-body">
     <div class="col-md-12 thumbnail">
 
@@ -14,7 +14,7 @@
         <strong>Imagen:</strong>
         <%= image_tag @publication.photo.url(:thumb1)%>
       </div>
-      
+
       <div id="cont" class="col-md-5">
         <strong>Ubicación:</strong>
         <div claas="col-md-4">
@@ -54,37 +54,44 @@
         porcentaje_neg = @publication.get_downvotes.size * 100 / total
       end
       %>
-    
+
       <h4 class="col-md-12">Positivos: <%= @publication.get_upvotes.size %></h4>
-    
+
       <div class="progress col-md-12">
         <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="<%= porcentaje_pos%>"
           aria-valuemin="0" aria-valuemax="100" style="width:<%= porcentaje_pos%>%">
           Positivo:<%= porcentaje_pos%>%
         </div>
       </div>
-    
+
       <h4 class="col-md-12">Negativos: <%= @publication.get_downvotes.size %></h4>
-    
+
       <div class="progress col-md-12">
         <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="<%= porcentaje_neg%>"
           aria-valuemin="0" aria-valuemax="100" style="width:<%= porcentaje_neg%>%">
           Negativo:<%= porcentaje_neg%>%
         </div>
       </div>
-    
+
       <div class="btn-group col-md-12">
+        <%= link_to publications_path, :class => "btn btn-primary", 'data-no-turbolink' => true do %>
+        <span class="glyphicon glyphicon-arrow-left">Atras</span>
+        <% end %>
+
         <% if policy(@publication).edit? %>
-          <%= link_to 'Editar', edit_publication_path(@publication), :class => "btn btn-warning", 'data-no-turbolink' => true %>
+          <%= link_to edit_publication_path(@publication), :class => "btn btn-warning", 'data-no-turbolink' => true do %>
+            <span class="glyphicon glyphicon-pencil">Editar</span>
+          <% end %>
         <% end %>
 
         <% if policy(@publication).destroy? %>
-          <%= link_to 'Borrar', publication_path(@publication), method: :delete, :class => "btn btn-danger"  %>
+          <%= render :partial => 'publications/modal_confirm_delete', :locals => { :publication => @publication }%>
+          <button class="btn btn-danger" data-toggle="modal" data-target="#confirm-delete<%=@publication.id %>">
+            <span class="glyphicon glyphicon-trash">Borrar</span>
+          </button>
         <% end %>
-
-        <%= link_to 'Volver al índice', publications_path, :class => "btn btn-primary", 'data-no-turbolink' => true  %>
       </div>
-    
+
     </div>
   </div>
 </div>

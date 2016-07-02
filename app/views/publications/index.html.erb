@@ -19,7 +19,7 @@
 					<div class="col-md-10 col-sm-10">
 				    <%= text_field_tag :search, params[:search], style: 'width:100%;', class:'form-control' %>
           </div>
-        <%= submit_tag "Buscar", :name => nil, class: 'btn btn-primary'%>
+        <%= submit_tag "Buscar" ,:name => nil, :class => 'btn btn-primary' %>
       <% end %>
     </div>
 		<div class="thumbnail" id="map" style="width: 100%; height:310px"></div>
@@ -121,14 +121,18 @@
 							</div>
 	  				</div>
 						<div class="btn-group col-md-12">
-							<%= link_to 'Ver', publication_path(publication), :class => "btn btn-primary", 'data-no-turbolink' => true  %>
+							<%= link_to publication_path(publication),'data-no-turbolink' => true, :class => "btn btn-primary" do%>
+								<span class="glyphicon glyphicon-eye-open">Ver</span>
+							<% end %>
 							<% if policy(publication).edit? %>
-								<%= link_to 'Editar', edit_publication_path(publication),:protocol => 'https', :class => "btn btn-warning", 'data-no-turbolink' => true %>
+								<%= link_to edit_publication_path(publication),:protocol => 'https', :class => "btn btn-warning", 'data-no-turbolink' => true do%>
+									<span class="glyphicon glyphicon-pencil">Editar</span>
+								<% end %>
 							<% end %>
 							<% if policy(publication).destroy? %>
 								<%= render :partial => 'publications/modal_confirm_delete', :locals => { :publication => publication }%>
 								<button class="btn btn-danger" data-toggle="modal" data-target="#confirm-delete<%=publication.id %>">
-									Borrar
+									<span class="glyphicon glyphicon-trash">Borrar</span>
 								</button>
 							<% end %>
 						</div>
@@ -141,7 +145,9 @@
 <!-- /.container -->
 <div class="container col-md-12 col-sm-12">
 	<div class="col-md-12" style="margin-bottom:2px;">
-		<%= link_to 'Nueva Publicación', new_publication_path, :protocol => 'https', style:'float: right;', :class => "btn btn-success", 'data-no-turbolink' => true %>
+		<%= link_to  new_publication_path, :protocol => 'https', style:'float: right;', :class => "btn btn-success", 'data-no-turbolink' => true do %>
+			<span class="glyphicon glyphicon-plus-sign">NuevaPublicación</span>
+		<% end %>
 	</div>
 	<hr>
 	<!-- Footer -->

@@ -15,7 +15,6 @@
 //= require turbolinks
 //= require underscore
 //= require bootstrap-sprockets
-//= require bootstrap.min
 //= require chosen-jquery
 //= require chosen
 //= require gmaps/google
