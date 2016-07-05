@@ -53,7 +53,7 @@ class PublicationsController < ApplicationController
 		  @publication.save!
 		  redirect_to @publication, 'data-no-turbolink' => true
 	  rescue ActiveRecord::RecordInvalid
-      flash.new[:notice] = error_message
+      flash.now[:notice] = error_message
 		  render 'new'
 	  end
 	end
@@ -83,7 +83,7 @@ class PublicationsController < ApplicationController
 		  @publication.update!(publication_params)
 		  redirect_to @publication, 'data-no-turbolink' => true
 	  rescue ActiveRecord::RecordInvalid
-      flash.new[:notice] = error_message
+      flash.now[:notice] = error_message
 		  render 'edit'
 	  end
 	end
